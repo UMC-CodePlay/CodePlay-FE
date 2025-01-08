@@ -1,0 +1,20 @@
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  margin-right: 60px;
+}
