@@ -1,7 +1,7 @@
-import { useState } from "react";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import TitleNavbar from "./components/TitleNavbar";
+import { useState } from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
+import TitleNavbar from './components/TitleNavbar';
 
 function App() {
   return (

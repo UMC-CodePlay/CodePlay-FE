@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 //화상 분석, 악보 생성 등을 생성하는 TitleNavbar
 /*사용 방법 : 
@@ -12,8 +12,12 @@ const TitleNavbar = ({ title, subtitle }) => {
   return (
     <div>
       <StyledTitle>
-        <Title>{title}</Title>
-        <SubTitle>{subtitle}</SubTitle>
+        <Title>
+          <text>{title}</text>
+        </Title>
+        <SubTitle>
+          <text>{subtitle}</text>
+        </SubTitle>
       </StyledTitle>
     </div>
   );
@@ -22,9 +26,9 @@ const TitleNavbar = ({ title, subtitle }) => {
 export default TitleNavbar;
 
 const StyledTitle = styled.div`
-  background-color: #d2d2d2;
+  background-color: #e7e6e9;
   width: 100%;
-  height: 184px;
+  height: 250px;
   color: white;
   position: fixed;
   display: gird;
@@ -33,30 +37,33 @@ const StyledTitle = styled.div`
   justify-content: space-between;
   left: 0;
   grid-template-rows: 1fr 1fr;
+  border-bottom: 1px solid var(--gray-regular-line, #c9c3ce);
 `;
 
 const Title = styled.div`
   display: flex;
-  padding-left: 90px;
-  padding-top: 40px;
-  color: black;
-  font-weight: bold;
+  padding-top: 100px;
   color: #000;
-  font-family: Pretendard;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  text {
+    font-family: Pretendard, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  justify-content: center;
 `;
 
 const SubTitle = styled.div`
   display: flex;
-  padding-left: 90px;
   padding-top: 25px;
   color: #000;
-  font-family: Pretendard;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  text {
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  justify-content: center;
 `;
