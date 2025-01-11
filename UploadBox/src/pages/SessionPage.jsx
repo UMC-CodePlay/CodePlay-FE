@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 import TitleNavbar from "../components/TitleNavbar";
 import UploadBox from "../components/UploadBox";
