@@ -12,7 +12,7 @@ function createLoginModal() {
   `;
 
   const closeButton = document.createElement('img');
-  closeButton.src = 'images/close_button.png';
+  closeButton.src = 'images/close_button.svg';
   closeButton.alt = 'Close';
   closeButton.style.cssText = `
     width: 16px;
@@ -35,7 +35,7 @@ header.style.cssText = `
 `;
 
 const logo = document.createElement('img');
-logo.src = 'images/Codeplay_logo.png';
+logo.src = 'images/Codeplay_logo.svg';
 logo.alt = 'Codeplay Logo';
 logo.style.cssText = `
   width: 50px;
@@ -124,13 +124,13 @@ header.appendChild(codeplayText);
   `;
 
   const googleLogin = document.createElement('img');
-  googleLogin.src = 'images/login_google.png';
+  googleLogin.src = 'images/login_google.svg';
   googleLogin.alt = 'Google Login';
   googleLogin.style.cssText = 'width: 40px; height: 40px; cursor: pointer;';
   socialLogin.appendChild(googleLogin);
 
   const kakaoLogin = document.createElement('img');
-  kakaoLogin.src = 'images/login_kakaotalk.png';
+  kakaoLogin.src = 'images/login_kakaotalk.svg';
   kakaoLogin.alt = 'Kakao Login';
   kakaoLogin.style.cssText = 'width: 40px; height: 40px; cursor: pointer;';
   socialLogin.appendChild(kakaoLogin);

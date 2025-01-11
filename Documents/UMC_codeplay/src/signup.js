@@ -12,7 +12,7 @@ function createSignupModal() {
     `;
   
     const closeButton = document.createElement('img');
-    closeButton.src = 'images/close_button.png';
+    closeButton.src = 'images/close_button.svg';
     closeButton.alt = 'Close';
     closeButton.style.cssText = `
       width: 16px;
