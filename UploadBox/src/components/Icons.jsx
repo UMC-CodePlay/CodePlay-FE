@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import MRIcon from "../assets/Mr.svg";
 import BassIcon from "../assets/Bass.svg";
@@ -9,11 +8,11 @@ const Icons= () => {
     <IconContainer>
       <div>
         <Icon src={MRIcon}/>
-        <Label>MR</Label>
+        <Label>키보드</Label>
       </div>
       <div>
         <Icon src={BassIcon}/>
-        <Label>베이스</Label>
+        <Label>기타</Label>
       </div>
       <div>
         <Icon src={DrumIcon}/>
@@ -29,7 +28,7 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 200px;
 
   div {
     display: flex;

@@ -1,10 +1,9 @@
-import React from "react";
-import ScorePage from "./pages/ScorePage";
+import SessionPage from "./pages/SessionPage";
 
 const App = () => {
   return (
     <div>
-      <ScorePage />
+      <SessionPage />
     </div>
   );
 };
