@@ -1,0 +1,17 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  overflow-y: auto; /* 스크롤 가능하도록 설정 */
+  height: 350vh; /* 전체 화면 높이 사용 */
+}
+
+.container {
+  text-align: center;
+  padding-top: 200px; /* 네비게이션 바가 고정되었으므로 여백 추가 */
+}
+
+
+
