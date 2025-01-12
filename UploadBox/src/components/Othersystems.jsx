@@ -10,11 +10,17 @@ const Othersystems = ({ DF_subtitle, To_other1, To_other2 }) => {
         <DifferentFunction_subTitle>
           <h3>{DF_subtitle}</h3>
         </DifferentFunction_subTitle>
-        <Container_2>
-          <Imagebox></Imagebox>
+        <Container2>
+          <Container_left>
+            <Imagebox></Imagebox>
+            <h5>{To_other1}</h5>
+          </Container_left>
 
-          <Imagebox></Imagebox>
-        </Container_2>
+          <Container_right>
+            <Imagebox></Imagebox>
+            <h5>{To_other2}</h5>
+          </Container_right>
+        </Container2>
       </Container>
     </>
   );
@@ -44,17 +50,28 @@ const DifferentFunction_subTitle = styled.div`
   justify-content: center;
 `;
 
-const Container_2 = styled.div`
+const Container2 = styled.div`
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  align-items: center;
-  justify-content: center;
   padding-top: 50px;
 `;
 
+const Container_left = styled.div`
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const Container_right = styled.div`
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+`;
+
 const Imagebox = styled.div`
+  display: flex;
   width: 300px;
   height: 190px;
   background-color: #d9d9d9;
