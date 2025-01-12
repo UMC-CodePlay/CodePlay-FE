@@ -14,30 +14,38 @@ const SessionPage = () => {
 
       <TitleNavbar title="악보 생성" subtitle="악보 생성 내용" />
 
-      <div style={{ marginTop: "500px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
       </div>
 
       <IconContainer>
-            <div>
-              <Icon src={MRIcon}/>
-              <Label>키보드</Label>
-            </div>
-            <div>
-              <Icon src={BassIcon}/>
-              <Label>기타</Label>
-            </div>
-            <div>
-              <Icon src={DrumIcon}/>
-              <Label>베이스</Label>
-            </div>
-            <div>
-              <Icon src={DrumIcon}/>
-              <Label>드럼</Label>
-            </div>
-          </IconContainer>
+        <div>
+          <Icon src={MRIcon} />
+          <Label>키보드</Label>
+        </div>
+        <div>
+          <Icon src={BassIcon} />
+          <Label>기타</Label>
+        </div>
+        <div>
+          <Icon src={DrumIcon} />
+          <Label>베이스</Label>
+        </div>
+        <div>
+          <Icon src={DrumIcon} />
+          <Label>드럼</Label>
+        </div>
+      </IconContainer>
 
-      <div style={{ marginTop: "60px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ marginTop: "60px", display: "flex", justifyContent: "center" }}
+      >
         <Button>분석하기</Button>
       </div>
     </div>

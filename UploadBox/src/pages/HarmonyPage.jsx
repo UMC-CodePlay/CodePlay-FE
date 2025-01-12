@@ -8,34 +8,34 @@ const HarmonyPage = () => {
     <>
       <div>
         <Navbar />
-
         <TitleNavbar title="화성 분석" subtitle="내용들" />
-
-        <div style={{ positon: "absoulte" }}>
-          <div
-            style={{
-              padding: "0px",
-              margin: "70px",
-              marginTop: "500px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
-          </div>
-
-          <div
-            style={{
-              marginTop: "60px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button>분석하기</Button>
-          </div>
+        <div
+          style={{
+            marginTop: "100px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
         </div>
+        <div
+          style={{
+            marginTop: "60px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button>분석하기</Button>
+        </div>
+
+        {/*------------- othersystems 실험을 위한 태그 ----------*/}
       </div>
-      <Othersystems></Othersystems>
+
+      <Othersystems
+        DF_subtitle="코드 플레이의 다른 기능 살펴보기
+      "
+        To_other1="화성분석"
+      ></Othersystems>
     </>
   );
 };
