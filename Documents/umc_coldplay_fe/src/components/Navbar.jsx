@@ -1,22 +1,17 @@
-import styled from "styled-components";
-import Logo from "../assets/logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import styled from 'styled-components';
+import Logo from '../assets/logo.svg';
+import react from 'react-dom';
 
 function Navbar() {
-  const location = useLocation();
   return (
     <>
       <Container>
         <StyledNavbar>
           <StyledButton>
-            <Link to="/">
-              <img src={Logo} />
-            </Link>
+            <img src={Logo} />
           </StyledButton>
           <ArrayButtons>
-            <ButtonStyle>
-              {location.pathname === "/harmony" && <div>화성 분석</div>}
-            </ButtonStyle>
+            <ButtonStyle>화성 분석</ButtonStyle>
             <ButtonStyle>세션 분리</ButtonStyle>
             <ButtonStyle>악보 생성</ButtonStyle>
             <ButtonStyle_su>회원가입</ButtonStyle_su>

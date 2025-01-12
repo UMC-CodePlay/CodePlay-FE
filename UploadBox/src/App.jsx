@@ -1,3 +1,5 @@
+import HarmonyPage from "./pages/HarmonyPage";
+import ScorePage from "./pages/ScorePage";
 import SessionPage from "./pages/SessionPage";
 import ScorePage from "./pages/ScorePage";
 import HarmonyPage from "./pages/HarmonyPage";
@@ -6,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
+<<<<<<< HEAD
     <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -14,6 +17,13 @@ const App = () => {
           <Route path="/score" element={<ScorePage />} />
         </Routes>
     </Router>
+=======
+    <div>
+      <HarmonyPage />
+      <SessionPage />
+      <ScorePage />
+    </div>
+>>>>>>> origin/seokhoon
   );
 };
 
