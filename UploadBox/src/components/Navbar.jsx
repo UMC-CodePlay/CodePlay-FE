@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const location = useLocation();
   return (
     <>
       <Container>
@@ -15,10 +14,14 @@ function Navbar() {
           </StyledButton>
           <ArrayButtons>
             <ButtonStyle>
-              {location.pathname === "/harmony" && <div>화성 분석</div>}
+              <Link to="/harmony">화성 분석</Link>
             </ButtonStyle>
-            <ButtonStyle>세션 분리</ButtonStyle>
-            <ButtonStyle>악보 생성</ButtonStyle>
+            <ButtonStyle>
+              <Link to="/session">세션 분리</Link>
+            </ButtonStyle>
+            <ButtonStyle>
+              <Link to="/score">악보 생성</Link>
+            </ButtonStyle>
             <ButtonStyle_su>회원가입</ButtonStyle_su>
             <ButtonStyle_lg>로그인</ButtonStyle_lg>
           </ArrayButtons>
@@ -48,7 +51,7 @@ const StyledButton = styled.button`
   }
 `;
 const Container = styled.div`
-  width: calc(100%-20px);
+  width: 100%;
   left: 0;
   flex-shrink: 0;
   overflow: hidden;

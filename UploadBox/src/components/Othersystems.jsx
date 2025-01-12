@@ -16,7 +16,7 @@ const Container = styled.div`
   width:; 100%;
   height : 720px; 
   margin :0;
-  padding : 0;
+  padding : 0 ;
     `;
 
 const Container_2 = styled.div`
