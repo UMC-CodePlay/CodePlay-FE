@@ -3,6 +3,8 @@ import TitleNavbar from "../components/TitleNavbar";
 import UploadBox from "../components/UploadBox";
 import Button from "../components/Button";
 import Othersystems from "../components/Othersystems";
+import Result_Harmony from "../components/Result_Harmony";
+
 const HarmonyPage = () => {
   return (
     <>
@@ -28,14 +30,10 @@ const HarmonyPage = () => {
           <Button>분석하기</Button>
         </div>
 
-        {/*------------- othersystems 실험을 위한 태그 ----------*/}
+        <div>
+          <Result_Harmony></Result_Harmony>
+        </div>
       </div>
-
-      <Othersystems
-        DF_subtitle="코드 플레이의 다른 기능 살펴보기"
-        To_other1="세션 분리"
-        To_other2="악보 생성"
-      ></Othersystems>
     </>
   );
 };

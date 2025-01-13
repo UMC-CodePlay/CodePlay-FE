@@ -57,21 +57,27 @@
     border-radius: 10px; /* 모서리 둥글기 */
     background-color: white; /* 배경색 */
     box-shadow: 2px 2px 5px #e0e0e0, -2px -2px 5px #ffffff; /* 그림자 효과 */
-    font-size: 16px;
+    font-size: px;
+
   }
   
   /* 텍스트 스타일 */
   .info-item span {
-    font-weight: bold;
-    font-size: 16px; /* 글자 크기 */
-    color: #4a4a8a; /* 글자 색상 */
+    font-size: 20px; /* 글자 크기 */
+    color: #897D95;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
   
   
   /* 정보 항목 제목 */
   .harmony-info p {
     margin-bottom: 5px;
-    font-size: 14px;
+    font-size: 15px;
     color: #6a6a6a;
   }
   
@@ -89,3 +95,8 @@
   .harmony-button:hover {
     background-color: #4a4a8a;
   }
+
+body {
+  font-family : Pretendard !important;
+  
+}
