@@ -56,13 +56,6 @@ const SessionPage = () => {
         </div>
       </div>
       {/*------------- othersystems 실험을 위한 태그 ----------*/}
-      <div>
-        <Othersystems
-          DF_subtitle="코드 플레이의 다른 기능 살펴보기"
-          To_other1="세션 분리"
-          To_other2="악보 생성"
-        ></Othersystems>
-      </div>
     </>
   );
 };

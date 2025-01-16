@@ -1,6 +1,7 @@
-body, html {
-    margin :0;
-    padding :0;
+body,
+html {
+  margin: 0;
+  padding: 0;
 }
 h1 {
   font-family: Pretendard, sans-serif;
@@ -10,11 +11,11 @@ h1 {
   line-height: normal;
 }
 
-h3{
-    color: #000;
-    font-family: Roboto;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+h3 {
+  color: #000;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

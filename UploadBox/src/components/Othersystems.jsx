@@ -51,11 +51,10 @@ const DifferentFunction_subTitle = styled.div`
 `;
 
 const Container2 = styled.div`
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 100px;
   padding-top: 50px;
+  dispaly: flex;
+  justify-items: center;
 `;
 
 const Container_left = styled.div`

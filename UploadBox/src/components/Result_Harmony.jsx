@@ -1,6 +1,5 @@
-import harmony from "./2screen/harmony";
+import "./2screen/harmony.css";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
 
 const Result_Harmony = () => {
   return (
