@@ -40,6 +40,10 @@ const Result_Harmony = () => {
       </To_under_button>
       <ResultConatiner>
         <ResultBox></ResultBox>
+        <ResultBox></ResultBox>
+        <ResultBox></ResultBox>
+        <ResultBox></ResultBox>
+        <ResultBox></ResultBox>
       </ResultConatiner>
     </>
   );
@@ -54,6 +58,7 @@ const To_under_button = styled.div`
 const ResultConatiner = styled.div`
   display: flex;
   justify-content: center;
+  padding: 20px;
 `;
 
 const ResultBox = styled.div`
