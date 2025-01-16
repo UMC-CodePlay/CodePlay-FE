@@ -6,7 +6,6 @@ import Feature from "../components/1screen/feature.jsx";
 import Harmony from "../components/2screen/harmony.jsx";
 import Score from "../components/3screen/score.jsx";
 import Stem from "../components/4screen/stem.jsx";
-import Othersystems from "../components/Othersystems";
 
 const HomePage = () => {
   return (

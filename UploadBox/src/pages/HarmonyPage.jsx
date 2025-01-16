@@ -2,7 +2,6 @@ import Navbar from "../components/Navbar";
 import TitleNavbar from "../components/TitleNavbar";
 import UploadBox from "../components/UploadBox";
 import Button from "../components/Button";
-import Othersystems from "../components/Othersystems";
 import Result_Harmony from "../components/Result_Harmony";
 
 const HarmonyPage = () => {
@@ -29,8 +28,6 @@ const HarmonyPage = () => {
         >
           <Button>분석하기</Button>
         </div>
-
-        <div></div>
       </div>
     </>
   );
