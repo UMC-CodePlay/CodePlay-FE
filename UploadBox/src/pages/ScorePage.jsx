@@ -6,41 +6,57 @@ import MRIcon from "../assets/Mr.svg";
 import BassIcon from "../assets/Bass.svg";
 import DrumIcon from "../assets/Drum.svg";
 import styled from "styled-components";
+import Othersystems from "../components/Othersystems";
 
 const SessionPage = () => {
   return (
-    <div>
-      <Navbar />
+    <>
+      <div>
+        <Navbar />
 
-      <TitleNavbar title="악보 생성" subtitle="악보 생성 내용" />
+        <TitleNavbar title="악보 생성" subtitle="악보 생성 내용" />
 
-      <div style={{ marginTop: "500px", display: "flex", justifyContent: "center" }}>
-        <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
+        <div
+          style={{
+            marginTop: "100px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
+        </div>
+
+        <IconContainer>
+          <div>
+            <Icon src={MRIcon} />
+            <Label>키보드</Label>
+          </div>
+          <div>
+            <Icon src={BassIcon} />
+            <Label>기타</Label>
+          </div>
+          <div>
+            <Icon src={DrumIcon} />
+            <Label>베이스</Label>
+          </div>
+          <div>
+            <Icon src={DrumIcon} />
+            <Label>드럼</Label>
+          </div>
+        </IconContainer>
+
+        <div
+          style={{
+            marginTop: "60px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button>분석하기</Button>
+        </div>
       </div>
-
-      <IconContainer>
-            <div>
-              <Icon src={MRIcon}/>
-              <Label>키보드</Label>
-            </div>
-            <div>
-              <Icon src={BassIcon}/>
-              <Label>기타</Label>
-            </div>
-            <div>
-              <Icon src={DrumIcon}/>
-              <Label>베이스</Label>
-            </div>
-            <div>
-              <Icon src={DrumIcon}/>
-              <Label>드럼</Label>
-            </div>
-          </IconContainer>
-
-      <div style={{ marginTop: "60px", display: "flex", justifyContent: "center" }}>
-        <Button>분석하기</Button>
-      </div>
-    </div>
+      {/*------------- othersystems 실험을 위한 태그 ----------*/}
+    </>
   );
 };
 

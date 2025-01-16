@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 //화상 분석, 악보 생성 등을 생성하는 TitleNavbar
 /*사용 방법 : 
@@ -13,10 +13,14 @@ const TitleNavbar = ({ title, subtitle }) => {
     <div>
       <StyledTitle>
         <Title>
-          <text>{title}</text>
+          <text>
+            <h1>{title}</h1>
+          </text>
         </Title>
         <SubTitle>
-          <text>{subtitle}</text>
+          <text>
+            <h3>{subtitle}</h3>
+          </text>
         </SubTitle>
       </StyledTitle>
     </div>
@@ -26,44 +30,31 @@ const TitleNavbar = ({ title, subtitle }) => {
 export default TitleNavbar;
 
 const StyledTitle = styled.div`
-  background-color: #e7e6e9;
+  background-color: #f3f3f3;
   width: 100%;
   height: 250px;
   color: white;
-  position: fixed;
+  margin-top: 100px;
+  position: flex;
+  align-items: center;
   display: gird;
   top: 100px;
   z-index: 1000;
   justify-content: space-between;
   left: 0;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
   border-bottom: 1px solid var(--gray-regular-line, #c9c3ce);
 `;
 
 const Title = styled.div`
   display: flex;
-  padding-top: 100px;
+  padding-top: 50px;
   color: #000;
-  text {
-    font-family: Pretendard, sans-serif;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
   justify-content: center;
 `;
 
 const SubTitle = styled.div`
   display: flex;
-  padding-top: 25px;
   color: #000;
-  text {
-    font-family: Roboto, sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
   justify-content: center;
 `;

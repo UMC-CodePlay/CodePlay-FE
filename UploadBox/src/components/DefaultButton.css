@@ -1,0 +1,48 @@
+.button:hover {
+  background: var(--hover, linear-gradient(180deg, #613fa4 0%, #321a61 100%));
+}
+
+.button:active {
+  border-radius: 5px;
+  background: var(
+    --pressed,
+    linear-gradient(143deg, #000068 10.03%, #6f3da1 91.86%),
+    url(<path-to-image>) lightgray 0% 0% / 62.00000047683716px
+      62.00000047683716px repeat,
+    linear-gradient(
+      140deg,
+      rgba(15, 51, 209, 0.3) 11.62%,
+      rgba(255, 255, 255, 0.3) 94.65%
+    )
+  );
+}
+
+.Default_pl {
+  display: inline-flex;
+  padding: 15px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #6f3da1 0%, #7185e1 100%);
+}
+
+.Default_pr {
+  display: inline-flex;
+  padding: 15px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #6f3da1 0%, #7185e1 100%);
+}
+
+.Default_ps {
+  display: inline-flex;
+  padding: 15px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #6f3da1 0%, #7185e1 100%);
+}
