@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import "./2screen/harmony.css";
-
+import Logo from "../assets/logo_bk_white.svg";
 const Result_Harmony = () => {
   return (
     <>
@@ -38,6 +38,35 @@ const Result_Harmony = () => {
           </div>
         </div>
       </To_under_button>
+      <Total_Conatiner>
+        <ResultsConatiner>
+          <Results>
+            <Analysis_title>
+              <img src={Logo} />
+            </Analysis_title>
+          </Results>
+          <Results>
+            <Analysis_title>
+              <img src={Logo} />
+            </Analysis_title>
+          </Results>
+          <Results>
+            <Analysis_title>
+              <img src={Logo} />
+            </Analysis_title>
+          </Results>
+          <Results>
+            <Analysis_title>
+              <img src={Logo} />
+            </Analysis_title>
+          </Results>
+          <Results>
+            <Analysis_title>
+              <img src={Logo} />
+            </Analysis_title>
+          </Results>
+        </ResultsConatiner>
+      </Total_Conatiner>
     </>
   );
 };
@@ -48,4 +77,39 @@ const To_under_button = styled.div`
   padding-top: 80px;
 `;
 
-const ResultsConatiner = styled.div``;
+const Total_Conatiner = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const ResultsConatiner = styled.div`
+  width: 1100px;
+  padding: 50px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  border-radius: 30px;
+  background: var(--badkground, #f9f9f9);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const Analysis_title = styled.div`
+  display: grid;
+  padding: 0 0 10px 10px;
+  gap: 20px;
+  color: var(--black, #190828);
+  border-bottom: 1px solid var(--gray-lightline, #e4e1e7);
+
+  /* Body L */
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  font-margin: 0 0 0 20px;
+  alings-items: center;
+`;
+const Analysis_content = styled.div``;
+
+const Results = styled.div`
+  gpa: 30px;
+`;
