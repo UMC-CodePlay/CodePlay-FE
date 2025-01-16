@@ -15,4 +15,3 @@ function Routing() {
 }
 
 export default Routing;
-g
