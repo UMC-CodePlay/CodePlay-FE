@@ -6,7 +6,6 @@ import MRIcon from "../assets/Mr.svg";
 import BassIcon from "../assets/Bass.svg";
 import DrumIcon from "../assets/Drum.svg";
 import styled from "styled-components";
-import Othersystems from "../components/Othersystems";
 
 const SessionPage = () => {
   return (
@@ -55,7 +54,6 @@ const SessionPage = () => {
           <Button>분석하기</Button>
         </div>
       </div>
-      {/*------------- othersystems 실험을 위한 태그 ----------*/}
     </>
   );
 };
