@@ -29,7 +29,6 @@ const HarmonyPage = () => {
           <Button>분석하기</Button>
         </div>
       </div>
-      <Result_Harmony></Result_Harmony>
     </>
   );
 };
