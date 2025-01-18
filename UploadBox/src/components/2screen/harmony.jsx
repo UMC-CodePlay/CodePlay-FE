@@ -1,4 +1,7 @@
 import './harmony.css'
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import Button from "../Button";
 
 const Harmony=()=>{
   return(
@@ -29,11 +32,43 @@ const Harmony=()=>{
             <div className="info-item"><span>100</span></div>
           </div>
         </div>
-        <button className="harmony-button">화성 분석 바로가기 →</button>
+        <ButtonContainer>
+        <StyledButton>
+          <Link to="/harmony">화성 분석 바로가기 →</Link>
+        </StyledButton>
+      </ButtonContainer>
     </section>
-
   );
-
 };
 
 export default Harmony;
+//기존 Button 컴포넌트 이용해서 홈페이지 버튼 통일함
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const StyledButton = styled(Button)`
+  width: 266px;
+  height: 59px;
+  padding: 15px 30px;
+  gap: 10px;
+  border-radius: 5px;
+  opacity: 1;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28.64px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+`;
+
+
+

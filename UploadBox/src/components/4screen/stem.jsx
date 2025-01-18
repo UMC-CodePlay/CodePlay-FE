@@ -2,13 +2,16 @@ import './stem.css';
 import MRIcon from "../../assets/Mr.svg";
 import BassIcon from "../../assets/Bass.svg";
 import DrumIcon from "../../assets/Drum.svg";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Button from '../Button';
 
 const Stem = () => {
   return (
     <section  className="stem-analysis">
-      <h2 className="section-title">스템 분리</h2>
+      <h2 className="section-title">세션 분리</h2>
       <p className="section-description">
-        예시 텍스트입니다. 스템분리에 대한 설명글이 들어갈 예정입니다.
+        예시 텍스트입니다. 세션분리에 대한 설명글이 들어갈 예정입니다.
       </p>
       <div className="stem-container">
         {/* 첫 번째 항목 */}
@@ -46,9 +49,40 @@ const Stem = () => {
           <p className="stem-description">이것은 설명입니다.</p>
         </div>
       </div>
-      <button className="stem-button">스템분리 바로가기 →</button>
+      <ButtonContainer>
+        <StyledButton>
+          <Link to="/session">세션 분리 바로가기 →</Link>
+        </StyledButton>
+      </ButtonContainer>
     </section>
   );
 };
 
 export default Stem;
+//기존 Button 컴포넌트 이용해서 홈페이지 버튼 통일함
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const StyledButton = styled(Button)`
+  width: 266px;
+  height: 59px;
+  padding: 15px 30px;
+  gap: 10px;
+  border-radius: 5px;
+  opacity: 1;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28.64px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+`;
