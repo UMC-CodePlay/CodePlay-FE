@@ -2,7 +2,9 @@ import './score.css';
 import MRIcon from "../../assets/Mr.svg";
 import BassIcon from "../../assets/Bass.svg";
 import DrumIcon from "../../assets/Drum.svg";
-
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import Button from '../Button';
 
 const Score = () => {
   return (
@@ -31,10 +33,40 @@ const Score = () => {
           <p className="icon-label">임시드럼럼</p>
         </div>
       </div>
-
-      <button className="score-button">악보 생성 바로가기 →</button>
+      <ButtonContainer>
+        <StyledButton>
+          <Link to="/score">악보 생성 바로가기 →</Link>
+        </StyledButton>
+      </ButtonContainer>
     </section>
   );
 };
 
 export default Score;
+//기존 Button 컴포넌트 이용해서 홈페이지 버튼 통일함
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const StyledButton = styled(Button)`
+  width: 266px;
+  height: 59px;
+  padding: 15px 30px;
+  gap: 10px;
+  border-radius: 5px;
+  opacity: 1;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28.64px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+`;

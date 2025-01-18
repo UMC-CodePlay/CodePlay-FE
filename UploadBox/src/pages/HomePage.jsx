@@ -1,5 +1,4 @@
 import Navbar from "../components/Navbar";
-import React from "react";
 import Header from "../components/1screen/header.jsx";
 import Pearch from "../components/1screen/search.jsx";
 import Feature from "../components/1screen/feature.jsx";
