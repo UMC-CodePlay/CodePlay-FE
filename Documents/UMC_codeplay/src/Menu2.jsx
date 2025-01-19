@@ -126,7 +126,7 @@ const Menu2 = () => {
               borderRadius: "10px",
               padding: "10px",
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // 그림자 추가
-              flex: 1, // 컨테이너가 유연하게 확장
+              flex: 1,
             }}
           >
             {/* 재생/정지 버튼 */}
@@ -157,11 +157,17 @@ const Menu2 = () => {
                 flex: 1,
                 appearance: "none",
                 height: "5px",
-                background: "#E4E1E7",
                 borderRadius: "5px",
                 outline: "none",
                 cursor: "pointer",
                 accentColor: "#6F3DA1",
+                background: `linear-gradient(to right, #6F3DA1 50%, #E4E1E7 50%)`,
+                backgroundSize: "100% 100%",
+                backgroundRepeat: "no-repeat",
+              }}
+              onChange={(e) => {
+                const value = e.target.value;
+                e.target.style.background = `linear-gradient(to right, #6F3DA1 ${value}%, #E4E1E7 ${value}%)`;
               }}
             />
           </div>
@@ -175,7 +181,7 @@ const Menu2 = () => {
             border: "none",
             cursor: "pointer",
             padding: "0",
-            marginLeft: "20px", // 슬라이더와 좋아요 버튼 사이 간격 추가
+            marginLeft: "20px", // 슬라이더와 좋아요 버튼 간격 추가
           }}
         >
           <img
