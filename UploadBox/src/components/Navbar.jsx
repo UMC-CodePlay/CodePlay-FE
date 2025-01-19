@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import Logo from '../assets/Logo_img/logo.svg';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -8,20 +8,12 @@ function Navbar() {
       <Container>
         <StyledNavbar>
           <StyledButton>
-            <Link to="/">
-              <img src={Logo} />
-            </Link>
+            <Link to="/"><img src={Logo} /></Link>
           </StyledButton>
           <ArrayButtons>
-            <ButtonStyle>
-              <Link to="/harmony">화성 분석</Link>
-            </ButtonStyle>
-            <ButtonStyle>
-              <Link to="/session">세션 분리</Link>
-            </ButtonStyle>
-            <ButtonStyle>
-              <Link to="/score">악보 생성</Link>
-            </ButtonStyle>
+            <ButtonStyle><Link to="/harmony">화성 분석</Link></ButtonStyle>
+            <ButtonStyle><Link to="/session">세션 분리</Link></ButtonStyle>
+            <ButtonStyle><Link to="/score">악보 생성</Link></ButtonStyle>
             <ButtonStyle_su>회원가입</ButtonStyle_su>
             <ButtonStyle_lg>로그인</ButtonStyle_lg>
           </ArrayButtons>
@@ -51,7 +43,7 @@ const StyledButton = styled.button`
   }
 `;
 const Container = styled.div`
-  width: 100%;
+  width: calc(100%-20px);
   left: 0;
   flex-shrink: 0;
   overflow: hidden;

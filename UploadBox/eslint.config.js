@@ -29,11 +29,6 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
-<<<<<<< HEAD
-      "no-unused-vars" : "off",
-=======
-      "no-unsed-vars":"off",
->>>>>>> origin/seokhoon
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

@@ -1,10 +1,10 @@
 import './score.css';
-import MRIcon from "../../assets/Mr.svg";
-import BassIcon from "../../assets/Bass.svg";
-import DrumIcon from "../../assets/Drum.svg";
+import MRIcon from "../../assets/Inst_img/Mr.svg";
+import BassIcon from "../../assets/Inst_img/Bass.svg";
+import DrumIcon from "../../assets/Inst_img/Drum.svg";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import Button from '../Button';
+import Button from '../Buttons/PrimaryButton';
 
 const Score = () => {
   return (
