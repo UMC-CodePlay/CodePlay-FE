@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "./SearchBar"; // 검색 바 컴포넌트
 import Menu from "./Menu"; // 상단 메뉴 컴포넌트
-import Menu1 from "./Menu2"; // 음원 목록 컴포넌트
+import Menu1 from "./Menu3"; // 음원 목록 컴포넌트
 
 function App() {
   return (
