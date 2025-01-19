@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+import playButton from "./assets/images/play_button.svg";
+import stopButton from "./assets/images/stop_button.svg";
 import likeButtonOff from "./assets/images/like_button_off.svg";
 import likeButtonOn from "./assets/images/like_button_on.svg";
 
 const Menu3 = () => {
-  const [likes, setLikes] = useState([false, false, false, false]); // 좋아요 상태 관리
+  const [activeButton, setActiveButton] = useState("전체");
+  const [likes, setLikes] = useState([false, false, false, false]);
 
   const toggleLike = (index) => {
     setLikes((prev) =>
       prev.map((liked, i) => (i === index ? !liked : liked))
     );
   };
+
+  const buttons = ["전체", "키보드", "기타", "드럼", "베이스"];
 
   const files = [
     { title: "파일 제목이 들어갈 예정임.....", date: "작업 일시" },
@@ -20,7 +25,39 @@ const Menu3 = () => {
 
   return (
     <div style={{ width: "80%", margin: "0 auto", paddingTop: "20px" }}>
-      {/* 카드를 감싸는 컨테이너 */}
+      {/* 버튼 섹션 */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "20px",
+          marginBottom: "20px",
+        }}
+      >
+        {buttons.map((button) => (
+          <button
+            key={button}
+            onClick={() => setActiveButton(button)}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#FFFFFF",
+              border: `2px solid ${
+                activeButton === button ? "#6F3DA1" : "#C9C3CE"
+              }`,
+              borderRadius: "9999px",
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: activeButton === button ? "#000000" : "#C9C3CE",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+            }}
+          >
+            {button}
+          </button>
+        ))}
+      </div>
+
+      {/* 카드 리스트 */}
       <div
         style={{
           display: "flex",
@@ -38,6 +75,7 @@ const Menu3 = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              backgroundColor: "#FFFFFF",
             }}
           >
             {/* 이미지 영역 */}
@@ -49,7 +87,6 @@ const Menu3 = () => {
                 position: "relative",
               }}
             >
-              {/* 좋아요 버튼 */}
               <button
                 onClick={() => toggleLike(index)}
                 style={{
@@ -71,20 +108,20 @@ const Menu3 = () => {
                 />
               </button>
             </div>
-  
+
             {/* 제목과 작업 일시 */}
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: "10px",
-                width: "100%", // 부모 크기에 맞춤
+                width: "100%",
+                padding: "10px 0",
               }}
             >
-              {/* 제목 */}
               <div
                 style={{
-                  padding: "10px 10px 10px 0", // 내부 여백
+                  padding: "0 10px",
                   fontWeight: "bold",
                   fontSize: "14px",
                   textAlign: "left",
@@ -92,11 +129,9 @@ const Menu3 = () => {
               >
                 {file.title}
               </div>
-  
-              {/* 작업 일시 */}
               <div
                 style={{
-                  padding: "10px 10px 10px 0", // 내부 여백
+                  padding: "0 10px",
                   fontSize: "12px",
                   color: "#999",
                   textAlign: "left",
@@ -110,7 +145,6 @@ const Menu3 = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Menu3;
