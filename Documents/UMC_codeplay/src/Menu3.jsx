@@ -24,14 +24,14 @@ const Menu3 = () => {
   ];
 
   return (
-    <div style={{ width: "80%", margin: "0 auto", paddingTop: "20px" }}>
+    <div style={{ width: "70%", margin: "0 auto", paddingTop: "20px" }}>
       {/* 버튼 섹션 */}
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           gap: "20px",
-          marginBottom: "20px",
+          marginBottom: "40px",
         }}
       >
         {buttons.map((button) => (
@@ -123,7 +123,7 @@ const Menu3 = () => {
                 style={{
                   padding: "0 10px",
                   fontWeight: "bold",
-                  fontSize: "14px",
+                  fontSize: "16px",
                   textAlign: "left",
                 }}
               >
@@ -132,7 +132,7 @@ const Menu3 = () => {
               <div
                 style={{
                   padding: "0 10px",
-                  fontSize: "12px",
+                  fontSize: "14px",
                   color: "#999",
                   textAlign: "left",
                 }}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import likeButtonOff from "./assets/images/like_button_off.svg";
 import likeButtonOn from "./assets/images/like_button_on.svg";
 
-const Menu4 = () => {
+const Menu1 = () => {
   const [isLiked, setIsLiked] = useState(false);
 
   const toggleLike = () => {
@@ -23,15 +23,14 @@ const Menu4 = () => {
   const commonStyle = {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center", // 수직 정렬
-    padding: "15px 20px", // 동일한 내부 여백
-    position: "relative", // 태그 위치를 위해 필요
+    alignItems: "center",
+    padding: "20px",
   };
 
   return (
     <div
       style={{
-        width: "80%",
+        width: "70%",
         margin: "0 auto",
         paddingTop: "20px",
       }}
@@ -40,8 +39,9 @@ const Menu4 = () => {
       <div
         style={{
           ...commonStyle,
-          backgroundColor: "#F5F5F5",
-          fontSize: "14px",
+          height: "0px",
+          backgroundColor: "#EEEEEE",
+          fontSize: "16px",
           fontWeight: "bold",
           color: "#999",
         }}
@@ -59,37 +59,35 @@ const Menu4 = () => {
       <div
         style={{
           ...commonStyle,
-          marginTop: "10px",
-          backgroundColor: "#F9F9F9",
-          borderRadius: "8px",
+          marginTop: "20px",
+          height: "105px",
+          backgroundColor: "#F9F8FA",
         }}
       >
-{/* 태그 */}
-<div
-  style={{
-    position: "absolute",
-    top: "50%", // 리스트 항목의 세로 중앙
-    left: "-40px", // 리스트 항목의 왼쪽 경계 밖으로 이동
-    transform: "translateY(-50%)", // 세로 방향 중앙 정렬
-    backgroundColor: "#A89CFF", // 태그 배경색
-    color: "#FFFFFF", // 텍스트 색상
-    fontSize: "12px",
-    fontWeight: "bold",
-    padding: "10px 5px", // 태그 여백
-    borderRadius: "8px 0 0 8px", // 왼쪽 상단과 하단만 둥글게
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", // 태그 그림자
-    writingMode: "vertical-rl", // 텍스트를 세로로 표시
-    textAlign: "center", // 텍스트 중앙 정렬
-    display: "flex", // Flexbox로 수직 중앙 정렬
-    justifyContent: "center",
-    alignItems: "center",
-    whiteSpace: "nowrap", // 텍스트 줄바꿈 방지
-  }}
->
-  세션 분리
-</div>
 
-
+      {/* 태그 */}
+      <div
+        style={{
+          position: "relative",
+          top: "40px",
+          left: "-46px", // 리스트 항목의 왼쪽 경계 밖으로 이동
+          transform: "translateY(-50%)", // 세로 방향 중앙 정렬
+          backgroundColor: "#A89CFF", // 태그 배경색
+          color: "#FFFFFF", // 텍스트 색상
+          fontSize: "12px",
+          fontWeight: "bold",
+          padding: "10px 5px", // 태그 여백
+          borderRadius: "8px 0 0 8px", // 왼쪽 상단과 하단만 둥글게
+          writingMode: "vertical-rl", // 텍스트를 세로로 표시
+          textAlign: "center", // 텍스트 중앙 정렬
+          display: "flex", // Flexbox로 수직 중앙 정렬
+          justifyContent: "center",
+          alignItems: "center",
+          whiteSpace: "nowrap", // 텍스트 줄바꿈 방지
+        }}
+      >
+        세션 분리
+      </div>
 
         {/* 음원 정보 */}
         <div
@@ -102,39 +100,39 @@ const Menu4 = () => {
         >
           <div
             style={{
-              width: "40px",
-              height: "40px",
-              backgroundColor: "#D3D3D3",
-              borderRadius: "4px",
+              width: "84px",
+              height: "84px",
+              backgroundColor: "#D9D9D9",
+              borderRadius: "8px",
             }}
           ></div>
           <div>
-            <div style={{ fontWeight: "bold", fontSize: "14px" }}>
+            <div style={{ fontWeight: "bold", fontSize: "16px", padding: "5px"}}>
               {trackData[0].title}
             </div>
-            <div style={{ fontSize: "12px", color: "#666" }}>
+            <div style={{ fontSize: "14px", color: "#666", padding: "5px"}}>
               {trackData[0].date}
             </div>
           </div>
         </div>
 
         {/* 키 */}
-        <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].key}
         </span>
 
         {/* 스케일 */}
-        <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].scale}
         </span>
 
         {/* 코드 진행 */}
-        <span style={{ flex: 2, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 2, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].progression}
         </span>
 
         {/* BPM */}
-        <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].bpm}
         </span>
 
@@ -154,8 +152,8 @@ const Menu4 = () => {
             src={isLiked ? likeButtonOn : likeButtonOff}
             alt="좋아요 버튼"
             style={{
-              width: "20px",
-              height: "20px",
+              width: "52px",
+              height: "48px",
             }}
           />
         </button>
@@ -164,4 +162,4 @@ const Menu4 = () => {
   );
 };
 
-export default Menu4;
+export default Menu1;

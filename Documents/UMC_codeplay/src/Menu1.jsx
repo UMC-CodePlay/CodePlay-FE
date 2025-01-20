@@ -23,14 +23,14 @@ const Menu1 = () => {
   const commonStyle = {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center", // 수직 정렬
-    padding: "15px 20px", // 동일한 내부 여백
+    alignItems: "center",
+    padding: "20px",
   };
 
   return (
     <div
       style={{
-        width: "80%",
+        width: "70%",
         margin: "0 auto",
         paddingTop: "20px",
       }}
@@ -39,8 +39,9 @@ const Menu1 = () => {
       <div
         style={{
           ...commonStyle,
-          backgroundColor: "#F5F5F5",
-          fontSize: "14px",
+          height: "0px",
+          backgroundColor: "#EEEEEE",
+          fontSize: "16px",
           fontWeight: "bold",
           color: "#999",
         }}
@@ -58,9 +59,9 @@ const Menu1 = () => {
       <div
         style={{
           ...commonStyle,
-          marginTop: "10px",
-          backgroundColor: "#F9F9F9",
-          borderRadius: "8px",
+          marginTop: "20px",
+          height: "105px",
+          backgroundColor: "#F9F8FA",
         }}
       >
         {/* 음원 정보 */}
@@ -74,39 +75,39 @@ const Menu1 = () => {
         >
           <div
             style={{
-              width: "40px",
-              height: "40px",
-              backgroundColor: "#D3D3D3",
-              borderRadius: "4px",
+              width: "84px",
+              height: "84px",
+              backgroundColor: "#D9D9D9",
+              borderRadius: "8px",
             }}
           ></div>
           <div>
-            <div style={{ fontWeight: "bold", fontSize: "14px" }}>
+            <div style={{ fontWeight: "bold", fontSize: "16px", padding: "5px"}}>
               {trackData[0].title}
             </div>
-            <div style={{ fontSize: "12px", color: "#666" }}>
+            <div style={{ fontSize: "14px", color: "#666", padding: "5px"}}>
               {trackData[0].date}
             </div>
           </div>
         </div>
 
         {/* 키 */}
-        <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].key}
         </span>
 
         {/* 스케일 */}
-        <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].scale}
         </span>
 
         {/* 코드 진행 */}
-        <span style={{ flex: 2, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 2, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].progression}
         </span>
 
         {/* BPM */}
-        <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#000" }}>
+        <span style={{ flex: 1, textAlign: "center", fontWeight: "bold", fontSize: "16px", color: "#000" }}>
           {trackData[0].bpm}
         </span>
 
@@ -126,8 +127,8 @@ const Menu1 = () => {
             src={isLiked ? likeButtonOn : likeButtonOff}
             alt="좋아요 버튼"
             style={{
-              width: "20px",
-              height: "20px",
+              width: "52px",
+              height: "48px",
             }}
           />
         </button>
