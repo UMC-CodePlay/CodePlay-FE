@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import MRIcon from "../assets/Mr.svg";
-import BassIcon from "../assets/Bass.svg";
-import DrumIcon from "../assets/Drum.svg";
+import MRIcon from "../assets/Inst_img/Mr.svg";
+import BassIcon from "../assets/Inst_img/Bass.svg";
+import DrumIcon from "../assets/Inst_img/Drum.svg";
 
 const Icons= () => {
   return (

@@ -1,7 +1,7 @@
 import './harmony.css'
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import Button from "../Button";
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 const Harmony=()=>{
   return(
@@ -49,7 +49,7 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(PrimaryButton)`
   width: 266px;
   height: 59px;
   padding: 15px 30px;
@@ -59,14 +59,14 @@ const StyledButton = styled(Button)`
 
   a {
     text-decoration: none;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
     color: white;
     font-family: Pretendard;
     font-size: 20px;
     font-weight: 600;
     line-height: 28.64px;
     text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
   }
 `;
 
