@@ -49,13 +49,15 @@ export default Result_ScorePage;
 
 const Wrapper = styled.div`
   justify-content: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
 `;
 
 const ControllBox = styled.div`
-  width: 805px;
+  width: 820px;
   height: 144px;
-  flex-shrink: 0;
-  fill: #e9e9e9;
+  background: #e9e9e9;
   backdrop-filter: blur(93.9848861694336px);
 `;
 
