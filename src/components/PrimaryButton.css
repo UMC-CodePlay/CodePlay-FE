@@ -1,3 +1,4 @@
+/* <button classs = "PB* button">문구</button> */
 .button:hover {
   background: var(--hover, linear-gradient(180deg, #613fa4 0%, #321a61 100%));
 }
