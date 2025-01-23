@@ -107,7 +107,7 @@ const Result_HarmonyPage = () => {
           justifyContent: "center",
         }}
       >
-        <button className="SBL">이전으로</button>
+        <button className="SBL button">이전으로</button>
       </div>
       <Othersystems></Othersystems>
     </>

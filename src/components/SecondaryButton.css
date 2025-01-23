@@ -21,7 +21,7 @@
   background: var(--White, #fff);
 }
 
-.SBL {
+.SBL.button {
   display: inline-flex;
   padding: 15px 30px;
   justify-content: center;
@@ -36,7 +36,7 @@
   line-height: normal;
 }
 
-.SBR {
+.SBR.button {
   display: inline-flex;
   padding: 15px 30px;
   justify-content: center;
@@ -51,7 +51,7 @@
   line-height: normal;
 }
 
-.SBS {
+.SBS.button {
   display: inline-flex;
   padding: 15px 30px;
   justify-content: center;
