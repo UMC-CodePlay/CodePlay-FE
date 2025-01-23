@@ -1,4 +1,6 @@
-/* <button classs = "PB* button">문구</button> */
+/* <button classs = "PB* button">문구</button> 
+*대신 L, R, S사이즈 별로 원하는 것 적용 */
+
 .PBL.button:hover,
 .PBR.button:hover,
 .PBS.button:hover {

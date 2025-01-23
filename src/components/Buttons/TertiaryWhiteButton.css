@@ -1,4 +1,5 @@
-/* <button classs = "TWB* button">문구</button> */
+/* <button classs = "TWB* button">문구</button> 
+*대신 L, R, S사이즈 별로 원하는 것 적용 */
 
 .TWBL.button {
   width: 200px;
