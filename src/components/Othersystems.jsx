@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 
 const Othersystems = ({ DF_subtitle, To_other1, To_other2 }) => {
