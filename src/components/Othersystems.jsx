@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 
 const Othersystems = ({ DF_subtitle, To_other1, To_other2 }) => {
@@ -30,12 +31,12 @@ export default Othersystems;
 
 const Container = styled.div`
   background-color: #f3f3f3;
-  postion : flex;
-  width:; 100%;
-  height : 720px; 
-  margin-top : 150px;
-  padding : 0 ;
-    `;
+  postion: flex;
+  width: calc(100%-20px);
+  height: 720px;
+  margin-top: 150px;
+  padding: 0;
+`;
 
 const DifferentFunction = styled.div`
   display: flex;
