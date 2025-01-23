@@ -17,7 +17,7 @@
   );
 }
 
-.Default_pl {
+.PBL.button {
   display: inline-flex;
   padding: 15px 30px;
   justify-content: center;
@@ -27,7 +27,7 @@
   background: linear-gradient(90deg, #6f3da1 0%, #7185e1 100%);
 }
 
-.Default_pr {
+.PBR.button {
   display: inline-flex;
   padding: 15px 30px;
   justify-content: center;
@@ -37,7 +37,7 @@
   background: linear-gradient(90deg, #6f3da1 0%, #7185e1 100%);
 }
 
-.Default_ps {
+.PBS.button {
   display: inline-flex;
   padding: 15px 30px;
   justify-content: center;
