@@ -1,35 +1,11 @@
-/* <button classs = "TBB* button">문구</button>
+/* <Link to="/" className="TBB* button">문구</Link>
 *대신 L, R, S사이즈 별로 원하는 것 적용 */
 
-.TBBL.button:hover,
-.TBBR.button:hover,
-.TBBS.button:hover {
-  border-radius: 5px;
-  border: 1px solid var(--black, #190828);
-  background: var(--gray-white, #f9f8fa);
-  display: inline-flex;
-  padding: 15px 30px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  color: var(-balck, #190828);
+p {
+  font-family: Pretendard, Arial, sans-serif;
 }
-
-.TBBL.button:active,
-.TBBR.button:active,
-.TBBS.button:active {
-  border-radius: 5px;
-  border: 1px solid var(--black, #190828);
-  background: var(--White, #fff);
-}
-
-.TBBL.button:disabled,
-.TBBR.button:disabled,
-.TBBS.button:disabled {
-  border-radius: 5px;
-  border: 1px solid var(--gray-regular-line, #c9c3ce);
-  background: var(--gray-light, #f7f7f9);
-  color: var(--gray-text2, #b6afbe);
+a {
+  text-decoration: none;
 }
 
 .TBBL.button {
@@ -90,6 +66,59 @@
   line-height: normal;
 }
 
-.p {
-  font: Pretendard;
+.TBBSU.button {
+  width: 120px;
+  height: 60px;
+  display: inline-flex;
+  padding: 15px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: var(--black, #190828);
+  color: #fff;
+  /* Button R */
+  font-family: Pretendard, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.TBBSU.button:hover {
+  border-radius: 10px;
+  border: 1px solid var(--black, #190828);
+  background: var(--black, #fff);
+  color: #190828;
+}
+.TBBL.button:hover,
+.TBBR.button:hover,
+.TBBS.button:hover {
+  border-radius: 5px;
+  border: 1px solid var(--black, #190828);
+  background: var(--gray-white, #f9f8fa);
+  display: inline-flex;
+  padding: 15px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #190828;
+}
+
+.TBBL.button:active,
+.TBBR.button:active,
+.TBBS.button:active,
+.TBBSU.button:active {
+  border-radius: 5px;
+  border: 1px solid var(--black, #190828);
+  background: var(--White, #fff);
+}
+
+.TBBL.button:disabled,
+.TBBR.button:disabled,
+.TBBS.button:disabled,
+.TBBSU.button:disabled {
+  border-radius: 5px;
+  border: 1px solid var(--gray-regular-line, #c9c3ce);
+  background: var(--gray-light, #f7f7f9);
+  color: var(--gray-text2, #b6afbe);
 }

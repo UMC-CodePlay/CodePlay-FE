@@ -9,6 +9,7 @@ import Othersystems from "../../components/Othersystems";
 import "../../components/Buttons/TertiaryWhiteButton.css";
 import "../../components/Buttons/TertiaryBlackButton.css";
 import "../../components/Buttons/PrimaryButton.css";
+import { Link } from "react-router-dom";
 
 const Result_HarmonyPage = () => {
   return (
@@ -108,16 +109,12 @@ const Result_HarmonyPage = () => {
           marginTop: "60px",
           display: "flex",
           justifyContent: "center",
+          fontFamily: "Pretentard",
         }}
       >
-        <button className="SBL button">이전으로</button>
-        <button className="PBL button">이전으로</button>
-        <button className="TBBL button">이전으로</button>
-        <button className="TWBL button">이전으로</button>
-        <button className="SBS button">이전으로</button>
-        <button className="PBS button">이전으로</button>
-        <button className="TBBS button">이전으로</button>
-        <button className="TWBS button">이전으로</button>
+        <Link to="/harmony" className="SBL button">
+          이전으로
+        </Link>
       </div>
       <Othersystems></Othersystems>
     </>
