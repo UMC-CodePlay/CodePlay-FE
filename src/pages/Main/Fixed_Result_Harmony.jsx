@@ -10,7 +10,10 @@ import "../../components/Buttons/TertiaryWhiteButton.css";
 import "../../components/Buttons/TertiaryBlackButton.css";
 import "../../components/Buttons/PrimaryButton.css";
 import { Link } from "react-router-dom";
-import Slick from "../../components/Slick";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick/css";
+import "slick-carousel/slick/slick-theme.css";
+
 const Result_HarmonyPage = () => {
   return (
     <>
@@ -62,7 +65,6 @@ const Result_HarmonyPage = () => {
           </div>
         </div>
       </To_under_button>
-
       <Total_Conatiner>
         <ResultsConatiner>
           <Results>
@@ -72,9 +74,15 @@ const Result_HarmonyPage = () => {
             </Analysis_title>
           </Results>
           <Analysis_content>이것은 설명입니다. </Analysis_content>
+          <Results>
+            <Analysis_title>
+              <img src={Logo} />
+              분석 결과 2 :
+            </Analysis_title>
+          </Results>
+          <Analysis_content>이것은 설명입니다. </Analysis_content>
         </ResultsConatiner>
       </Total_Conatiner>
-      <Slick></Slick>
       <div
         style={{
           marginTop: "60px",
@@ -147,6 +155,6 @@ const Analysis_content = styled.div`
 `;
 
 const Results = styled.div`
-  gap: 30px;
+  gpa: 30px;
   border-bottom: 1px solid var(--gray-lightline, #e4e1e7);
 `;

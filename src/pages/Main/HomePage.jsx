@@ -1,4 +1,4 @@
-import styled from "styled-components"; // styled-components 가져오기
+import styled from "styled-components";
 import Navbar from "../../components/Navbar.jsx";
 import Header from "../../components/1screen/header.jsx";
 import Pearch from "../../components/1screen/search.jsx";
@@ -9,7 +9,7 @@ import Stem from "../../components/4screen/stem.jsx";
 
 // styled-components로 스타일 정의
 const HomePageWrapper = styled.div`
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0px;
   box-sizing: border-box;
