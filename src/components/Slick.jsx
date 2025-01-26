@@ -1,24 +1,79 @@
+/* eslint-disable react/prop-types */
 import React, { useState, Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import Logo from "../assets/logo_bk_white.svg";
+import prevarrow_on from "../assets/prevarrow_on.svg";
+import prevarrow_off from "../assets/prevarrow_off.svg";
+import nextarrow_on from "../assets/nextarrow_on.svg";
+import nextarrow_off from "../assets/nextarrow_off.svg";
 
 const Slick = () => {
+  const ArrowContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: flex;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    overflow: "visible";
+  `;
+  const PrevArrow = (props) => {
+    console.log("prevbutton");
+    const { style, onClick } = props;
+    return (
+      <ArrowContainer>
+        <img
+          alt="Previous"
+          src={prevarrow_on}
+          onClick={(e) => {
+            e.stopPropagation(); // 이벤트 버블링 방지
+            onClick();
+          }}
+          style={{
+            cursor: "pointer",
+            justifySelf: "start",
+          }}
+        ></img>
+      </ArrowContainer>
+    );
+  };
+
+  const NextArrow = (props) => {
+    const { style, onClick } = props;
+    return (
+      <ArrowContainer>
+        <img
+          alt="Next"
+          src={nextarrow_on}
+          onClick={(e) => {
+            e.stopPropagation(); // 이벤트 버블링 방지
+            onClick();
+          }}
+          style={{ cursor: "pointer", justifySelf: "end", right: "0%" }}
+        ></img>
+      </ArrowContainer>
+    );
+  };
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slideToShow: 1,
     slideToScroll: 1,
-    arrow: true,
+    arrows: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
   };
 
   return (
     <>
       <Slider {...settings}>
-        <>
+        <Wrapper>
           <Total_Conatiner>
             <ResultsConatiner>
               <Results>
@@ -30,8 +85,8 @@ const Slick = () => {
               <Analysis_content>이것은 설명입니다. </Analysis_content>
             </ResultsConatiner>
           </Total_Conatiner>
-        </>
-        <>
+        </Wrapper>
+        <Wrapper>
           <Total_Conatiner>
             <ResultsConatiner>
               <Results>
@@ -43,8 +98,8 @@ const Slick = () => {
               <Analysis_content>이것은 설명입니다. </Analysis_content>
             </ResultsConatiner>
           </Total_Conatiner>
-        </>
-        <>
+        </Wrapper>
+        <Wrapper>
           <Total_Conatiner>
             <ResultsConatiner>
               <Results>
@@ -56,7 +111,7 @@ const Slick = () => {
               <Analysis_content>이것은 설명입니다. </Analysis_content>
             </ResultsConatiner>
           </Total_Conatiner>
-        </>
+        </Wrapper>
       </Slider>
     </>
   );
@@ -64,7 +119,7 @@ const Slick = () => {
 
 export default Slick;
 
-const SLider = styled.div``;
+const Wrapper = styled.div``;
 const Total_Conatiner = styled.div`
   display: flex;
   justify-content: center;
