@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import UnionIcon from "../assets/Union.svg";
 
@@ -27,7 +28,7 @@ const Container = styled.div`
   position: relative;
   border-radius: 18.97px;
   background: linear-gradient(135deg, #e3e4e8, #c4c4c4);
-  box-shadow: 0px 3.79px 9.48px 0px rgba(0, 0, 0, 0.05); 
+  box-shadow: 0px 3.79px 9.48px 0px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   padding: 20px;
@@ -36,7 +37,7 @@ const Container = styled.div`
 
 const OuterSquare = styled.div`
   width: 161.22px;
-  height: 161.22px; 
+  height: 161.22px;
   border-radius: 19.72px;
   background: rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(3.403px);
@@ -76,7 +77,7 @@ const Icon = styled.img`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 30px; 
+  margin-left: 30px;
   gap: 15.17px;
 `;
 

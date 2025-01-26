@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
+import session from "../assets/seperate_session.svg";
 
-const Othersystems = ({ DF_subtitle, To_other1, To_other2 }) => {
+const Othersystems = ({ DF_subtitle, To_other1 }) => {
   return (
     <>
       <Container>
@@ -12,15 +13,8 @@ const Othersystems = ({ DF_subtitle, To_other1, To_other2 }) => {
           <h3>{DF_subtitle}</h3>
         </DifferentFunction_subTitle>
         <Container2>
-          <Container_left>
-            <Imagebox></Imagebox>
-            <h3>{To_other1}</h3>
-          </Container_left>
-
-          <Container_right>
-            <Imagebox></Imagebox>
-            <h3>{To_other2}</h3>
-          </Container_right>
+          <Imagebox></Imagebox>
+          <h3>{To_other1}</h3>
         </Container2>
       </Container>
     </>
@@ -57,7 +51,8 @@ const Container2 = styled.div`
   padding-top: 50px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+  justify-items: center;
 `;
 
 const Container_left = styled.div`
@@ -72,9 +67,12 @@ const Container_right = styled.div`
   text-align: center;
 `;
 
-const Imagebox = styled.div`
-  display: flex;
+const Imagebox = styled.button`
+  display: inline-block;
   width: 300px;
   height: 190px;
-  background-color: #d9d9d9;
+  background: url(${session}) no-repeat center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
 `;
