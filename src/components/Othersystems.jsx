@@ -1,6 +1,34 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import session from "../assets/seperate_session.svg";
+import harmony from "../assets/seperate_harmony.svg";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const ImageComponent = () => {
+  const location = useLocation();
+
+  const imageSrc = location.pathname.includes("harmony")
+    ? session
+    : location.pathname.includes("session")
+      ? harmony
+      : null;
+
+  return (
+    <>
+      {imageSrc ? (
+        <img src={imageSrc} alt="Dynamic" style={{ curosr: "pointer" }} />
+      ) : (
+        <p>이미지가 없습니다.</p>
+      )}
+    </>
+  );
+};
 
 const Othersystems = ({ DF_subtitle, To_other1 }) => {
   return (
@@ -15,6 +43,12 @@ const Othersystems = ({ DF_subtitle, To_other1 }) => {
         <Container2>
           <Imagebox></Imagebox>
           <h3>{To_other1}</h3>
+        </Container2>
+        <Container2>
+          <imagebox>
+            <ImageComponent></ImageComponent>
+            <h3>{To_other1}</h3>
+          </imagebox>
         </Container2>
       </Container>
     </>
@@ -67,11 +101,20 @@ const Container_right = styled.div`
   text-align: center;
 `;
 
-const Imagebox = styled.button`
+const Imagebox = styled.link`
   display: inline-block;
   width: 300px;
   height: 190px;
   background: url(${session}) no-repeat center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+`;
+
+const imagine = styled.link`
+  display: inline-block;
+  width: 300px;
+  height: 190px;
   background-size: contain;
   border: none;
   cursor: pointer;

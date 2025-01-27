@@ -11,11 +11,11 @@ import nextarrow_on from "../assets/nextarrow_on.svg";
 import nextarrow_off from "../assets/nextarrow_off.svg";
 
 const Slick = () => {
-  const ArrowContainer = styled.div`
+  const ArrowContainer = styled.p`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: flex;
+    position:;
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
