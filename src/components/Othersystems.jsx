@@ -2,12 +2,7 @@
 import styled from "styled-components";
 import session from "../assets/seperate_session.svg";
 import harmony from "../assets/seperate_harmony.svg";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const ImageComponent = () => {
@@ -19,10 +14,16 @@ const ImageComponent = () => {
       ? harmony
       : null;
 
+  const linkPath = location.pathname.includes("/harmony")
+    ? "/session"
+    : "/harmony";
+
   return (
     <>
       {imageSrc ? (
-        <img src={imageSrc} alt="Dynamic" style={{ curosr: "pointer" }} />
+        <Link to={linkPath}>
+          <img src={imageSrc} alt="Dynamic" style={{ curosr: "pointer" }} />
+        </Link>
       ) : (
         <p>이미지가 없습니다.</p>
       )}
@@ -40,10 +41,7 @@ const Othersystems = ({ DF_subtitle, To_other1 }) => {
         <DifferentFunction_subTitle>
           <h3>{DF_subtitle}</h3>
         </DifferentFunction_subTitle>
-        <Container2>
-          <Imagebox></Imagebox>
-          <h3>{To_other1}</h3>
-        </Container2>
+
         <Container2>
           <imagebox>
             <ImageComponent></ImageComponent>
