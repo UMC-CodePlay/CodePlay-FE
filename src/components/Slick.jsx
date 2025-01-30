@@ -6,114 +6,97 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import Logo from "../assets/logo_bk_white.svg";
 import prevarrow_on from "../assets/prevarrow_on.svg";
-import prevarrow_off from "../assets/prevarrow_off.svg";
 import nextarrow_on from "../assets/nextarrow_on.svg";
-import nextarrow_off from "../assets/nextarrow_off.svg";
 
 const Slick = () => {
-  const ArrowContainer = styled.p`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position:;
-    width: 100%;
+  const PrevArrowContainer = styled.div`
+    position: absolute;
+    left: -50px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1000;
-    overflow: "visible";
+    cursor: pointer;
   `;
+
+  const NextArrowContainer = styled.div`
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    cursor: pointer;
+  `;
+
   const PrevArrow = (props) => {
-    console.log("prevbutton");
-    const { style, onClick } = props;
+    const { onClick } = props;
     return (
-      <ArrowContainer>
-        <img
-          alt="Previous"
-          src={prevarrow_on}
-          onClick={(e) => {
-            e.stopPropagation(); // 이벤트 버블링 방지
-            onClick();
-          }}
-          style={{
-            cursor: "pointer",
-            justifySelf: "start",
-          }}
-        ></img>
-      </ArrowContainer>
+      <PrevArrowContainer onClick={onClick}>
+        <img alt="Previous" src={prevarrow_on} style={{ width: "20px" }} />
+      </PrevArrowContainer>
     );
   };
 
   const NextArrow = (props) => {
-    const { style, onClick } = props;
+    const { onClick } = props;
     return (
-      <ArrowContainer>
-        <img
-          alt="Next"
-          src={nextarrow_on}
-          onClick={(e) => {
-            e.stopPropagation(); // 이벤트 버블링 방지
-            onClick();
-          }}
-          style={{ cursor: "pointer", justifySelf: "end", right: "0%" }}
-        ></img>
-      </ArrowContainer>
+      <NextArrowContainer onClick={onClick}>
+        <img alt="Next" src={nextarrow_on} style={{ width: "20px" }} />
+      </NextArrowContainer>
     );
   };
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slideToShow: 1,
-    slideToScroll: 1,
+    slidesToShow: 1,
+    slidesToScroll: 1,
     arrows: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
   };
 
   return (
-    <>
-      <Slider {...settings}>
-        <Wrapper>
-          <Total_Conatiner>
-            <ResultsConatiner>
-              <Results>
-                <Analysis_title>
-                  <img src={Logo} />
-                  분석 결과 1:
-                </Analysis_title>
-              </Results>
-              <Analysis_content>이것은 설명입니다. </Analysis_content>
-            </ResultsConatiner>
-          </Total_Conatiner>
-        </Wrapper>
-        <Wrapper>
-          <Total_Conatiner>
-            <ResultsConatiner>
-              <Results>
-                <Analysis_title>
-                  <img src={Logo} />
-                  분석 결과 1:
-                </Analysis_title>
-              </Results>
-              <Analysis_content>이것은 설명입니다. </Analysis_content>
-            </ResultsConatiner>
-          </Total_Conatiner>
-        </Wrapper>
-        <Wrapper>
-          <Total_Conatiner>
-            <ResultsConatiner>
-              <Results>
-                <Analysis_title>
-                  <img src={Logo} />
-                  분석 결과 1:
-                </Analysis_title>
-              </Results>
-              <Analysis_content>이것은 설명입니다. </Analysis_content>
-            </ResultsConatiner>
-          </Total_Conatiner>
-        </Wrapper>
-      </Slider>
-    </>
+    <Slider {...settings}>
+      <div>
+        <Total_Conatiner>
+          <ResultsConatiner>
+            <Results>
+              <Analysis_title>
+                <img src={Logo} />키 :
+              </Analysis_title>
+            </Results>
+            <Analysis_content>이것은 설명입니다. </Analysis_content>
+          </ResultsConatiner>
+        </Total_Conatiner>
+      </div>
+      <div>
+        <Total_Conatiner>
+          <ResultsConatiner>
+            <Results>
+              <Analysis_title>
+                <img src={Logo} />
+                템포 :
+              </Analysis_title>
+            </Results>
+            <Analysis_content>이것은 설명입니다. </Analysis_content>
+          </ResultsConatiner>
+        </Total_Conatiner>
+      </div>
+      <div>
+        <Total_Conatiner>
+          <ResultsConatiner>
+            <Results>
+              <Analysis_title>
+                <img src={Logo} />
+                음압 :
+              </Analysis_title>
+            </Results>
+            <Analysis_content>이것은 설명입니다. </Analysis_content>
+          </ResultsConatiner>
+        </Total_Conatiner>
+      </div>
+    </Slider>
   );
 };
 

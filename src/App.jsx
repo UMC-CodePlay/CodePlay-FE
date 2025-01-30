@@ -4,25 +4,31 @@ import HarmonyPage from "./pages/Main/HarmonyPage";
 import HomePage from "./pages/Main/HomePage";
 import Result_HarmonyPage from "./pages/Main/Result_HarmonyPage";
 import Result_ScorePage from "./pages/Main/Result_ScorePage";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Result_SeesionPage from "./pages/Main/Result_SessionPage";
 const App = () => {
   return (
     <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/harmony" element={<HarmonyPage />} />
-          <Route path="/harmony/result_harmony" element={<Result_HarmonyPage />} />
-          <Route path="/session" element={<SessionPage />} />
-          <Route path="/score" element={<ScorePage />} />
-          <Route path="/score/result_score" element={<Result_ScorePage />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/harmony" element={<HarmonyPage />} />
+        <Route
+          path="/harmony/result_harmony"
+          element={<Result_HarmonyPage />}
+        />
+        <Route path="/session" element={<SessionPage />} />
+        <Route
+          path="/session/result_session"
+          element={<Result_SeesionPage />}
+        />
+        <Route path="/score" element={<ScorePage />} />
+        <Route path="/score/result_score" element={<Result_ScorePage />} />
+      </Routes>
     </Router>
   );
 };
 
 export default App;
-
 
 /* 마이페이지
 import './App.css'
@@ -54,4 +60,4 @@ function App() {
 }
 
 export default App;
-*/ 
+*/

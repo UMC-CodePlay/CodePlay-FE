@@ -9,3 +9,25 @@
 p {
   font-family: Pretendard, Arial, sans-serif;
 }
+
+h3 {
+  color: var(--White, #fff);
+  /* H3 */
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+h5 {
+  color: var(--White, #fff);
+  text-align: center;
+
+  /* Body R(B) */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 150% */
+}

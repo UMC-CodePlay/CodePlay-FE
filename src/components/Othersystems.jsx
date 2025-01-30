@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import session from "../assets/seperate_session.svg";
 import harmony from "../assets/seperate_harmony.svg";
@@ -31,21 +30,22 @@ const ImageComponent = () => {
   );
 };
 
-const Othersystems = ({ DF_subtitle, To_other1 }) => {
+const Othersystems = () => {
+  const linkPath = location.pathname.includes("/harmony")
+    ? "/session"
+    : "/harmony";
+
   return (
     <>
       <Container>
-        <DifferentFunction>
-          <h1>이런 건 어때요?</h1>
+        <DifferentFunction ㄴㅅ>
+          <h3>이런 건 어때요?</h3>
         </DifferentFunction>
-        <DifferentFunction_subTitle>
-          <h3>{DF_subtitle}</h3>
-        </DifferentFunction_subTitle>
 
         <Container2>
           <imagebox>
             <ImageComponent></ImageComponent>
-            <h3>{To_other1}</h3>
+            <h5>{linkPath === "/harmony" ? "화성 분석" : "세션 분리"}</h5>
           </imagebox>
         </Container2>
       </Container>
@@ -56,13 +56,15 @@ const Othersystems = ({ DF_subtitle, To_other1 }) => {
 export default Othersystems;
 
 const Container = styled.div`
-  background-color: #f3f3f3;
+  background: var(--bg, #17171E);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   postion : flex;
   width:; 100%;
   height : 720px; 
   margin-top : 150px;
   padding : 0 ;
-    `;
+  color : #ffffff;
+  `;
 
 const DifferentFunction = styled.div`
   display: flex;

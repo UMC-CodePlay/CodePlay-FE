@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 //화상 분석, 악보 생성 등을 생성하는 TitleNavbar
 /*사용 방법 : 
@@ -26,10 +26,10 @@ const TitleNavbar = ({ title, subtitle }) => {
 export default TitleNavbar;
 
 const StyledTitle = styled.div`
-  background-color: #e7e6e9;
+  background: var(--badkground, #000000);
   width: 100%;
   height: 250px;
-  color: white;
+  color: #ffffff;
   position: flex;
   display: gird;
   top: 100px;
@@ -44,7 +44,7 @@ const StyledTitle = styled.div`
 const Title = styled.div`
   display: flex;
   padding-top: 100px;
-  color: #000;
+  color: #ffffff;
   text {
     font-family: Pretendard, sans-serif;
     font-size: 40px;
@@ -58,7 +58,7 @@ const Title = styled.div`
 const SubTitle = styled.div`
   display: flex;
   padding-top: 25px;
-  color: #000;
+  color: #ffffff;
   text {
     font-family: Roboto, sans-serif;
     font-size: 20px;

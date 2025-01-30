@@ -63,17 +63,6 @@ const Result_HarmonyPage = () => {
         </div>
       </To_under_button>
 
-      <Total_Conatiner>
-        <ResultsConatiner>
-          <Results>
-            <Analysis_title>
-              <img src={Logo} />
-              분석 결과 1 :
-            </Analysis_title>
-          </Results>
-          <Analysis_content>이것은 설명입니다. </Analysis_content>
-        </ResultsConatiner>
-      </Total_Conatiner>
       <Slick></Slick>
       <div
         style={{
@@ -81,10 +70,15 @@ const Result_HarmonyPage = () => {
           display: "flex",
           justifyContent: "center",
           fontFamily: "Pretentard",
+          gap: "70px",
         }}
       >
         <Link to="/harmony" className="SBL button">
           이전으로
+        </Link>
+
+        <Link to="/" className="PBL button">
+          다운로드
         </Link>
       </div>
       <Othersystems></Othersystems>
