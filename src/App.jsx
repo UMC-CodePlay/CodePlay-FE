@@ -1,4 +1,4 @@
-import SessionPage from "./pages/Main/SessionPage";
+/*import SessionPage from "./pages/Main/SessionPage";
 import ScorePage from "./pages/Main/ScorePage";
 import HarmonyPage from "./pages/Main/HarmonyPage";
 import HomePage from "./pages/Main/HomePage";
@@ -29,14 +29,14 @@ const App = () => {
 };
 
 export default App;
+*/
 
-/* 마이페이지
 import './App.css'
-import Mypagehold from'./pages/Mypagehold.jsx';
-import MPYharmony from './pages/MPYharmony.jsx';
-import MPYsession from './pages/MPYsession.jsx';
-import MPYnote from './pages/MPYnote.jsx';
-import MPYsearch from './pages/MPYsearch.jsx'
+import Mypagehold from'./pages/Mypage/Mypagehold.jsx';
+import MPYharmony from './pages/Mypage/MPYharmony.jsx';
+import MPYsession from './pages/Mypage/MPYsession.jsx';
+import MPYsearch from './pages/Mypage/MPYsearch.jsx'
+import MPYinfo from './pages/Mypage/MPYinfo.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -46,9 +46,9 @@ function App() {
     <Router>
         <Routes>
           <Route path="/" element={<Mypagehold/>} />
+          <Route path="/mypageinfo" element={<MPYinfo/>} />
           <Route path="/mypageharmony" element={<MPYharmony/>} />
           <Route path="/mypagesession" element={<MPYsession/>} />
-          <Route path="/mypagenote" element={<MPYnote/>} />
           <Route path="/mypagesearch" element={<MPYsearch/>} />
 
 
@@ -60,4 +60,4 @@ function App() {
 }
 
 export default App;
-*/
+

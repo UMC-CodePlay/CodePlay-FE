@@ -1,7 +1,7 @@
-import Introduce from '../components/Introduce.jsx';
-import SearchBar from '../components/SearchBar.jsx';
-import Menu from '../components/Menu.jsx';
-import Menu3 from '../components/Menu3.jsx'
+import Introduce from '../../components/Mypg/Introduce.jsx';
+import SearchBar from '../../components/Mypg/SearchBar.jsx';
+import Menu from '../../components/Mypg/Menu.jsx';
+import Menu3 from '../../components/Mypg/Menu3.jsx'
 
 
 

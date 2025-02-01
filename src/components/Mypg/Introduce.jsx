@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import PersonIcon  from "../assets/images/person.svg";
+import PersonIcon  from "../../assets/Mypg_img/person.svg";
+import MPYinfo from '../../pages/Mypage/MPYinfo.jsx'
+import { Link } from "react-router-dom"; // React Router의 Link import
+
+
 
 
 const Container = styled.div`
@@ -17,7 +21,7 @@ const ProfileHeader = styled.div`
   align-items: center;
   width: 100%;
   max-width: 900px;
-  padding: 40px;
+  padding: 0px 0px 40px 0px;
   background-color: white;
   border-bottom: 1px solid #e5e5e5;
 `;
@@ -44,13 +48,18 @@ const ProfileName = styled.h2`
   align-items: center;
 `;
 
-const EditProfile = styled.span`
+const EditProfile = styled(Link)` // Link로 변경
   margin-left: 10px;
+  margin-top: 10px;
   font-size: 14px;
   font-weight: normal;
   color: #888;
   text-decoration: underline;
   cursor: pointer;
+
+  &:hover {
+    color: #555; // 호버 시 색상 변경
+  }
 `;
 
 const ProfileEmail = styled.p`
@@ -66,10 +75,10 @@ function MyPageBar() {
         <ProfileImage src={PersonIcon} alt="프로필 아이콘" />
         <ProfileInfo>
           <ProfileName>
-            닉네임
-            <EditProfile>프로필 수정</EditProfile>
+            12345677.naver.com
           </ProfileName>
-          <ProfileEmail>00000000@naver.com · 간편로그인 타입</ProfileEmail>
+          <EditProfile to="/mypageinfo">회원정보 수정
+          </EditProfile>
         </ProfileInfo>
       </ProfileHeader>
     </Container>

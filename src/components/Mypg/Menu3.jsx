@@ -1,6 +1,6 @@
 import { useState } from "react";
-import likeButtonOff from "../assets/images/like_button_off.svg";
-import likeButtonOn from "../assets/images/like_button_on.svg";
+import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
+import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
 
 const Menu3 = () => {
   const [activeButton, setActiveButton] = useState("전체");

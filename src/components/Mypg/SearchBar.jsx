@@ -1,5 +1,5 @@
 import { useState } from "react";
-import searchButtonIcon from "../assets/images/search_button.svg"; // 버튼 SVG 불러오기
+import searchButtonIcon from "../../assets/Mypg_img/search_button.svg"; // 버튼 SVG 불러오기
 import { Link } from 'react-router-dom';
 
 
