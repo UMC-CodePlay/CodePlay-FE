@@ -47,7 +47,7 @@ const TitleWrapper = styled.div`
   font-family: Pretendard;
   font-size: 24px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 60;
   line-height: normal;
 `;
 

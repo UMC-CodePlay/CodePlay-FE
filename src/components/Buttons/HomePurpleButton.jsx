@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const HomePgButton = styled.button`
+const HomeBlueButton = styled.button`
   width: 310px;
   height: 59px;
   padding: 15px 30px;
@@ -32,7 +32,7 @@ const HomePgButton = styled.button`
   }
 
   &:disabled {
-    background: rgba(201, 195, 206, 1); 
+    background: rgba(201, 195, 206, 1);
     cursor: not-allowed;
     color: white;
   }
@@ -42,4 +42,4 @@ const HomePgButton = styled.button`
   }
 `;
 
-export default HomePgButton;
+export default HomeBlueButton;

@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
-import SessionButton from "../../components/Buttons/SessionButton";
+import SessionButton from "../../components/Buttons/BlueButton";
 import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import UploadSession from "../../components/UploadSession";

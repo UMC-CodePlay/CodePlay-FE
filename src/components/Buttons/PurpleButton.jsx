@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const SessionButton = styled.button`
+const PurpleButton = styled.button`
   width: 198px;
   height: 59px;
   padding: 0;
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  background: linear-gradient(180deg, #377DEB 0%, #235CD9 87.5%);
+  background: linear-gradient(180deg, #9747ff 12.5%, #5e00bc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,15 +23,20 @@ const SessionButton = styled.button`
   }
 
   &:hover {
-    background: linear-gradient(180deg, #225AD5 29.66%, #1A42AA 88.98%); 
+    background: linear-gradient(180deg, #613fa4 0%, #321a61 100%);
   }
 
   &:active {
-    background: linear-gradient(143.01deg, #0E23A9 10.03%, #2660DB 91.86%); 
+    background: linear-gradient(
+        140.12deg,
+        rgba(15, 51, 209, 0.3) 11.62%,
+        rgba(255, 255, 255, 0.3) 94.65%
+      ),
+      linear-gradient(143.01deg, #000068 10.03%, #6f3da1 91.86%);
   }
 
   &:disabled {
-    background: linear-gradient(180deg, #377DEB 0%, #235CD9 87.5%);
+    background: linear-gradient(180deg, #9747ff 12.5%, #5e00bc 100%);
     cursor: not-allowed;
     opacity: 0.6;
   }
@@ -41,4 +46,4 @@ const SessionButton = styled.button`
   }
 `;
 
-export default SessionButton;
+export default PurpleButton;
