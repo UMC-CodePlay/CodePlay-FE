@@ -7,7 +7,7 @@ const PrevPurpleButton = styled.button`
   gap: 10px;
   border-radius: 5px;
   border: 1px solid rgba(111, 61, 161, 1);
-  background: transparent;
+  background: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -22,7 +22,6 @@ const PrevPurpleButton = styled.button`
     text-decoration: none;
     color: rgba(111, 61, 161, 1);
   }
-
 `;
 
 export default PrevPurpleButton;

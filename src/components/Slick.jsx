@@ -93,7 +93,7 @@ const Slick = () => {
                   <img src={Logo} />키 :
                 </Analysis_title>
               </Results>
-              <Analysis_content>이것은 설명입니다. </Analysis_content>
+              <Analysis_content>이것은 설명입니다</Analysis_content>
             </ResultsConatiner>
           </Total_Conatiner>
         </div>

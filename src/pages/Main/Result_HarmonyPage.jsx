@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
 import PurpleButton from "../../components/Buttons/PurpleButton";
 import PrevPurpleButton from "../../components/Buttons/PrevPurpleButton";
-
+import BackGroundResult from "../../components/BackGroundResult";
 const Result_HarmonyPage = () => {
   const [pcikButton, setPickButton] = useState(0);
   return (
@@ -21,6 +21,7 @@ const Result_HarmonyPage = () => {
         title="화상 분석 결과"
         subtitle="어쩌고저쩌고 그냥 그런 내용들"
       ></TitleNavbar>
+      <BackGroundResult></BackGroundResult>
       <div
         style={{
           marginTop: "100px",
@@ -41,17 +42,13 @@ const Result_HarmonyPage = () => {
           gap: "70px",
         }}
       >
-      <PrevPurpleButton>
-        <Link to="/harmony">
-          이전으로
-        </Link>
-      </PrevPurpleButton>
+        <PrevPurpleButton>
+          <Link to="/harmony">이전으로</Link>
+        </PrevPurpleButton>
 
-      <StyledPurpleButton>
-        <Link to="/">
-          다운로드
-        </Link>
-      </StyledPurpleButton>
+        <StyledPurpleButton>
+          <Link to="/audioloading">다운로드</Link>
+        </StyledPurpleButton>
       </div>
       <Othersystems></Othersystems>
     </>

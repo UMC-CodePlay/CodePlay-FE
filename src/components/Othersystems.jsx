@@ -38,15 +38,17 @@ const Othersystems = () => {
   return (
     <>
       <Container>
-        <DifferentFunction >
+        <DifferentFunction>
           <h3>이런 기능도 있어요</h3>
         </DifferentFunction>
 
         <Container2>
-          <imagebox>
+          <>
             <ImageComponent></ImageComponent>
+          </>
+          <>
             <h5>{linkPath === "/harmony" ? "화성 분석" : "세션 분리"}</h5>
-          </imagebox>
+          </>
         </Container2>
       </Container>
     </>
@@ -74,48 +76,12 @@ const DifferentFunction = styled.div`
   align-self: stretch;
 `;
 
-const DifferentFunction_subTitle = styled.div`
-  display: flex;
-  color: #000;
-  justify-content: center;
-`;
-
 const Container2 = styled.div`
-  gap: 120px;
+  gap: 10px;
   padding-top: 50px;
-  display: flex;
+  display: grid;
+  grid-template-rows: auto auto;
   justify-content: center;
   align-content: center;
   justify-items: center;
-`;
-
-const Container_left = styled.div`
-  justify-items: center;
-  align-items: center;
-  text-align: center;
-`;
-
-const Container_right = styled.div`
-  justify-items: center;
-  align-items: center;
-  text-align: center;
-`;
-
-const Imagebox = styled.link`
-  display: inline-block;
-  width: 300px;
-  height: 190px;
-  background: url(${session}) no-repeat center;
-  background-size: contain;
-  border: none;
-  cursor: pointer;
-`;
-
-const imagine = styled.link`
-  display: inline-block;
-  width: 300px;
-  height: 190px;
-  background-size: contain;
-  border: none;
-  cursor: pointer;
 `;
