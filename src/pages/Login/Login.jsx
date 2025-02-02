@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthWrapper from "../../components/Login/AuthWrapper";
 import InputField from "../../components/Login/InputField";
@@ -54,23 +53,7 @@ const Login = () => {
           <span style={styles.signupLink} onClick={() => navigate("/signup")}> Sign Up</span>
         </p>
       </div>
-      <div>
-        <h2 style={styles.title}>로그인</h2>
-        <form onSubmit={handleLogin}>
-          <InputField type="email" placeholder="이메일을 입력하세요." value={email} onChange={(e) => setEmail(e.target.value)} />
-          <InputField type="password" placeholder="비밀번호를 입력하세요." value={password} onChange={(e) => setPassword(e.target.value)} />
-          <p style={styles.forgotPassword} onClick={() => navigate("/login/findpwd/auth")}>비밀번호를 잊으셨나요?</p>
-          <Button text="로그인" onClick={handleLogin} />
-        </form>
-
-        <SocialLogin />
-
-        {/* ✅ 회원가입 버튼 추가 */}
-        <p style={styles.signupContainer}>
-          아직 회원이 아니신가요? 
-          <span style={styles.signupLink} onClick={() => navigate("/signup")}> Sign Up</span>
-        </p>
-      </div>
+      
     </AuthWrapper>
   );
 };
