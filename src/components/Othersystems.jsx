@@ -38,8 +38,8 @@ const Othersystems = () => {
   return (
     <>
       <Container>
-        <DifferentFunction ㄴㅅ>
-          <h3>이런 건 어때요?</h3>
+        <DifferentFunction >
+          <h3>이런 기능도 있어요</h3>
         </DifferentFunction>
 
         <Container2>

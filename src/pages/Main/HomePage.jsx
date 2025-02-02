@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Navbar from "../../components/Navbar.jsx";
 import Header from "../../components/1screen/header.jsx";
-import Pearch from "../../components/1screen/search.jsx";
-import Feature from "../../components/1screen/feature.jsx";
 import Harmony from "../../components/2screen/harmony.jsx";
-import Score from "../../components/3screen/score.jsx";
 import Stem from "../../components/4screen/stem.jsx";
+import a from "../../assets/a.svg";
+import Screen5 from "../../assets/Screen5.svg";
+import Screen6 from "../../assets/Screen6.svg";
 
 // styled-components로 스타일 정의
 const HomePageWrapper = styled.div`
@@ -14,9 +14,24 @@ const HomePageWrapper = styled.div`
   padding: 0px;
   box-sizing: border-box;
   background-color: #f9f9f9;
-  overflow-y: auto; /* 스크롤 가능하도록 설정 */
-  padding-top: 200px; /* 네비게이션 바가 고정되었으므로 여백 추가 */
+  overflow-y: auto;
+  padding-top: 200px;
   text-align: center;
+`;
+
+const BackgroundImage = styled.img`
+  width: 1920px;
+  height: 600px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+`;
+const SectionImage = styled.img`
+  width: 1920px;
+  height: 900px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
 `;
 
 // HomePage 컴포넌트 정의
@@ -25,11 +40,11 @@ const HomePage = () => {
     <HomePageWrapper>
       <Navbar />
       <Header />
-      <Pearch />
-      <Feature />
+      <BackgroundImage src={a} alt="Background" />
       <Harmony />
-      <Score />
       <Stem />
+      <SectionImage src={Screen5} alt="Screen5" />
+      <SectionImage src={Screen6} alt="Screen6" />
     </HomePageWrapper>
   );
 };

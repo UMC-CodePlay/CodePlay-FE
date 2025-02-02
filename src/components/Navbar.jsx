@@ -17,11 +17,6 @@ function Navbar() {
           <ArrayButtons>
             <ButtonStyle to="/harmony">화성 분석</ButtonStyle>
             <ButtonStyle to="/session">세션 분리</ButtonStyle>
-            {/*
-            <ButtonStyle>
-              <Link to="/score">악보 생성</Link>
-            </ButtonStyle>
-            */}
             <button className="TBBSU button">회원가입</button>
             <button className="TWBLG button">로그인</button>
             {/*

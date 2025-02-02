@@ -1,9 +1,7 @@
-/*import SessionPage from "./pages/Main/SessionPage";
-import ScorePage from "./pages/Main/ScorePage";
+import SessionPage from "./pages/Main/SessionPage";
 import HarmonyPage from "./pages/Main/HarmonyPage";
 import HomePage from "./pages/Main/HomePage";
 import Result_HarmonyPage from "./pages/Main/Result_HarmonyPage";
-import Result_ScorePage from "./pages/Main/Result_ScorePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Result_SeesionPage from "./pages/Main/Result_SessionPage";
 const App = () => {
@@ -21,43 +19,41 @@ const App = () => {
           path="/session/result_session"
           element={<Result_SeesionPage />}
         />
-        <Route path="/score" element={<ScorePage />} />
-        <Route path="/score/result_score" element={<Result_ScorePage />} />
       </Routes>
     </Router>
   );
 };
 
 export default App;
-*/
-
-import './App.css'
-import Mypagehold from'./pages/Mypage/Mypagehold.jsx';
-import MPYharmony from './pages/Mypage/MPYharmony.jsx';
-import MPYsession from './pages/Mypage/MPYsession.jsx';
-import MPYsearch from './pages/Mypage/MPYsearch.jsx'
-import MPYinfo from './pages/Mypage/MPYinfo.jsx';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
-function App() {
+// import './App.css'
+// import Mypagehold from'./pages/Mypage/Mypagehold.jsx';
+// import MPYharmony from './pages/Mypage/MPYharmony.jsx';
+// import MPYsession from './pages/Mypage/MPYsession.jsx';
+// import MPYsearch from './pages/Mypage/MPYsearch.jsx'
+// import MPYinfo from './pages/Mypage/MPYinfo.jsx';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-  return (
-    <Router>
-        <Routes>
-          <Route path="/" element={<Mypagehold/>} />
-          <Route path="/mypageinfo" element={<MPYinfo/>} />
-          <Route path="/mypageharmony" element={<MPYharmony/>} />
-          <Route path="/mypagesession" element={<MPYsession/>} />
-          <Route path="/mypagesearch" element={<MPYsearch/>} />
+
+// function App() {
+
+//   return (
+//     <Router>
+//         <Routes>
+//           <Route path="/" element={<Mypagehold/>} />
+//           <Route path="/mypageinfo" element={<MPYinfo/>} />
+//           <Route path="/mypageharmony" element={<MPYharmony/>} />
+//           <Route path="/mypagesession" element={<MPYsession/>} />
+//           <Route path="/mypagesearch" element={<MPYsearch/>} />
 
 
 
           
-        </Routes>
-    </Router>
-  )
-}
+//         </Routes>
+//     </Router>
+//   )
+// }
 
-export default App;
+// export default App;
 
