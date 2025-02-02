@@ -30,6 +30,7 @@ const BackgroundImage = styled.img`
   margin: 0 auto;
   object-fit: cover;
 `;
+
 const SectionImage = styled.img`
   width: 1920px;
   height: 900px;

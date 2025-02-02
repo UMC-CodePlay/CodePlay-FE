@@ -94,9 +94,10 @@ const UploadContainer = styled.div`
   width: 805px;
   height: 217px;
   position: relative;
-  background: ${(props) => (props.isDragOver ? "#5A3182" : "#333")};
+  background: rgba(28, 28, 38, 0.4);
+  backdrop-filter: blur(137.73px);
   border-radius: 12px;
-  border: ${(props) => (props.isDragOver ? "2px dashed #fff" : "2px solid transparent")};
+  border: 3px dashed rgb(129, 128, 130);
   display: flex;
   align-items: center;
   justify-content: center;

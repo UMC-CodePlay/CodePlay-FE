@@ -37,7 +37,6 @@ const StyledTitle = styled.div`
   justify-content: space-between;
   left: 0;
   grid-template-rows: 1fr 1fr;
-  border-bottom: 1px solid var(--gray-regular-line, #c9c3ce);
 `;
 
 const Title = styled.div`

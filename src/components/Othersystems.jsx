@@ -60,27 +60,32 @@ export default Othersystems;
 const Container = styled.div`
   background: var(--bg, #17171E);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  postion : flex;
-  width:; 100%;
-  height : 720px; 
-  margin-top : 150px;
-  padding : 0 ;
-  color : #ffffff;
-  `;
+  width: 100%;
+  margin-top: 150px;
+  min-height: 720px; 
+  height: 100vh;
+  padding: 0;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
 
 const DifferentFunction = styled.div`
   display: flex;
-  padding-top: 100px;
   color: #000;
   justify-content: center;
   align-self: stretch;
 `;
 
+
 const Container2 = styled.div`
-  gap: 10px;
-  padding-top: 50px;
-  display: grid;
-  grid-template-rows: auto auto;
+  gap: 120px;
+  padding-top: 10px;
+  display: flex;
   justify-content: center;
   align-content: center;
   justify-items: center;

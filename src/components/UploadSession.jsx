@@ -94,9 +94,10 @@ const UploadContainer = styled.div`
   width: 805px;
   height: 217px;
   position: relative;
-  background: ${(props) => (props.isDragOver ? "#5A3182" : "#333")};
+  background: rgba(28, 28, 38, 0.4);
+  backdrop-filter: blur(137.73px);
   border-radius: 12px;
-  border: ${(props) => (props.isDragOver ? "2px dashed #fff" : "2px solid transparent")};
+  border: 3px dashed rgb(129, 128, 130);  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,8 +151,8 @@ const HiddenFileInput = styled.input`
 
 //업로딩중
 const UploadingBox = styled.div`
-  width: 805px;
-  height: 217px;
+  width: 100%;
+  height: 100%;
   background: #f4f4f4;
   border-radius: 12px;
   display: flex;
@@ -170,11 +171,11 @@ const UploadingText = styled.p`
 `;
 
 const ProgressBarContainer = styled.div`
-  width: 80%;
+  width: 100%;
   height: 8px;
   background: #ddd;
   border-radius: 4px;
-  margin: 10px 0;
+  margin: 10px;
   overflow: hidden;
 `;
 

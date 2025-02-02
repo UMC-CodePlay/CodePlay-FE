@@ -5,13 +5,15 @@ import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import UploadHarmony from "../../components/UploadHarmony";
 import styled from "styled-components";
+import BackgroundSvg from "../../assets/HarmonyBg.svg";
 
 const HarmonyPage = () => {
   return (
-    <div>
+    <PageContainer>
       <Navbar />
 
       <TitleNavbar title="화성 분석" subtitle="내용들" />
+      <BackgroundImage src={BackgroundSvg} alt="Background" />
 
       <div
         style={{
@@ -32,18 +34,26 @@ const HarmonyPage = () => {
       </div>
 
       <Othersystems />
-    </div>
+    </PageContainer>
   );
 };
 
 export default HarmonyPage;
 
-const BackgroundImage = styled.img`
+const PageContainer = styled.div`
+  position: relative;
   width: 100%;
-  height: 1080px;
-  object-fit: cover; /* 비율 유지하면서 크기 맞춤 */
+  min-height: 100vh;
+  overflow: hidden;
+`;
+
+const BackgroundImage = styled.img`
+  width: 100vw; 
+  min-height: 747px; 
+  height: auto;
+  object-fit: cover;
   position: absolute;
-  top: 0;
+  top: 350px;
   left: 0;
-  z-index: -1; /* 다른 요소 위로 올라오지 않도록 뒤로 배치 */
+  z-index: -1;
 `;
