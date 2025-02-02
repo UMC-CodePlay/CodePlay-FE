@@ -5,13 +5,12 @@ import Logo from "../../assets/Logo_img/logo_bk_white.svg";
 import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import UploadBox from "../../components/UploadBox";
-import "../../components/Buttons/SecondaryButton.css";
 import Othersystems from "../../components/Othersystems";
 import "../../components/Buttons/TertiaryWhiteButton.css";
 import "../../components/Buttons/TertiaryBlackButton.css";
-import "../../components/Buttons/PrimaryButton.css";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
+import PurpleButton from "../../components/Buttons/PurpleButton";
 import ResultHarmonyButton from "../../components/Buttons/ResultHarmonyButton";
 const Result_HarmonyPage = () => {
   const [pcikButton, setPickButton] = useState(0);
@@ -42,13 +41,10 @@ const Result_HarmonyPage = () => {
           gap: "70px",
         }}
       >
-        <Link to="/harmony" className="SBL button">
-          이전으로
-        </Link>
-
-        <Link to="/" className="PBL button">
-          다운로드
-        </Link>
+        <Link to="/harmony">이전으로</Link>
+        <PurpleButton>
+          <Link to="/">다운로드</Link>
+        </PurpleButton>
       </div>
       <Othersystems></Othersystems>
     </>
