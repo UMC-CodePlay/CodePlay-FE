@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
-import PrimaryButton from "../../components/Buttons/PrimaryButton";
+import PurpleButton from "../../components/Buttons/PurpleButton";
 import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import UploadHarmony from "../../components/UploadHarmony";
@@ -20,17 +20,17 @@ const HarmonyPage = () => {
           justifyContent: "center",
         }}
       >
-        <UploadHarmony /> 
+        <UploadHarmony />
       </div>
 
       <div
         style={{ marginTop: "60px", display: "flex", justifyContent: "center" }}
       >
-        <PrimaryButton>
+        <PurpleButton>
           <Link to="/harmony/result_harmony">결과보기</Link>
-        </PrimaryButton>
+        </PurpleButton>
       </div>
-      
+
       <Othersystems />
     </div>
   );

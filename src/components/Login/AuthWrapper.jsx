@@ -1,5 +1,5 @@
 import React from "react";
-import loginBg from "../../assets/Login_img/login_bg.png";
+import loginBg from "../../assets/Login_img/login_bg.svg";
 
 const styles = {
   container: {
