@@ -6,32 +6,29 @@ import "./Buttons/TertiaryWhiteButton.css";
 
 function Navbar() {
   return (
-    <>
-      <Container>
-        <StyledNavbar>
-          <StyledButton>
-            <Link to="/">
-              <img src={Logo} />
-            </Link>
-          </StyledButton>
-          <ArrayButtons>
-            <ButtonStyle to="/harmony">화성 분석</ButtonStyle>
-            <ButtonStyle to="/session">세션 분리</ButtonStyle>
+    <Container>
+      <StyledNavbar>
+        <StyledButton>
+          <Link to="/">
+            <img src={Logo} />
+          </Link>
+        </StyledButton>
+        <ArrayButtons>
+          <ButtonStyle to="/harmony">화성 분석</ButtonStyle>
+          <ButtonStyle to="/session">세션 분리</ButtonStyle>
+          <Link to="/signup">
             <button className="TBBSU button">회원가입</button>
+          </Link>
+          <Link to="/login">
             <button className="TWBLG button">로그인</button>
-            {/*
-
-            <ButtonStyle_su>회원가입</ButtonStyle_su>
-            <ButtonStyle_lg>로그인</ButtonStyle_lg>
-            */}
-          </ArrayButtons>
-        </StyledNavbar>
-      </Container>
-    </>
+          </Link>
+        </ArrayButtons>
+      </StyledNavbar>
+    </Container>
   );
 }
-export default Navbar;
 
+export default Navbar;
 const StyledButton = styled.div`
   width: 50px;
   height: 50px;

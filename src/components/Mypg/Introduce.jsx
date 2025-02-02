@@ -77,7 +77,7 @@ function MyPageBar() {
           <ProfileName>
             12345677.naver.com
           </ProfileName>
-          <EditProfile to="/mypageinfo">회원정보 수정
+          <EditProfile to="/mypage/mypageinfo">회원정보 수정
           </EditProfile>
         </ProfileInfo>
       </ProfileHeader>

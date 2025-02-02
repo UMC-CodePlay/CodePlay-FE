@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import Navbar from "../../components/Navbar.jsx";
 import Header from "../../components/1screen/header.jsx";
 import Harmony from "../../components/2screen/harmony.jsx";
@@ -6,6 +7,9 @@ import Stem from "../../components/4screen/stem.jsx";
 import a from "../../assets/a.svg";
 import Screen5 from "../../assets/Screen5.svg";
 import Screen6 from "../../assets/Screen6.svg";
+import Navbarlog from "../../components/Mypg/NavbarLog.jsx";
+import { useNavbar } from "../../context/NavbarContext"; // Context 사용
+
 
 // styled-components로 스타일 정의
 const HomePageWrapper = styled.div`
@@ -36,9 +40,11 @@ const SectionImage = styled.img`
 
 // HomePage 컴포넌트 정의
 const HomePage = () => {
+
+  const { isNavbar1 } = useNavbar();
   return (
     <HomePageWrapper>
-      <Navbar />
+      {isNavbar1 ? <Navbarlog /> : <Navbar />}
       <Header />
       <BackgroundImage src={a} alt="Background" />
       <Harmony />

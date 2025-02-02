@@ -27,8 +27,8 @@ const Menu = () => {
           textAlign: "center",
         }}  
       >
-        <span style={{ cursor: "pointer" }}><StyledLink to="/mypageharmony">화성 분석 결과</StyledLink></span>
-        <span style={{ cursor: "pointer" }}><StyledLink to="/mypagesession">분리된 세션</StyledLink></span>
+        <span style={{ cursor: "pointer" }}><StyledLink to="/mypage/mypageharmony">화성 분석 결과</StyledLink></span>
+        <span style={{ cursor: "pointer" }}><StyledLink to="/mypage/mypagesession">분리된 세션</StyledLink></span>
       </div>
     </div>
   );

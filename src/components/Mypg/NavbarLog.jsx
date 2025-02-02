@@ -1,34 +1,37 @@
 import styled from "styled-components";
 import Logo from "../../assets/Logo_img/logo.svg";
 import { Link } from "react-router-dom";
+import { useNavbar } from "../../context/NavbarContext"; // Navbar 상태 변경 함수 가져오기
 
 function NavbarLog() {
+  const { resetNavbar } = useNavbar(); // 로그아웃 시 Navbar 상태 초기화
+
   return (
-    <>
-      <Container>
-        <StyledNavbar>
-          <StyledButton>
-            <Link to="/">
-              <img src={Logo} />
-            </Link>
-          </StyledButton>
-          <ArrayButtons>
-            <ButtonStyle>
-              <StyledLink to="/harmony">화성 분석</StyledLink>
-            </ButtonStyle>
-            <ButtonStyle>
-              <StyledLink to="/session">세션 분리</StyledLink>
-            </ButtonStyle>  
-            <ButtonStyle>
-              <StyledLink to="/score">마이페이지</StyledLink>
-            </ButtonStyle>
-            <ButtonStyle_su>로그아웃</ButtonStyle_su>
-          </ArrayButtons>
-        </StyledNavbar>
-      </Container>
-    </>
+    <Container>
+      <StyledNavbar>
+        <StyledButton>
+          <Link to="/">
+            <img src={Logo} />
+          </Link>
+        </StyledButton>
+        <ArrayButtons>
+          <ButtonStyle>
+            <StyledLink to="/harmony">화성 분석</StyledLink>
+          </ButtonStyle>
+          <ButtonStyle>
+            <StyledLink to="/session">세션 분리</StyledLink>
+          </ButtonStyle>  
+          <ButtonStyle>
+            <StyledLink to="/mypage">마이페이지</StyledLink>
+          </ButtonStyle>
+          {/* 로그아웃 버튼 클릭 시 resetNavbar() 실행 */}
+          <ButtonStyle_su onClick={() => { resetNavbar(); }}>로그아웃</ButtonStyle_su>
+        </ArrayButtons>
+      </StyledNavbar>
+    </Container>
   );
 }
+
 export default NavbarLog;
 const StyledLink = styled(Link)`
   text-decoration: none; /* 밑줄 제거 */

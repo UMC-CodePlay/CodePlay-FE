@@ -65,7 +65,7 @@ const SearchBar = () => {
             alignItems: "center",
           }}
         >
-          <Link to="/mypagesearch">
+          <Link to="/mypage/mypagesearch">
           <img
             src={searchButtonIcon}
             alt="검색 버튼"
