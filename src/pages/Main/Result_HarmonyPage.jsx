@@ -1,20 +1,16 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import "../../components/2screen/harmony.css";
-import Logo from "../../assets/Logo_img/logo_bk_white.svg";
 import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import UploadBox from "../../components/UploadBox";
-import "../../components/Buttons/SecondaryButton.css";
 import Othersystems from "../../components/Othersystems";
 import "../../components/Buttons/TertiaryWhiteButton.css";
 import "../../components/Buttons/TertiaryBlackButton.css";
-import "../../components/Buttons/PrimaryButton.css";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
-import ResultHarmonyButton from "../../components/Buttons/ResultHarmonyButton";
-import PrevPurpleButton from "../../components/Buttons/PrevPurpleButton";
 import PurpleButton from "../../components/Buttons/PurpleButton";
+import PrevPurpleButton from "../../components/Buttons/PrevPurpleButton";
 
 const Result_HarmonyPage = () => {
   const [pcikButton, setPickButton] = useState(0);

@@ -7,7 +7,6 @@ import styled from "styled-components";
         subtitle="어쩌고저쩌고 그냥 그런 내용들"
     ></TitleNavbar> 
     이렇게 작성해서 title, subtitle을 해당 jsx에서 설정할 수 있음 */
-// eslint-disable-next-line react/prop-types
 const TitleNavbar = ({ title, subtitle }) => {
   return (
     <div>
