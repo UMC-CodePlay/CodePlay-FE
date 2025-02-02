@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 import "../../components/2screen/harmony.css";
 import Logo from "../../assets/Logo_img/logo_bk_white.svg";
 import Navbar from "../../components/Navbar";
@@ -11,7 +12,9 @@ import "../../components/Buttons/TertiaryBlackButton.css";
 import "../../components/Buttons/PrimaryButton.css";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
+import ResultHarmonyButton from "../../components/Buttons/ResultHarmonyButton";
 const Result_HarmonyPage = () => {
+  const [pcikButton, setPickButton] = useState(0);
   return (
     <>
       <Navbar />
@@ -28,40 +31,6 @@ const Result_HarmonyPage = () => {
       >
         <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
       </div>
-      <To_under_button>
-        <div className="harmony-info">
-          <div className="info-container">
-            <p className="info-label">Key</p>
-            <div className="info-item">
-              <span>F#</span>
-            </div>
-          </div>
-          <div className="info-container">
-            <p className="info-label">Scale</p>
-            <div className="info-item">
-              <span>Major</span>
-            </div>
-          </div>
-          <div className="info-container">
-            <p className="info-label">Chord</p>
-            <div className="info-item">
-              <span>I-IV-V</span>
-            </div>
-          </div>
-          <div className="info-container">
-            <p className="info-label">BPM</p>
-            <div className="info-item">
-              <span>100</span>
-            </div>
-          </div>
-          <div className="info-container">
-            <p className="info-label">음압</p>
-            <div className="info-item">
-              <span>100</span>
-            </div>
-          </div>
-        </div>
-      </To_under_button>
 
       <Slick></Slick>
       <div

@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { useState, Component } from "react";
+import React, { useState, Component, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,8 +6,12 @@ import styled from "styled-components";
 import Logo from "../assets/logo_bk_white.svg";
 import prevarrow_on from "../assets/prevarrow_on.svg";
 import nextarrow_on from "../assets/nextarrow_on.svg";
+import ResultHarmonyButton from "./Buttons/ResultHarmonyButton";
 
 const Slick = () => {
+  const SlickViewer = () => {
+    const [activeSlick, setActiveSlick] = useState("slick1");
+  };
   const PrevArrowContainer = styled.div`
     position: absolute;
     left: -50px;
@@ -44,6 +47,8 @@ const Slick = () => {
       </NextArrowContainer>
     );
   };
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef(null);
 
   const settings = {
     dots: true,
@@ -54,49 +59,72 @@ const Slick = () => {
     arrows: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    afterChange: (index) => setCurrentSlide(index),
   };
 
   return (
-    <Slider {...settings}>
-      <div>
-        <Total_Conatiner>
-          <ResultsConatiner>
-            <Results>
-              <Analysis_title>
-                <img src={Logo} />키 :
-              </Analysis_title>
-            </Results>
-            <Analysis_content>이것은 설명입니다. </Analysis_content>
-          </ResultsConatiner>
-        </Total_Conatiner>
-      </div>
-      <div>
-        <Total_Conatiner>
-          <ResultsConatiner>
-            <Results>
-              <Analysis_title>
-                <img src={Logo} />
-                템포 :
-              </Analysis_title>
-            </Results>
-            <Analysis_content>이것은 설명입니다. </Analysis_content>
-          </ResultsConatiner>
-        </Total_Conatiner>
-      </div>
-      <div>
-        <Total_Conatiner>
-          <ResultsConatiner>
-            <Results>
-              <Analysis_title>
-                <img src={Logo} />
-                음압 :
-              </Analysis_title>
-            </Results>
-            <Analysis_content>이것은 설명입니다. </Analysis_content>
-          </ResultsConatiner>
-        </Total_Conatiner>
-      </div>
-    </Slider>
+    <>
+      <ButtonContainer>
+        <ResultHarmonyButton
+          title={"Scale"}
+          onClick={() => {
+            sliderRef.current.slickGoTo(0);
+          }}
+        ></ResultHarmonyButton>
+        <ResultHarmonyButton
+          title={"BPM"}
+          onClick={() => {
+            sliderRef.current.slickGoTo(1);
+          }}
+        ></ResultHarmonyButton>
+        <ResultHarmonyButton
+          title={"음압"}
+          onClick={() => {
+            sliderRef.current.slickGoTo(2);
+          }}
+        ></ResultHarmonyButton>
+      </ButtonContainer>
+      <Slider ref={sliderRef} {...settings}>
+        <div>
+          <Total_Conatiner>
+            <ResultsConatiner>
+              <Results>
+                <Analysis_title>
+                  <img src={Logo} />키 :
+                </Analysis_title>
+              </Results>
+              <Analysis_content>이것은 설명입니다. </Analysis_content>
+            </ResultsConatiner>
+          </Total_Conatiner>
+        </div>
+        <div>
+          <Total_Conatiner>
+            <ResultsConatiner>
+              <Results>
+                <Analysis_title>
+                  <img src={Logo} />
+                  템포{" "}
+                </Analysis_title>
+              </Results>
+              <Analysis_content>이것은 설명입니다. </Analysis_content>
+            </ResultsConatiner>
+          </Total_Conatiner>
+        </div>
+        <div>
+          <Total_Conatiner>
+            <ResultsConatiner>
+              <Results>
+                <Analysis_title>
+                  <img src={Logo} />
+                  음압 :
+                </Analysis_title>
+              </Results>
+              <Analysis_content>이것은 설명입니다. </Analysis_content>
+            </ResultsConatiner>
+          </Total_Conatiner>
+        </div>
+      </Slider>
+    </>
   );
 };
 
@@ -150,7 +178,13 @@ const ResultsConatiner = styled.div`
   gap: 40px;
   border-radius: 30px;
   background: var(--badkground, #f9f9f9);
-  display: grid;
-  grid-templatet-rows: repeat(5, 1fr);
   border-bottom: 1px solid var(--gray-lightline, #e4e1e7);
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 100px;
+  margin-bottom: 100px;
 `;
