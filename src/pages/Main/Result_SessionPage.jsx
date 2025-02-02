@@ -6,6 +6,7 @@ import UploadBox from "../../components/UploadBox";
 import { Link } from "react-router-dom";
 import Audioplay from "../../components/Audioplay";
 import BlueButton from "../../components/Buttons/BlueButton";
+import PrevBlueButton from "../../components/Buttons/PrevBlueButton";
 
 const Result_ScorePage = () => {
   return (
@@ -17,7 +18,9 @@ const Result_ScorePage = () => {
         <Audioplay></Audioplay>
         <>
           <ButtonContainer>
+            <PrevBlueButton>
             <Link to="/session">이전으로</Link>
+            </PrevBlueButton>
             <BlueButton>
               <Link to="/">전체 다운로드</Link>
             </BlueButton>
@@ -30,8 +33,6 @@ const Result_ScorePage = () => {
 };
 
 export default Result_ScorePage;
-
-const Container = styled.div``;
 
 const Wrapper = styled.div`
   display: grid;
