@@ -58,21 +58,19 @@ const Othersystems = () => {
 export default Othersystems;
 
 const Container = styled.div`
-  background: var(--bg, #17171E);
+  background: var(--bg, #17171e);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   width: 100%;
   margin-top: 150px;
-  min-height: 720px; 
   height: 100vh;
   padding: 0;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
+  padding-top: 100px;
 `;
-
 
 const DifferentFunction = styled.div`
   display: flex;
@@ -81,12 +79,12 @@ const DifferentFunction = styled.div`
   align-self: stretch;
 `;
 
-
 const Container2 = styled.div`
-  gap: 120px;
-  padding-top: 10px;
-  display: flex;
-  justify-content: center;
+  gap: 20px;
+  padding-top: 50px;
+  display: grid;
+  justify-content: center;'
   align-content: center;
   justify-items: center;
+  
 `;
