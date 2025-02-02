@@ -1,24 +1,24 @@
-import './harmony.css'
-import { Link } from 'react-router-dom';
+import "./harmony.css";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import HomePgButton from "../Buttons/HomePgButton";
+import HomePgButton from "../Buttons/HomePurpleButton";
 import HomehIcon from "../../assets/HomehIcon.svg";
 
-const Harmony=()=>{
-  return(
-    <section  className="harmony-analysis">
-        <h2 className="section-title">좋아하는 노래의 화성을 분석하기</h2>
-        <p className="section-description">
-          예시텍스트 입니다. 화성분석에 대한 설명글이 들어갈 예정입니다.
-        </p>
+const Harmony = () => {
+  return (
+    <section className="harmony-analysis">
+      <h2 className="section-title">좋아하는 노래의 화성을 분석하기</h2>
+      <p className="section-description">
+        예시텍스트 입니다. 화성분석에 대한 설명글이 들어갈 예정입니다.
+      </p>
       <GraphContainer>
         <GraphImage src={HomehIcon} alt="화성 분석 그래프" />
       </GraphContainer>
-        <ButtonContainer>
+      <ButtonContainer>
         <HomePgButton>
           <Link to="/harmony">화성 분석 바로가기 →</Link>
         </HomePgButton>
-        </ButtonContainer>
+      </ButtonContainer>
     </section>
   );
 };
@@ -44,4 +44,3 @@ const GraphImage = styled.img`
   width: 100%;
   height: auto;
 `;
-

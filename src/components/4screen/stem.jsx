@@ -1,12 +1,12 @@
-import './stem.css';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import HomePgSessionButton from '../Buttons/HomePgSessionButton';
+import "./stem.css";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import HomePgSessionButton from "../Buttons/HomeBlueButton";
 import HomesIcon from "../../assets/HomesIcon.svg";
 
 const Stem = () => {
   return (
-    <section  className="stem-analysis">
+    <section className="stem-analysis">
       <h2 className="section-title">클릭 한 번으로 섞인 음악을 분리하기</h2>
       <p className="section-description">
         예시 텍스트입니다. 세션분리에 대한 설명글이 들어갈 예정입니다.
