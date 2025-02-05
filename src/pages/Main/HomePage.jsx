@@ -8,23 +8,49 @@ import a from "../../assets/a.svg";
 import Screen5 from "../../assets/Screen5.svg";
 import Screen6 from "../../assets/Screen6.svg";
 import Navbarlog from "../../components/Mypg/NavbarLog.jsx";
-import { useNavbar } from "../../context/NavbarContext"; // Context 사용
+import { useNavbar } from "../../context/NavbarContext";
+import BackgroundHeader from "../../assets/Landing_img/1bg.svg";
+import AdIcons from "../../components/6screen/AdIcons.jsx";
 
-
-// styled-components로 스타일 정의
 const HomePageWrapper = styled.div`
   font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0px;
   box-sizing: border-box;
   background-color: #f9f9f9;
   overflow-y: auto;
-  padding-top: 200px;
   text-align: center;
 `;
 
+const HeaderContainer = styled.div`
+  width: 100vw;
+  min-height: 980px;
+  background-image: url(${BackgroundHeader});
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HarmonyContainer = styled.div`
+  width: 100vw;
+  height: 980px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StemContainer = styled.div`
+  width: 100vw;
+  height: 980px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const BackgroundImage = styled.img`
-  width: 1920px;
+  width: 100%;
   height: 600px;
   display: block;
   margin: 0 auto;
@@ -32,11 +58,11 @@ const BackgroundImage = styled.img`
 `;
 
 const SectionImage = styled.img`
-  width: 1920px;
+  width: 100%;
   height: 900px;
   display: block;
-  margin: 0 auto;
   object-fit: cover;
+  
 `;
 
 // HomePage 컴포넌트 정의
@@ -46,12 +72,18 @@ const HomePage = () => {
   return (
     <HomePageWrapper>
       {isNavbar1 ? <Navbarlog /> : <Navbar />}
-      <Header />
+      <HeaderContainer>
+        <Header />
+      </HeaderContainer>
       <BackgroundImage src={a} alt="Background" />
-      <Harmony />
+      <HarmonyContainer>
+        <Harmony />
+      </HarmonyContainer>
+      <StemContainer>
       <Stem />
+      </StemContainer>
       <SectionImage src={Screen5} alt="Screen5" />
-      <SectionImage src={Screen6} alt="Screen6" />
+      <AdIcons></AdIcons>
     </HomePageWrapper>
   );
 };
