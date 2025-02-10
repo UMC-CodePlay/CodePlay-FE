@@ -6,7 +6,6 @@ import Harmony from "../../components/2screen/harmony.jsx";
 import Stem from "../../components/4screen/stem.jsx";
 import a from "../../assets/a.svg";
 import Screen5 from "../../assets/Screen5.svg";
-import Screen6 from "../../assets/Screen6.svg";
 import Navbarlog from "../../components/Mypg/NavbarLog.jsx";
 import { useNavbar } from "../../context/NavbarContext";
 import BackgroundHeader from "../../assets/Landing_img/1bg.svg";

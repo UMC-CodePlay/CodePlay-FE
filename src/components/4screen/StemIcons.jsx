@@ -1,7 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-
-// 이미지 파일들 가져오기
 import Vocal1 from "../../assets/Landing_img/Vocal1.svg";
 import Vocal2 from "../../assets/Landing_img/Vocal2.svg";
 import Bass1 from "../../assets/Landing_img/Bass1.svg";
@@ -11,7 +9,6 @@ import Drum2 from "../../assets/Landing_img/Drum2.svg";
 import Mr1 from "../../assets/Landing_img/Mr1.svg";
 import Mr2 from "../../assets/Landing_img/Mr2.svg";
 
-// 아이콘 데이터 배열
 const icons = [
   { id: 1, defaultImg: Vocal1, hoverImg: Vocal2 },
   { id: 2, defaultImg: Bass1, hoverImg: Bass2 },
@@ -39,17 +36,16 @@ const StemIcons = () => {
 
 export default StemIcons;
 
-// 스타일링
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 40px; /* 아이콘 사이 간격 조정 */
+  gap: 40px;
   margin-top: 30px;
 `;
 
 const IconImage = styled.img`
   width: 274px;
   height:274px;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.1s ease-in-out;
   object-fit: contain;
 `

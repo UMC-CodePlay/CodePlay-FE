@@ -26,7 +26,7 @@ const HarmonyPage = () => {
       </div>
 
       <div
-        style={{ marginTop: "60px", display: "flex", justifyContent: "center" }}
+        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
       >
         <PurpleButton>
           <Link to="/harmony/result_harmony">결과보기</Link>

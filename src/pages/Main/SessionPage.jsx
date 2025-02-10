@@ -4,7 +4,7 @@ import SessionButton from "../../components/Buttons/BlueButton";
 import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import UploadSession from "../../components/UploadSession";
-import BackgroundSvg from "../../assets/Sess.svg";
+import BackgroundSvg from "../../assets/SessionBg.svg";
 import styled from "styled-components";
 
 const SessionPage = () => {
@@ -26,7 +26,7 @@ const SessionPage = () => {
       </div>
 
       <div
-        style={{ marginTop: "60px", display: "flex", justifyContent: "center" }}
+        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
       >
         <SessionButton>
           <Link to="/session/result_session">결과보기</Link>
@@ -48,11 +48,11 @@ const PageContainer = styled.div`
 
 const BackgroundImage = styled.img`
   width: 100vw; 
-  min-height: 430px; 
+  min-height: 600px; 
   height: auto;
   object-fit: cover;
   position: absolute;
-  top: 553px;
+  top: 400px;
   left: 0;
   z-index: -1;
 `;
