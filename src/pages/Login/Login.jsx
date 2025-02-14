@@ -5,6 +5,8 @@ import InputField from "../../components/Login/InputField";
 import Button from "../../components/Login/Button";
 import SocialLogin from "../../components/Login/SocialLogin";
 import { useNavbar } from "../../context/NavbarContext"; // 추가: Navbar 변경 상태 가져오기
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const styles = {
   title: { fontSize: "24px", fontWeight: "bold", marginBottom: "16px", textAlign: "left" },
@@ -21,18 +23,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    
-    // 로그인 로직 추가 가능 (예: API 요청)
-    console.log("로그인 시도:", email, password);
+  const { loginUser } = useContext(AuthContext);
 
-    // ✅ 로그인 성공 후 Navbar 변경
-    toggleNavbar();
+const handleLogin = async (e) => {
+  e.preventDefault();
     
-    // ✅ 홈 화면으로 이동
+  try {
+    await loginUser(email, password);
+    toggleNavbar();
     navigate("/");
-  };
+  } catch (error) {
+    alert("로그인 실패: " + error.message);
+  }
+};
 
   return (
     <AuthWrapper>

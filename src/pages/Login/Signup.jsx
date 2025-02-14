@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import signupBg from "../../assets/Login_img/signup_bg.svg";
 import googleIcon from "../../assets/Login_img/login_google.svg";
 import kakaoIcon from "../../assets/Login_img/login_kakaotalk.svg";
+import { signup } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +13,8 @@ const Signup = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const navigate = useNavigate();
+  
   const styles = {
     container: {
       display: "flex",
@@ -140,28 +143,32 @@ const Signup = () => {
     return /\S+@\S+\.\S+/.test(email);
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     let isValid = true;
-
-    // 이메일 검증
+  
     if (!validateEmail(email)) {
       setEmailError("올바른 형식의 이메일이 아닙니다.");
       isValid = false;
     } else {
       setEmailError("");
     }
-
-    // 비밀번호 일치 여부 확인
+  
     if (password !== confirmPassword) {
       setPasswordError("비밀번호가 일치하지 않습니다.");
       isValid = false;
     } else {
       setPasswordError("");
     }
-
+  
     if (isValid) {
-      alert("회원가입 성공!");
+      try {
+        await signup(email, password);
+        alert("회원가입 성공!");
+        navigate("/login");
+      } catch (error) {
+        alert("회원가입 실패: " + error.message);
+      }
     }
   };
 
