@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import AuthWrapper from "../../components/Login/AuthWrapper";
 import InputField from "../../components/Login/InputField";
 import Button from "../../components/Login/Button";
 import SocialLogin from "../../components/Login/SocialLogin";
-import { useNavbar } from "../../context/NavbarContext"; // 추가: Navbar 변경 상태 가져오기
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useNavbar } from "../../context/NavbarContext";
 
 const styles = {
   title: { fontSize: "24px", fontWeight: "bold", marginBottom: "16px", textAlign: "left" },
@@ -19,44 +18,64 @@ const styles = {
 
 const Login = () => {
   const navigate = useNavigate();
-  const { toggleNavbar } = useNavbar(); // ✅ Navbar 변경 함수 가져오기
+  const { toggleNavbar } = useNavbar();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loginUser } = useContext(AuthContext);
-
-const handleLogin = async (e) => {
-  e.preventDefault();
-    
-  try {
-    await loginUser(email, password);
-    toggleNavbar();
-    navigate("/");
-  } catch (error) {
-    alert("로그인 실패: " + error.message);
-  }
-};
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      // 올바른 로그인 API 엔드포인트 사용
+      const response = await axios.post("http://15.164.219.98.nip.io/auth/login", {
+        email,
+        password,
+      });
+      console.log("로그인 성공:", response.data); // 응답 데이터 확인
+      // 토큰 저장 작업
+      localStorage.setItem("token", response.data.result.token);
+      localStorage.setItem("refreshToken", response.data.result.refreshToken);
+      localStorage.setItem("email", email);
+      toggleNavbar();
+      navigate("/");
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      alert("로그인 실패: " + error.message);
+    }
+  };
 
   return (
     <AuthWrapper>
       <div>
         <h2 style={styles.title}>로그인</h2>
         <form onSubmit={handleLogin}>
-          <InputField type="email" placeholder="이메일을 입력하세요." value={email} onChange={(e) => setEmail(e.target.value)} />
-          <InputField type="password" placeholder="비밀번호를 입력하세요." value={password} onChange={(e) => setPassword(e.target.value)} />
-          <p style={styles.forgotPassword} onClick={() => navigate("/login/findpwd/auth")}>비밀번호를 잊으셨나요?</p>
+          <InputField
+            type="email"
+            placeholder="이메일을 입력하세요."
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputField
+            type="password"
+            placeholder="비밀번호를 입력하세요."
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <p
+            style={styles.forgotPassword}
+            onClick={() => navigate("/login/findpwd/auth")}
+          >
+            비밀번호를 잊으셨나요?
+          </p>
           <Button text="로그인" onClick={handleLogin} />
         </form>
-
         <SocialLogin />
-
-        {/* ✅ 회원가입 버튼 추가 */}
         <p style={styles.signupContainer}>
-          아직 회원이 아니신가요? 
-          <span style={styles.signupLink} onClick={() => navigate("/signup")}> Sign Up</span>
+          아직 회원이 아니신가요?{" "}
+          <span style={styles.signupLink} onClick={() => navigate("/signup")}>
+            Sign Up
+          </span>
         </p>
       </div>
-      
     </AuthWrapper>
   );
 };

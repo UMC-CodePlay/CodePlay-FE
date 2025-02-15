@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from "react";
+// src/components/UploadHarmony.jsx
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import FileHarmony from "../assets/FileHarmony.svg";
 import FileSelectButton from "../components/Buttons/FileSelectButton";
+import { AuthContext } from "../context/AuthContext";
 
-const UploadHarmony = () => {
+const UploadHarmony = ({ onUploadSuccess }) => {
   const [isDragOver, setIsDragOver] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [message, setMessage] = useState("");
+
+  // AuthContext에서 토큰 가져오기, 없으면 localStorage에서 가져오기
+  const { token: contextToken } = useContext(AuthContext);
+  const token = contextToken || localStorage.getItem("token");
+  console.log("UploadHarmony - 토큰:", token);
 
   const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleDragLeave = () => {
+  const handleDragLeave = (e) => {
+    e.preventDefault();
     setIsDragOver(false);
   };
 
@@ -34,23 +43,62 @@ const UploadHarmony = () => {
     }
   };
 
-  const startUpload = (file) => {
-    setUploadedFile(file);
+  // 파일 업로드 (프리사인 URL 요청 → S3 업로드)
+  const startUpload = async (file) => {
+    if (!token) {
+      setMessage("토큰이 없으므로 파일 업로드를 진행할 수 없습니다.");
+      return;
+    }
+
     setUploading(true);
     setProgress(0);
+    setMessage("");
 
-    let interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setUploading(false);
-          }, 1000);
-          return 100;
+    try {
+      const fileType = file.type.startsWith("image") ? "IMAGE" : "AUDIO";
+      const fileName = file.name;
+
+      setMessage("프리사인 URL 요청 중...");
+      const presignedResponse = await axios.post(
+        `http://15.164.219.98.nip.io/files/upload`,
+        null,
+        {
+          params: { fileType, fileName },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        return prev + 10;
-      });
-    }, 500);
+      );
+
+      if (presignedResponse.data && presignedResponse.data.isSuccess) {
+        const { uploadS3Url, musicId } = presignedResponse.data.result;
+        setMessage("S3에 파일 업로드 중...");
+        await axios.put(uploadS3Url, file, {
+          headers: {
+            "Content-Type": file.type,
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percentCompleted);
+          },
+        });
+        setProgress(100);
+        setMessage(`파일 업로드 성공! 생성된 musicId: ${musicId}`);
+        // 부모 컴포넌트로 musicId 전달
+        if (onUploadSuccess) {
+          onUploadSuccess(musicId);
+        }
+      } else {
+        throw new Error("프리사인 URL 요청 실패");
+      }
+    } catch (error) {
+      console.error("업로드 에러:", error);
+      setMessage("업로드에 실패했습니다.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -63,7 +111,7 @@ const UploadHarmony = () => {
       {uploading ? (
         <UploadingBox>
           <UploadingText>파일 업로드 중...</UploadingText>
-          <SubText>선택한 파일을 인식하고 있어요. 조금만 기다려주세요!</SubText>
+          <SubText>{message}</SubText>
           <ProgressBarContainer>
             <ProgressBar style={{ width: `${progress}%` }} />
           </ProgressBarContainer>
@@ -74,13 +122,11 @@ const UploadHarmony = () => {
           <IconContainer>
             <Icon src={FileHarmony} alt="Upload Icon" />
           </IconContainer>
-
           <TextButtonContainer>
             <UploadText>이곳에 분석하고 싶은 음원 파일을 업로드하세요</UploadText>
             <SubText>최대 10MB, WAV 파일 지원</SubText>
             <FileSelectButton onClick={() => document.getElementById("file-upload").click()} />
           </TextButtonContainer>
-
           <HiddenFileInput type="file" id="file-upload" onChange={handleFileSelect} />
         </>
       )}
@@ -149,7 +195,6 @@ const HiddenFileInput = styled.input`
   display: none;
 `;
 
-//업로딩중
 const UploadingBox = styled.div`
   width: 805px;
   height: 217px;
