@@ -61,16 +61,14 @@ const SectionImage = styled.img`
   height: 900px;
   display: block;
   object-fit: cover;
-  
 `;
 
 // HomePage 컴포넌트 정의
 const HomePage = () => {
-
   const { isNavbar1 } = useNavbar();
   return (
     <HomePageWrapper>
-      {isNavbar1 ? <Navbarlog /> : <Navbar />}
+      <Navbar />
       <HeaderContainer>
         <Header />
       </HeaderContainer>
@@ -79,7 +77,7 @@ const HomePage = () => {
         <Harmony />
       </HarmonyContainer>
       <StemContainer>
-      <Stem />
+        <Stem />
       </StemContainer>
       <SectionImage src={Screen5} alt="Screen5" />
       <AdIcons></AdIcons>

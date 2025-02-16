@@ -3,21 +3,21 @@ import TitleNavbar from "../../components/TitleNavbar";
 import PurpleButton from "../../components/Buttons/PurpleButton";
 import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
-import UploadSession from "../../components/UploadSession";
+import UploadRemixing from "../../components/UploadRemixing";
 import styled from "styled-components";
 
 const RemixingPage = () => {
   return (
     <PageContainer>
       <Navbar />
-      <TitleNavbar 
-        title="리믹싱" 
-        subtitle="음원의 볼륨, 음색, 이펙터를 조절하여 나만의 음악을 만들어보세요!" 
+      <TitleNavbar
+        title="리믹싱"
+        subtitle="음원의 볼륨, 음색, 이펙터를 조절하여 나만의 음악을 만들어보세요!"
       />
 
       <ContentContainer>
-        <UploadSession />
-        
+        <UploadRemixing />
+
         <ButtonContainer>
           <StyledPurpleButton>
             <Link to="/remixing/result_remixing">결과보기</Link>
@@ -59,4 +59,4 @@ const StyledPurpleButton = styled(PurpleButton)`
   border-radius: 5px;
 `;
 
-export default RemixingPage; 
+export default RemixingPage;

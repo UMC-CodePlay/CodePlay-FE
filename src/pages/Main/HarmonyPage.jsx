@@ -10,6 +10,7 @@ import styled from "styled-components";
 import BackgroundSvg from "../../assets/HarmonyBg.svg";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const HarmonyPage = () => {
   const [uploadedMusicId, setUploadedMusicId] = useState(null);
@@ -26,13 +27,13 @@ const HarmonyPage = () => {
     }
     try {
       const response = await axios.post(
-        "http://15.164.219.98.nip.io/task/harmony",
+        `${API_BASE_URL}task/harmony`,
         { musicId: uploadedMusicId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       console.log("화성분석 작업 결과:", response.data);
     } catch (error) {
@@ -46,14 +47,20 @@ const HarmonyPage = () => {
       <TitleNavbar title="화성 분석" subtitle="내용들" />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
-      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <UploadHarmony onUploadSuccess={handleUploadSuccess} />
       </div>
 
-      <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
-        <PurpleButton onClick={handleResult}>
-          결과보기
-        </PurpleButton>
+      <div
+        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
+      >
+        <PurpleButton onClick={handleResult}>결과보기</PurpleButton>
       </div>
 
       <Othersystems />

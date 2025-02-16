@@ -6,7 +6,7 @@ import FileSelectButton from "../components/Buttons/FileSelectButton";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-const UploadHarmony = () => {
+const UploadRemixing = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -56,8 +56,8 @@ const UploadHarmony = () => {
         await uploadFileToS3(s3Url, file);
         console.log("📡 uploadFileToS3 호출됨");
 
-        await requestHarmony(musicId);
-        console.log("requestHarmony 호출됨");
+        await requestRemixing(musicId);
+        console.log("requestRemixing 호출됨");
       } else {
         console.warn("⚠️ S3 URL을 받지 못함");
       }
@@ -90,12 +90,18 @@ const UploadHarmony = () => {
     }
   };
 
-  const requestHarmony = async (musicId) => {
+  const requestRemixing = async (musicId) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `${API_BASE_URL}/task/harmony`,
-        { musicId }, // body에 musicId 전달
+        `${API_BASE_URL}/task/remix`,
+        {
+          musicId: musicId,
+          scaleModulation: 12,
+          tempoRatio: 4,
+          reverbAmount: 1,
+          isChorusOn: true,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -105,13 +111,13 @@ const UploadHarmony = () => {
       );
 
       if (response.status === 200) {
-        console.log("🎶 Harmony 요청 성공:", response.data);
-        alert("Harmony 작업이 성공적으로 완료되었습니다!");
+        console.log("🎶 Remixing 요청 성공:", response.data);
+        alert("Remixing 작업이 성공적으로 완료되었습니다!");
       } else {
-        console.warn("⚠️ Harmony 요청 실패 - 상태 코드:", response.status);
+        console.warn("⚠️ Remixing 요청 실패 - 상태 코드:", response.status);
       }
     } catch (error) {
-      console.error("❌ Harmony 요청 오류:", error.message);
+      console.error("❌ Remixing 요청 오류:", error.message);
     }
   };
 
@@ -191,7 +197,7 @@ const UploadHarmony = () => {
   );
 };
 
-export default UploadHarmony;
+export default UploadRemixing;
 
 const UploadContainer = styled.div`
   width: 805px;
