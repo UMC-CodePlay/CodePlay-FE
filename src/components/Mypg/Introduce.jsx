@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import PersonIcon  from "../../assets/Mypg_img/person.svg";
-import MPYinfo from '../../pages/Mypage/MPYinfo.jsx'
-import { Link } from "react-router-dom"; // React Router의 Link import
-
-
-
+import PersonIcon from "../../assets/Mypg_img/person.svg";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +46,7 @@ const ProfileName = styled.h2`
   align-items: center;
 `;
 
-const EditProfile = styled(Link)` // Link로 변경
+const EditProfile = styled(Link)`
   margin-left: 10px;
   margin-top: 10px;
   font-size: 14px;
@@ -58,7 +56,7 @@ const EditProfile = styled(Link)` // Link로 변경
   cursor: pointer;
 
   &:hover {
-    color: #555; // 호버 시 색상 변경
+    color: #555;
   }
 `;
 
@@ -69,16 +67,17 @@ const ProfileEmail = styled.p`
 `;
 
 function MyPageBar() {
+  const { user } = useContext(AuthContext);
+
   return (
     <Container>
       <ProfileHeader>
         <ProfileImage src={PersonIcon} alt="프로필 아이콘" />
         <ProfileInfo>
           <ProfileName>
-            12345677.naver.com
+            {user ? user.email : "로그인 필요"}
           </ProfileName>
-          <EditProfile to="/mypage/mypageinfo">회원정보 수정
-          </EditProfile>
+          <EditProfile to="/mypage/mypageinfo">회원정보 수정</EditProfile>
         </ProfileInfo>
       </ProfileHeader>
     </Container>

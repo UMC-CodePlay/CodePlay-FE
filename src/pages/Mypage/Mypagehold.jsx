@@ -1,5 +1,5 @@
 import Introduce from '../../components/Mypg/Introduce.jsx';
-import SearchBar from '../../components/Mypg/SearchBar.jsx';
+import SearchBar from '../../components/Mypg/SearchBarentire.jsx';
 import Menu from '../../components/Mypg/Menu.jsx';
 import NavbarLog from '../../components/Mypg/NavbarLog.jsx';
 import Mypageletter from '../../components/Mypg/Mypageletter.jsx';

@@ -1,12 +1,40 @@
-import React, { useState } from "react";
+// Menu1.jsx
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
-import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
-import Harmonycon from "./harmonycon.jsx"
+import axios from "axios"; 
+import Harmonycon from "./harmonycon.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 
 const Menu1 = () => {
+  // 1) 서버에서 받아온 화성 분석 리스트
+  const [harmonyList, setHarmonyList] = useState([]);
+  const { token } = useContext(AuthContext);
   
+
+  // 2) 컴포넌트가 처음 렌더링될 때 API GET 호출
+  useEffect(() => {
+    axios
+      .get("http://15.164.219.98.nip.io/member/mypage/harmony",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ← 토큰 추가
+          },
+        }
+      )
+      .then((res) => {
+        const data = res.data;
+        if (data.isSuccess) {
+          // 성공 시 harmonyList 갱신
+          setHarmonyList(data.result);
+        } else {
+          console.error("API 요청 실패:", data.message);
+        }
+      })
+      .catch((err) => {
+        console.error("API 에러:", err);
+      });
+  }, [token]);
 
   return (
     <Container>
@@ -21,17 +49,17 @@ const Menu1 = () => {
         </HeaderRight>
       </Header>
 
-      <Harmonycon/>
-      <Harmonycon/>
-      
-
+      {/* 3) 가져온 harmonyList를 map으로 순회하여 Harmonycon 렌더링 */}
+      {harmonyList.map((harmonyData) => (
+        <Harmonycon key={harmonyData.harmonyId} track={harmonyData} />
+      ))}
     </Container>
   );
 };
 
 export default Menu1;
 
-// Styled-components
+// ───────────────────────── styled-components ─────────────────────────
 const Container = styled.div`
   width: 58%;
   margin: 0 auto;
@@ -68,4 +96,3 @@ const HeaderCell = styled.span`
   text-align: center;
   flex: 1;
 `;
-

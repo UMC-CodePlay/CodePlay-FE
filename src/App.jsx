@@ -16,6 +16,8 @@ import Mypagehold from "./pages/Mypage/Mypagehold.jsx";
 import MPYharmony from "./pages/Mypage/MPYharmony.jsx";
 import MPYsession from "./pages/Mypage/MPYsession.jsx";
 import MPYsearch from "./pages/Mypage/MPYsearch.jsx";
+import MPYsearchhar from "./pages/Mypage/MPYsearchhar.jsx";
+import MPYsearchses from "./pages/Mypage/MPYsearchses.jsx";
 import MPYinfo from "./pages/Mypage/MPYinfo.jsx";
 import FindPwd_1_Auth from "./pages/Login/FindPwd_1_Auth.jsx";
 import FindPwd_2_Set from "./pages/Login/FindPwd_2_Set.jsx";
@@ -39,8 +41,10 @@ const App = () => {
             <Route path="/mypage" element={<Mypagehold />} />
             <Route path="/mypage/mypageinfo" element={<MPYinfo />} />
             <Route path="/mypage/mypageharmony" element={<MPYharmony />} />
-            <Route path="/mypage/mypagesession" element={<MPYsession />} />
-            <Route path="/mypage/mypagesearch" element={<MPYsearch />} />
+           <Route path="/mypage/mypagesession" element={<MPYsession />} />
+           <Route path="/mypage/mypagesearch" element={<MPYsearch />} />
+           <Route path="/mypage/mypageharmony/mypagesearchhar" element={<MPYsearchhar />} />
+           <Route path="/mypage/mypagesession/mypagesearchses" element={<MPYsearchses />} />
             <Route path="/harmony" element={<HarmonyPage />} />
             <Route path="/harmony/result_harmony" element={<Result_HarmonyPage />} />
             <Route path="/session" element={<SessionPage />} />

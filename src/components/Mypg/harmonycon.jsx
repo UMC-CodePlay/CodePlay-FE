@@ -1,83 +1,79 @@
+// harmonycon.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
 import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
 
-const Harmonybar=()=>{
-  const [isLiked, setIsLiked] = useState(false); // 좋아요 상태
-  const [showPopup, setShowPopup] = useState(false); // 팝업 표시 상태
+const Harmonybar = ({ track }) => {
+  // 1) 서버에서 넘어온 isLiked로 초기화
+  const [isLiked, setIsLiked] = useState(track.isLiked);
+  // 팝업 표시 상태
+  const [showPopup, setShowPopup] = useState(false);
 
   const togglePopup = () => {
-    setShowPopup(!showPopup); // 팝업 열기/닫기 토글
+    setShowPopup(!showPopup);
   };
 
   const handleLikeToggle = () => {
-    setIsLiked(!isLiked); // 좋아요 상태 변경
-    setShowPopup(false); // 팝업 닫기
+    // 실제로는 좋아요 토글 API 호출 후, 성공 시 setIsLiked(!isLiked)
+    setIsLiked(!isLiked);
+    setShowPopup(false);
   };
 
-  const trackData = [
-    {
-      title: "음원 제목입니다",
-      date: "25.01.25",
-      key: "C Major",
-      spressure: "140",
-      bpm: "80",
-    },
-  ];
+  // 예: track = {
+  //   harmonyId, musicId, musicTitle, createdAt, scale, genre,
+  //   bpm, voiceColor, isLiked
+  // }
+  const { musicTitle, createdAt, bpm, scale, genre } = track;
+  const dateString = createdAt?.split("T")[0]; // "YYYY-MM-DD" 형태
 
+  return (
+    <TrackRow>
+      {/* 메인 정보 */}
+      <TrackInfo>
+        <AlbumCover />
+        <TrackDetails>
+          {/* 제목 & 등록일 */}
+          <TrackTitle>{musicTitle}</TrackTitle>
+          <TrackDate>{dateString}</TrackDate>
+        </TrackDetails>
+      </TrackInfo>
 
-  return(
-           <div> 
-          {/* 리스트 항목 */}
-          <TrackRow>
-            <TrackInfo>
-              <AlbumCover />
-              <TrackDetails>
-                <TrackTitle>{trackData[0].title}</TrackTitle>
-                <TrackDate>{trackData[0].date}</TrackDate>
-              </TrackDetails>
-            </TrackInfo>
-            <TrackContent>
-              <TrackCell>{trackData[0].key}</TrackCell>
-              <TrackCell>{trackData[0].bpm}</TrackCell>
-              <TrackCell>{trackData[0].spressure}</TrackCell>
-              <LikeButtonWrapper>
-                <LikeButton onClick={togglePopup}>
-                  <img src={isLiked ? likeButtonOn : likeButtonOff} alt="좋아요 버튼" />
-                </LikeButton>
-                {showPopup && (
-                  <Popup>
-                    <PopupArrow />
-                    <PopupContent>
-                      <PopupItem>세션분리</PopupItem>
-                      {isLiked ? (
-                        <PopupItem onClick={handleLikeToggle}>즐겨찾기 취소</PopupItem>
-                      ) : (
-                        <PopupItem onClick={handleLikeToggle}>즐겨찾기</PopupItem>
-                      )}
-                      <PopupItem>삭제하기</PopupItem>
-                    </PopupContent>
-                  </Popup>
+      {/* 우측 영역: 키/ BPM/ 평균음압(여기서는 scale로 대체?), 좋아요 버튼 */}
+      <TrackContent>
+        <TrackCell>{scale}</TrackCell>
+        <TrackCell>{bpm}</TrackCell>
+        <TrackCell>{genre}</TrackCell> {/* 평균 음압 필드가 없으므로 임의로 표시 */}
+
+        {/* 좋아요(즐겨찾기) 버튼 */}
+        <LikeButtonWrapper>
+          <LikeButton onClick={togglePopup}>
+            <img src={isLiked ? likeButtonOn : likeButtonOff} alt="좋아요 버튼" />
+          </LikeButton>
+
+          {showPopup && (
+            <Popup>
+              <PopupArrow />
+              <PopupContent>
+                <PopupItem>세션분리</PopupItem>
+                {isLiked ? (
+                  <PopupItem onClick={handleLikeToggle}>즐겨찾기 취소</PopupItem>
+                ) : (
+                  <PopupItem onClick={handleLikeToggle}>즐겨찾기</PopupItem>
                 )}
-              </LikeButtonWrapper>
-            </TrackContent>
-          </TrackRow>
-          </div> 
+                <PopupItem>삭제하기</PopupItem>
+              </PopupContent>
+            </Popup>
+          )}
+        </LikeButtonWrapper>
+      </TrackContent>
+    </TrackRow>
+  );
+};
 
-  )
+export default Harmonybar;
 
-
-
-}
-
-const Container = styled.div`
-  width: 58%;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
-
-
+// ───────────────────────── styled-components ─────────────────────────
 const TrackRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -145,18 +141,18 @@ const LikeButton = styled.button`
   padding: 0;
   flex: 1;
   text-align: center;
+
   img {
     width: 40px;
     height: 40px;
   }
-transform: translate(47px, -10px);
-
+  transform: translate(47px, -10px);
 `;
 
 const Popup = styled.div`
   position: absolute;
   top: 50%;
-  left: 90px; /* 하트 오른쪽으로 50px 이동 */
+  left: 90px; 
   transform: translateY(-60%);
   width: 150px;
   background: #fff;
@@ -169,26 +165,21 @@ const Popup = styled.div`
 const PopupArrow = styled.div`
   position: absolute;
   top: 50%;
-  left: -8px; /* 팝업 화살표를 왼쪽에 배치 */
+  left: -8px;
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-top: 8px solid transparent; /* 투명한 위쪽 */
-  border-bottom: 8px solid transparent; /* 투명한 아래쪽 */
-  border-right: 8px solid #fff; /* 화살표 색상 */
-  
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #fff;
 `;
-
 
 const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
   font-size: 14px;
-  text-align: center; /* 텍스트를 가운데 정렬 */
-
-
-
+  text-align: center;
 `;
 
 const PopupItem = styled.div`
@@ -196,11 +187,9 @@ const PopupItem = styled.div`
   cursor: pointer;
   &:hover {
     background-color: #f5f5f5;
-  } 
+  }
   &:last-child {
     color: red;
     font-weight: bold;
   }
 `;
-
-export default Harmonybar;

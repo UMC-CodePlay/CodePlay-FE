@@ -1,3 +1,4 @@
+// sessioncon.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
@@ -5,8 +6,8 @@ import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
 import Playbutton from "../../assets/Mypg_img/Playbutton.svg";
 import Downloadbut from "../../assets/Mypg_img/Downloadbut.svg";
 
-const Sessioncon = () => {
-  // 확장된 영역, 팝업, 좋아요 상태를 위한 state
+// --- props로 tracks를 받도록 수정 ---
+const Sessioncon = ({ tracks = [] }) => {
   const [expandedIndexes, setExpandedIndexes] = useState([]);
   const [popupVisibleIndex, setPopupVisibleIndex] = useState(null);
   const [likedIndexes, setLikedIndexes] = useState([]);
@@ -37,39 +38,45 @@ const Sessioncon = () => {
     setPopupVisibleIndex(null);
   };
 
-  // 예시용 음원 트랙 데이터
-  const trackData = [
-    {
-      title: "음원 제목입니다",
-      date: "25.01.25",
-    },
-    {
-      title: "두 번째 음원 제목입니다",
-      date: "25.01.26",
-    },
-  ];
+  // 1) tracks가 비어 있다면 안내문 표시
+  if (tracks.length === 0) {
+    return <div style={{ margin: "20px 0", textAlign: "center" }}>음원이 없습니다.</div>;
+  }
 
+  // 2) tracks가 있다면 map으로 렌더링
   return (
     <div>
-      {trackData.map((track, index) => (
-        <div key={index}>
+      {tracks.map((track, index) => (
+        <div key={track.trackId}>
           {/* 메인 트랙 영역 */}
           <TrackRow>
+            {/* 확장 toggle */}
             <TrackInfo onClick={() => toggleExpansion(index)}>
               <AlbumCover />
               <TrackDetails>
-                <TrackTitle>{track.title}</TrackTitle>
-                <TrackDate>{track.date}</TrackDate>
+                {/* API 응답 예: musicTitle, createdAt */}
+                <TrackTitle>{track.musicTitle}</TrackTitle>
+                <TrackDate>{track.createdAt.split("T")[0]}</TrackDate>
               </TrackDetails>
             </TrackInfo>
+
+            {/* 즐겨찾기 버튼 */}
             <TrackContent>
               <LikeButtonWrapper>
-                <LikeButton onClick={() => togglePopup(index)}>
+                <LikeButton onClick={(e) => {
+                  e.stopPropagation(); // 부모 클릭(TrackInfo)와 구분
+                  togglePopup(index);
+                }}>
                   <img
-                    src={likedIndexes.includes(index) ? likeButtonOn : likeButtonOff}
+                    src={
+                      likedIndexes.includes(index)
+                        ? likeButtonOn
+                        : likeButtonOff
+                    }
                     alt="좋아요 버튼"
                   />
                 </LikeButton>
+
                 {/* 팝업 메뉴 */}
                 {popupVisibleIndex === index && (
                   <Popup>
@@ -94,12 +101,11 @@ const Sessioncon = () => {
             </TrackContent>
           </TrackRow>
 
-          {/* 확장된 세션 영역 (토글) */}
+          {/* 확장된 세션 영역 (vocalUrl, instrumentalUrl, bassUrl, drumsUrl 등) */}
           {expandedIndexes.includes(index) && (
             <ExpandedSession>
-              {["MR", "보컬", "드럼", "베이스"].map((category, idx) => (
+              {["vocalUrl", "instrumentalUrl", "bassUrl", "drumsUrl"].map((category, idx) => (
                 <SessionRow key={idx}>
-                  {/* 왼쪽: 회색 박스(카테고리 표시) + 재생 버튼 */}
                   <SessionLeft>
                     <CategorySquare>
                       <CategoryText>{category}</CategoryText>
@@ -108,12 +114,10 @@ const Sessioncon = () => {
                       <PlayBtnImg src={Playbutton} alt="재생 버튼" />
                     </PlayBtn>
                   </SessionLeft>
-                  {/* 슬라이더와 재생 시간을 묶은 박스 */}
                   <SliderContainer>
                     <SessionSlider min="0" max="100" defaultValue="0" />
                     <SessionTime>00:00</SessionTime>
                   </SliderContainer>
-                  {/* 다운로드 버튼 */}
                   <DownloadBtn>
                     <DownloadBtnImg src={Downloadbut} alt="다운로드 버튼" />
                   </DownloadBtn>
@@ -130,8 +134,6 @@ const Sessioncon = () => {
 export default Sessioncon;
 
 /* ------------------ styled-components ------------------ */
-
-// 메인 트랙 영역 스타일
 const TrackRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -181,7 +183,6 @@ const TrackDate = styled.div`
   color: #666;
 `;
 
-// 좋아요 버튼 & 팝업
 const LikeButtonWrapper = styled.div`
   position: relative;
 `;
@@ -241,9 +242,8 @@ const PopupItem = styled.div`
   }
 `;
 
-// 확장된 세션 영역
 const ExpandedSession = styled.div`
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   border-radius: 8px;
   padding: 15px 20px;
   border: 1px solid #ddd;
@@ -253,10 +253,9 @@ const SessionRow = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  margin-top:20px;
+  margin-top: 20px;
 `;
 
-// 왼쪽: 회색 박스 + 재생 버튼
 const SessionLeft = styled.div`
   display: flex;
   align-items: center;
@@ -264,7 +263,6 @@ const SessionLeft = styled.div`
   min-width: 120px;
 `;
 
-/* 회색 박스 */
 const CategorySquare = styled.div`
   width: 40px;
   height: 40px;
@@ -274,17 +272,14 @@ const CategorySquare = styled.div`
   justify-content: center;
   align-items: flex-end;
   transform: translateX(20px);
-
 `;
 
 const CategoryText = styled.div`
   font-size: 12px;
   margin-bottom: 3px;
   transform: translateY(30px);
-
 `;
 
-/* 재생 버튼 */
 const PlayBtn = styled.button`
   width: 24px;
   height: 24px;
@@ -292,7 +287,6 @@ const PlayBtn = styled.button`
   background: none;
   cursor: pointer;
   transform: translateX(20px);
-
 `;
 
 const PlayBtnImg = styled.img`
@@ -300,14 +294,13 @@ const PlayBtnImg = styled.img`
   height: 24px;
 `;
 
-/* 슬라이더와 시간 컨테이너 */
 const SliderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 65%;
   padding: 10px;
-  background-color: #f9f8fa; /* 직사각형 배경색 */
+  background-color: #f9f8fa;
   height: 40px;
 `;
 
@@ -340,7 +333,6 @@ const SessionTime = styled.div`
   color: #666;
 `;
 
-/* 다운로드 버튼 */
 const DownloadBtn = styled.button`
   width: 30px;
   height: 30px;
@@ -352,6 +344,5 @@ const DownloadBtn = styled.button`
 const DownloadBtnImg = styled.img`
   width: 90px;
   height: 90px;
-  transform: translate(20px, -30px); /* X축: 10px, Y축: 20px 이동 */
-
+  transform: translate(20px, -30px);
 `;
