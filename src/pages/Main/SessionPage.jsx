@@ -10,7 +10,7 @@ import styled from "styled-components";
 const SessionPage = () => {
   return (
     <PageContainer>
-
+      <Navbar />
       <TitleNavbar title="세션 분리" subtitle="세션 분리 내용" />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
