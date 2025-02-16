@@ -1,29 +1,145 @@
-// src/components/UploadHarmony.jsx
-import React, { useState, useContext } from "react";
+import React, { useState, createContext, useContext } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import FileHarmony from "../assets/FileHarmony.svg";
 import FileSelectButton from "../components/Buttons/FileSelectButton";
-import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-const UploadHarmony = ({ onUploadSuccess }) => {
+const UploadHarmony = () => {
+  const [taskId, setTaskId] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
 
-  // AuthContext에서 토큰 가져오기, 없으면 localStorage에서 가져오기
-  const { token: contextToken } = useContext(AuthContext);
-  const token = contextToken || localStorage.getItem("token");
-  console.log("UploadHarmony - 토큰:", token);
+  // 🔹 파일 선택 시 호출되는 함수 (UploadHarmony로 이동)
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
+    // 1. 파일 타입 검증
+    if (file.type !== "audio/mpeg") {
+      alert("mp3 파일만 업로드할 수 있습니다.");
+      return;
+    }
+
+    // 2. 파일 크기 검증 (10MB 이하)
+    if (file.size > 10 * 1024 * 1024) {
+      alert("파일 크기는 10MB 이하로 업로드해 주세요.");
+      return;
+    }
+
+    // 3. 파일 검증 통과 시 서버에 파일 업로드 요청
+    fetchUpload(file);
+  };
+
+  // 🔹 서버에 POST 요청하여 S3 URL 가져오는 함수
+  const fetchUpload = async (file) => {
+    try {
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("fileType", "AUDIO");
+
+      // 🔹 1. S3 URL 요청
+      const response = await axios.post(
+        `${API_BASE_URL}/files/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const { uploadS3Url, musicId } = response.data.result;
+      console.log("🚀 S3 URL 응답:", response.data);
+
+      // 🔹 2. S3에 파일 업로드
+      if (uploadS3Url) {
+        await uploadFileToS3(uploadS3Url, file);
+      }
+
+      // 🔹 3. 파일 정보 저장
+      const uploadedFileInfo = {
+        fileName: file.name,
+        fileSize: (file.size / (1024 * 1024)).toFixed(2) + " MB",
+        musicId: musicId,
+      };
+      localStorage.setItem("uploadedFile", JSON.stringify(uploadedFileInfo));
+
+      // 🔹 4. Harmony 작업 요청
+      const harmonyResponse = await requestHarmony(musicId);
+      const { taskId } = harmonyResponse.data.result;
+
+      // 🔹 5. taskId 저장
+      const resultInfo = { ...uploadedFileInfo, taskId };
+      localStorage.setItem("uploadedFile", JSON.stringify(resultInfo));
+    } catch (error) {
+      console.error("❌ API 호출 오류:", error.response?.data || error.message);
+      setError(error.message);
+    }
+  };
+
+  // 🔹 S3 URL로 PUT 요청하여 파일 업로드
+  const uploadFileToS3 = async (s3Url, file) => {
+    try {
+      const fileBuffer = await file.arrayBuffer();
+      const response = await axios.put(s3Url, fileBuffer, {
+        headers: {
+          "Content-Type": file.type,
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("✅ S3 파일 업로드 성공!");
+        alert("파일 업로드가 완료되었습니다!");
+
+        const musicId = response.data?.musicId;
+        requestHarmony(musicId);
+      } else {
+        console.warn("⚠️ S3 업로드 실패 - 상태 코드:", response.status);
+      }
+    } catch (error) {
+      console.error("❌ S3 업로드 오류:", error.message);
+      alert("S3 업로드 중 오류 발생!");
+    }
+  };
+
+  const requestHarmony = async (musicId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${API_BASE_URL}/task/harmony`,
+        { musicId }, // body에 musicId 전달
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        console.log("🎶 Harmony 요청 성공:", response.data);
+        alert("Harmony 작업이 성공적으로 완료되었습니다!");
+      } else {
+        console.warn("⚠️ Harmony 요청 실패 - 상태 코드:", response.status);
+      }
+    } catch (error) {
+      console.error("❌ Harmony 요청 오류:", error.message);
+    }
+  };
+
+  // 🔹 드래그 이벤트 핸들러
   const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleDragLeave = (e) => {
-    e.preventDefault();
+  const handleDragLeave = () => {
     setIsDragOver(false);
   };
 
@@ -36,106 +152,74 @@ const UploadHarmony = ({ onUploadSuccess }) => {
     }
   };
 
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      startUpload(file);
-    }
-  };
-
-  // 파일 업로드 (프리사인 URL 요청 → S3 업로드)
-  const startUpload = async (file) => {
-    if (!token) {
-      setMessage("토큰이 없으므로 파일 업로드를 진행할 수 없습니다.");
-      return;
-    }
-
+  // 🔹 파일 업로드 진행 시 progress-bar 표시
+  const startUpload = (file) => {
+    setUploadedFile(file);
     setUploading(true);
     setProgress(0);
-    setMessage("");
 
-    try {
-      const fileType = file.type.startsWith("image") ? "IMAGE" : "AUDIO";
-      const fileName = file.name;
-
-      setMessage("프리사인 URL 요청 중...");
-      const presignedResponse = await axios.post(
-        `http://15.164.219.98.nip.io/files/upload`,
-        null,
-        {
-          params: { fileType, fileName },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    let interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setUploading(false);
+          }, 1000);
+          return 100;
         }
-      );
-
-      if (presignedResponse.data && presignedResponse.data.isSuccess) {
-        const { uploadS3Url, musicId } = presignedResponse.data.result;
-        setMessage("S3에 파일 업로드 중...");
-        await axios.put(uploadS3Url, file, {
-          headers: {
-            "Content-Type": file.type,
-          },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setProgress(percentCompleted);
-          },
-        });
-        setProgress(100);
-        setMessage(`파일 업로드 성공! 생성된 musicId: ${musicId}`);
-        // 부모 컴포넌트로 musicId 전달
-        if (onUploadSuccess) {
-          onUploadSuccess(musicId);
-        }
-      } else {
-        throw new Error("프리사인 URL 요청 실패");
-      }
-    } catch (error) {
-      console.error("업로드 에러:", error);
-      setMessage("업로드에 실패했습니다.");
-    } finally {
-      setUploading(false);
-    }
+        return prev + 10;
+      });
+    }, 500);
   };
 
   return (
-    <UploadContainer
-      isDragOver={isDragOver}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      {uploading ? (
-        <UploadingBox>
-          <UploadingText>파일 업로드 중...</UploadingText>
-          <SubText>{message}</SubText>
-          <ProgressBarContainer>
-            <ProgressBar style={{ width: `${progress}%` }} />
-          </ProgressBarContainer>
-          <ProgressText>{progress}%</ProgressText>
-        </UploadingBox>
-      ) : (
-        <>
-          <IconContainer>
-            <Icon src={FileHarmony} alt="Upload Icon" />
-          </IconContainer>
-          <TextButtonContainer>
-            <UploadText>이곳에 분석하고 싶은 음원 파일을 업로드하세요</UploadText>
-            <SubText>최대 10MB, WAV 파일 지원</SubText>
-            <FileSelectButton onClick={() => document.getElementById("file-upload").click()} />
-          </TextButtonContainer>
-          <HiddenFileInput type="file" id="file-upload" onChange={handleFileSelect} />
-        </>
-      )}
-    </UploadContainer>
+    <>
+      <UploadContainer
+        data-drag-over={isDragOver}
+        $isDragOver={isDragOver}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        {uploading ? (
+          <UploadingBox>
+            <UploadingText>파일 업로드 중...</UploadingText>
+            <SubText>
+              선택한 파일을 인식하고 있어요. 조금만 기다려주세요!
+            </SubText>
+            <ProgressBarContainer>
+              <ProgressBar style={{ width: `${progress}%` }} />
+            </ProgressBarContainer>
+            <ProgressText>{progress}%</ProgressText>
+          </UploadingBox>
+        ) : (
+          <>
+            <IconContainer>
+              <Icon src={FileHarmony} alt="Upload Icon" />
+            </IconContainer>
+
+            <TextButtonContainer>
+              <UploadText>
+                이곳에 분석하고 싶은 음원 파일을 업로드하세요
+              </UploadText>
+              <SubText>최대 10MB, mp3 파일 지원</SubText>
+              <FileSelectButton
+                onClick={() => document.getElementById("file-upload").click()}
+              />
+            </TextButtonContainer>
+            <HiddenFileInput
+              type="file"
+              id="file-upload"
+              onChange={handleFileChange}
+            />
+          </>
+        )}
+      </UploadContainer>
+    </>
   );
 };
 
 export default UploadHarmony;
-
 const UploadContainer = styled.div`
   width: 805px;
   height: 217px;
@@ -195,6 +279,7 @@ const HiddenFileInput = styled.input`
   display: none;
 `;
 
+//업로딩중
 const UploadingBox = styled.div`
   width: 805px;
   height: 217px;

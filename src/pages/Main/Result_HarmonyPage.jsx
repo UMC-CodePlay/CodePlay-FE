@@ -1,27 +1,58 @@
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import React, { useState } from "react";
-import "../../components/2screen/harmony.css";
 import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import UploadBox from "../../components/UploadBox";
 import Othersystems from "../../components/Othersystems";
-import "../../components/Buttons/TertiaryWhiteButton.css";
-import "../../components/Buttons/TertiaryBlackButton.css";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
 import PurpleButton from "../../components/Buttons/PurpleButton";
 import PrevPurpleButton from "../../components/Buttons/PrevPurpleButton";
 import BackGroundResult from "../../components/BackGroundResult";
+import axios from "axios";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const Result_HarmonyPage = () => {
-  const [pcikButton, setPickButton] = useState(0);
+  const [fileInfo, setFileInfo] = useState({
+    fileName: "",
+    fileSize: "",
+    musicId: "",
+    taskId: "",
+  });
+
+  // 🔹 페이지 로드 시 localStorage 데이터 가져오기
+  useEffect(() => {
+    const storedFile = localStorage.getItem("uploadedFile");
+    if (storedFile) {
+      const parsedFile = JSON.parse(storedFile);
+      setFileInfo(parsedFile);
+      parsedFile.taskId ? getRequeestHarmony(parsedFile) : null;
+    }
+  }, []);
+
+  const getRequeestHarmony = async (taskId) => {
+    const token = localStorage.getItem("token");
+    const formData = new setFileInfo();
+    formData.append("taskId", taskId);
+
+    const reponse = await axios.post(`${API_BASE_URL}/files/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   return (
     <>
       <Navbar />
       <TitleNavbar
-        title="화상 분석 결과"
-        subtitle="어쩌고저쩌고 그냥 그런 내용들"
-      ></TitleNavbar>
-      <BackGroundResult></BackGroundResult>
+        title="화성 분석 결과"
+        subtitle="음원 분석 결과를 확인하세요"
+      />
+      <BackGroundResult />
+
+      {/* 🔹 업로드된 파일 정보 표시 */}
       <div
         style={{
           marginTop: "100px",
@@ -29,16 +60,19 @@ const Result_HarmonyPage = () => {
           justifyContent: "center",
         }}
       >
-        <UploadBox fileName="이름" fileDetails="재생 시간 / 용량" />
+        <UploadBox
+          fileName={fileInfo.fileName || "파일이 없습니다"}
+          fileDetails={`크기: ${fileInfo.fileSize} / musicId: ${fileInfo.musicId} / taskId: ${fileInfo.taskId}`}
+        />
       </div>
 
-      <Slick></Slick>
+      <Slick />
+
       <div
         style={{
           marginTop: "60px",
           display: "flex",
           justifyContent: "center",
-          fontFamily: "Pretentard",
           gap: "70px",
         }}
       >
@@ -50,7 +84,8 @@ const Result_HarmonyPage = () => {
           <Link to="/audioloading">다운로드</Link>
         </StyledPurpleButton>
       </div>
-      <Othersystems></Othersystems>
+
+      <Othersystems />
     </>
   );
 };
