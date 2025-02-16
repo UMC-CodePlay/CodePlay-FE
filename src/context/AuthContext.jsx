@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
-import { login, refreshToken } from "../services/authService";
+import { login, refreshToken, handleOAuthCallback } from "../services/authService";
 
 const AuthContext = createContext(null);
 
@@ -17,15 +17,26 @@ const AuthProvider = ({ children }) => {
     setRefreshTokenValue(null);
   }, []);
 
+  // ✅ OAuth 로그인 후 URL에서 토큰을 가져와 저장하는 로직 추가
   useEffect(() => {
-    if (token) {
-      const storedEmail = localStorage.getItem("email");
-      if (storedEmail) {
-        setUser({ email: storedEmail });
+    (async () => {
+      try {
+        const data = await handleOAuthCallback();
+        if (data) {
+          setUser({ email: data.email });
+          setToken(data.token);
+          setRefreshTokenValue(data.refreshToken);
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("refreshToken", data.refreshToken);
+          localStorage.setItem("email", data.email);
+        }
+      } catch (error) {
+        console.error("OAuth 로그인 처리 실패:", error);
       }
-    }
-  }, [token]);
+    })();
+  }, []);
 
+  // ✅ 기존 토큰 갱신 로직 유지
   useEffect(() => {
     const interval = setInterval(async () => {
       const storedEmail = localStorage.getItem("email");

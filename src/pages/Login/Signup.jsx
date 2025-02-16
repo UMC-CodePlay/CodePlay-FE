@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import signupBg from "../../assets/Login_img/signup_bg.svg";
-import googleIcon from "../../assets/Login_img/login_google.svg";
-import kakaoIcon from "../../assets/Login_img/login_kakaotalk.svg";
+import signupBg from "../../assets/Login_img/signup_bg.png";
 import { signup } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/Login/SocialLogin"; // ✅ 추가
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -16,132 +15,24 @@ const Signup = () => {
   const navigate = useNavigate();
   
   const styles = {
-    container: {
-      display: "flex",
-      height: "100vh",
-    },
-    leftPanel: {
-      flex: 1,
-      backgroundImage: `url(${signupBg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    },
-    rightPanel: {
-      flex: 1,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#fff",
-    },
-    formWrapper: {
-      width: "400px",
-      background: "white",
-      padding: "30px",
-    },
-    title: {
-      textAlign: "left",
-      fontSize: "24px",
-      fontWeight: "bold",
-      marginBottom: "20px",
-    },
-    inputGroup: {
-      display: "flex",
-      flexDirection: "column",
-      marginBottom: "10px",
-    },
-    label: {
-      fontSize: "14px",
-      fontWeight: "bold",
-      marginBottom: "5px",
-    },
-    inputContainer: {
-      display: "flex",
-      gap: "10px",
-    },
-    input: {
-      flex: 1,
-      padding: "10px",
-      border: "1px solid #ccc",
-      borderRadius: "5px",
-      fontSize: "14px",
-    },
-    outlinedButton: {
-      padding: "10px",
-      background: "#fff",
-      color: "#6F3DA1",
-      border: "2px solid #6F3DA1",
-      borderRadius: "5px",
-      fontSize: "14px",
-      cursor: "pointer",
-      minWidth: "120px",
-    },
-    button: {
-      width: "100%",
-      padding: "12px",
-      background: "#6F3DA1",
-      color: "white",
-      border: "none",
-      borderRadius: "50px",
-      fontSize: "16px",
-      cursor: "pointer",
-      marginTop: "10px",
-    },
-    separator: {
-      display: "flex",
-      alignItems: "center",
-      textAlign: "center",
-      margin: "20px 0",
-    },
-    separatorLine: {
-      flex: 1,
-      height: "1px",
-      backgroundColor: "#ccc",
-    },
-    separatorText: {
-      margin: "0 10px",
-      fontSize: "14px",
-      fontWeight: "bold",
-      color: "#666",
-    },
-    socialLogin: {
-      display: "flex",
-      justifyContent: "center",
-      gap: "15px",
-      marginTop: "10px",
-    },
-    socialIcon: {
-      width: "40px",
-      height: "40px",
-      cursor: "pointer",
-    },
-    checkboxContainer: {
-      display: "flex",
-      alignItems: "center",
-      marginTop: "10px",
-    },
-    checkbox: {
-      marginRight: "8px",
-    },
-    termsText: {
-      color: "#6F3DA1",
-      textDecoration: "underline",
-      cursor: "pointer",
-    },
-    normalText: {
-      color: "#333",
-    },
-    errorText: {
-      color: "red",
-      fontSize: "12px",
-      marginTop: "5px",
-      textAlign: "right",
-    },
+    container: { display: "flex", height: "100vh" },
+    leftPanel: { flex: 1, backgroundImage: `url(${signupBg})`, backgroundSize: "cover", backgroundPosition: "center" },
+    rightPanel: { flex: 1, display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#fff" },
+    formWrapper: { width: "400px", background: "white", padding: "30px" },
+    title: { textAlign: "left", fontSize: "24px", fontWeight: "bold", marginBottom: "20px" },
+    inputGroup: { display: "flex", flexDirection: "column", marginBottom: "10px" },
+    label: { fontSize: "14px", fontWeight: "bold", marginBottom: "5px" },
+    inputContainer: { display: "flex", gap: "10px" },
+    input: { flex: 1, padding: "10px", border: "1px solid #ccc", borderRadius: "5px", fontSize: "14px" },
+    outlinedButton: { padding: "10px", background: "#fff", color: "#6F3DA1", border: "2px solid #6F3DA1", borderRadius: "5px", fontSize: "14px", cursor: "pointer", minWidth: "120px" },
+    button: { width: "100%", padding: "12px", background: "#6F3DA1", color: "white", border: "none", borderRadius: "50px", fontSize: "16px", cursor: "pointer", marginTop: "10px" },
+    separator: { display: "flex", alignItems: "center", textAlign: "center", margin: "20px 0" },
+    separatorLine: { flex: 1, height: "1px", backgroundColor: "#ccc" },
+    separatorText: { margin: "0 10px", fontSize: "14px", fontWeight: "bold", color: "#666" },
+    errorText: { color: "red", fontSize: "12px", marginTop: "5px", textAlign: "right" },
   };
 
-  // 이메일 유효성 검사
-  const validateEmail = (email) => {
-    return /\S+@\S+\.\S+/.test(email);
-  };
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -239,13 +130,6 @@ const Signup = () => {
               {passwordError && <div style={styles.errorText}>{passwordError}</div>}
             </div>
 
-            {/* 이메일 수집 동의 */}
-            <div style={styles.checkboxContainer}>
-              <input type="checkbox" checked={isAgreed} onChange={() => setIsAgreed(!isAgreed)} style={styles.checkbox} />
-              <span style={styles.termsText}>이메일 수집 및 이용</span>
-              <span style={styles.normalText}> 에 동의합니다.</span>
-            </div>
-
             {/* 회원가입 버튼 */}
             <button type="submit" style={styles.button}>
               회원가입
@@ -259,10 +143,7 @@ const Signup = () => {
             </div>
 
             {/* 소셜 로그인 */}
-            <div style={styles.socialLogin}>
-              <img src={googleIcon} alt="Google Login" style={styles.socialIcon} />
-              <img src={kakaoIcon} alt="KakaoTalk Login" style={styles.socialIcon} />
-            </div>
+            <SocialLogin />
           </form>
         </div>
       </div>
