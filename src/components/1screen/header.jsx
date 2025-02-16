@@ -17,7 +17,7 @@ const Header = () => {
           <Link to="/harmony">화성분석 바로가기 →</Link>
         </StyledPrimaryButton>
         <StyledSessionButton>
-          <Link to="/harmony">세션분리 하러가기 →</Link>
+          <Link to="/session">세션분리 하러가기 →</Link>
         </StyledSessionButton>
       </ButtonContainer>
     </header>

@@ -68,7 +68,7 @@ const HomePage = () => {
   const { isNavbar1 } = useNavbar();
   return (
     <HomePageWrapper>
-      <Navbar />
+      {isNavbar1 ? <Navbarlog /> : <Navbar />}
       <HeaderContainer>
         <Header />
       </HeaderContainer>
