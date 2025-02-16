@@ -43,7 +43,7 @@ const HarmonyPage = () => {
 
   return (
     <PageContainer>
-      
+      <Navbar />
       <TitleNavbar title="화성 분석" subtitle="내용들" />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
