@@ -43,7 +43,7 @@ const UploadHarmony = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       const s3Url = response.data.result.uploadS3Url;
@@ -51,9 +51,11 @@ const UploadHarmony = () => {
       console.log("🚀 S3 URL 응답:", response.data.result.uploadS3Url);
       console.log("musciId:", response.data.result.musicId);
 
-      if (s3Url) {
+      if (s3Url && musicId) {
         console.log("📡 uploadFileToS3 호출됨");
         await uploadFileToS3(s3Url, file);
+        console.log("requestHarmony 호출됨");
+        await requestHarmony(musicId);
       } else {
         console.warn("⚠️ S3 URL을 받지 못함");
       }
@@ -83,6 +85,31 @@ const UploadHarmony = () => {
       }
     } catch (error) {
       alert("S3 업로드 중 오류 발생!");
+    }
+  };
+
+  const requestHarmony = async (musicId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${API_BASE_URL}/task/harmony`,
+        { musicId }, // body에 musicId 전달
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        console.log("🎶 Harmony 요청 성공:", response.data);
+        alert("Harmony 작업이 성공적으로 완료되었습니다!");
+      } else {
+        console.warn("⚠️ Harmony 요청 실패 - 상태 코드:", response.status);
+      }
+    } catch (error) {
+      console.error("❌ Harmony 요청 오류:", error.message);
     }
   };
 
@@ -127,12 +154,20 @@ const UploadHarmony = () => {
           </IconContainer>
 
           <TextButtonContainer>
-            <UploadText>이곳에 분석하고 싶은 음원 파일을 업로드하세요</UploadText>
+            <UploadText>
+              이곳에 분석하고 싶은 음원 파일을 업로드하세요
+            </UploadText>
             <SubText>최대 10MB, mp3 파일 지원</SubText>
-            <FileSelectButton onClick={() => document.getElementById("file-upload").click()} />
+            <FileSelectButton
+              onClick={() => document.getElementById("file-upload").click()}
+            />
           </TextButtonContainer>
 
-          <HiddenFileInput type="file" id="file-upload" onChange={handleFileChange} />
+          <HiddenFileInput
+            type="file"
+            id="file-upload"
+            onChange={handleFileChange}
+          />
         </>
       )}
     </UploadContainer>
@@ -148,7 +183,8 @@ const UploadContainer = styled.div`
   background: rgba(28, 28, 38, 0.4);
   backdrop-filter: blur(137.73px);
   border-radius: 12px;
-  border: 3px dashed ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
+  border: 3px dashed
+    ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,8 +192,6 @@ const UploadContainer = styled.div`
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 `;
-
-
 
 const IconContainer = styled.div`
   width: 200px;

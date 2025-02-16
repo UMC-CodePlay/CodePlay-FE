@@ -34,7 +34,7 @@ const Result_HarmonyPage = () => {
     const token = localStorage.getItem("token");
     const formData = new setFileInfo();
     formData.append("taskId", taskId);
-
+    1;
     const reponse = await axios.post(`${API_BASE_URL}/files/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
