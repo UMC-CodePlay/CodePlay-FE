@@ -17,3 +17,15 @@ export const refreshToken = async (email, refreshToken) => {
     { headers: { "Refresh-Token": refreshToken } }
   );
 };
+
+export const requestPasswordReset = async (email) => {
+  return axios.post(`${API_BASE_URL}/auth/password/reset/request`, { email });
+};
+
+export const verifyResetCode = async (email, code) => {
+  return axios.post(`${API_BASE_URL}/auth/password/reset/verify`, { email, code });
+};
+
+export const changePassword = async (email, newPassword) => {
+  return axios.post(`${API_BASE_URL}/auth/password/reset/change`, { email, newPassword });
+};
