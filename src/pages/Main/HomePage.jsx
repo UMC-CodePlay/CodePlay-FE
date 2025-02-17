@@ -10,7 +10,7 @@ import Stem from "../../components/4screen/stem.jsx";
 import bg2 from "../../assets/bg2.svg";
 import bg3 from "../../assets/bg3.svg";
 import Screen5 from "../../assets/Screen5.svg";
-import BackgroundHeader from "../../assets/Landing_img/1bg.svg";
+import BackgroundHeader from "../../assets/Landing_img/bg.png";
 import AdIcons from "../../components/6screen/AdIcons.jsx";
 
 const HomePageWrapper = styled.div`
