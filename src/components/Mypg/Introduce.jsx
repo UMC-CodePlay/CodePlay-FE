@@ -60,14 +60,15 @@ const EditProfile = styled(Link)`
   }
 `;
 
-const ProfileEmail = styled.p`
-  margin: 5px 0 0;
-  font-size: 14px;
-  color: #888;
-`;
-
 function MyPageBar() {
+  // AuthContext에서 user를 가져옴
   const { user } = useContext(AuthContext);
+  
+  // AuthContext의 user가 null일 경우를 대비해 localStorage에서 email을 가져옴
+  const storedEmail = localStorage.getItem("email");
+
+  // user.email이 있다면 그걸 쓰고, 없으면 storedEmail을 쓰고, 둘 다 없으면 "로그인 필요" 표시
+  const displayedEmail = user?.email || storedEmail || "로그인 필요";
 
   return (
     <Container>
@@ -75,7 +76,7 @@ function MyPageBar() {
         <ProfileImage src={PersonIcon} alt="프로필 아이콘" />
         <ProfileInfo>
           <ProfileName>
-            {user ? user.email : "로그인 필요"}
+            {displayedEmail}
           </ProfileName>
           <EditProfile to="/mypage/mypageinfo">회원정보 수정</EditProfile>
         </ProfileInfo>

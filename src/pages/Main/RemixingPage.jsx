@@ -1,4 +1,5 @@
-import Navbar from "../../components/Navbar";
+// src/pages/Main/RemixingPage.jsx
+import ConditionalNavbar from "../../components/ConditionalNavbar"; // 추가
 import TitleNavbar from "../../components/TitleNavbar";
 import PurpleButton from "../../components/Buttons/PurpleButton";
 import Othersystems from "../../components/Othersystems";
@@ -9,7 +10,7 @@ import styled from "styled-components";
 const RemixingPage = () => {
   return (
     <PageContainer>
-      <Navbar />
+      <ConditionalNavbar /> {/* 변경 */}
       <TitleNavbar
         title="리믹싱"
         subtitle="음원의 볼륨, 음색, 이펙터를 조절하여 나만의 음악을 만들어보세요!"
@@ -30,13 +31,14 @@ const RemixingPage = () => {
   );
 };
 
+export default RemixingPage;
+
 const PageContainer = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
 `;
-
 const ContentContainer = styled.div`
   margin-top: 100px;
   display: flex;
@@ -44,13 +46,11 @@ const ContentContainer = styled.div`
   align-items: center;
   gap: 30px;
 `;
-
 const ButtonContainer = styled.div`
   margin-top: 60px;
   display: flex;
   justify-content: center;
 `;
-
 const StyledPurpleButton = styled(PurpleButton)`
   width: 160px;
   height: 59px;
@@ -58,5 +58,3 @@ const StyledPurpleButton = styled(PurpleButton)`
   gap: 10px;
   border-radius: 5px;
 `;
-
-export default RemixingPage;

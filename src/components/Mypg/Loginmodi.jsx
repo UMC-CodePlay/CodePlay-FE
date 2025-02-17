@@ -18,10 +18,13 @@ function Loginmodi() {
 
   // AuthContext에서 토큰과 user 정보를 가져옴
   const { token, user } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
-  // 1) 비밀번호 변경 로직
+  // ✅ AuthContext에서 가져온 user.email이 없으면 localStorage에서 email을 가져옴
+  //    둘 다 없으면 ""(빈 문자열)
+  const displayedEmail = user?.email || localStorage.getItem("email") || "";
+
+  // (1) 비밀번호 변경 로직 → PUT 요청
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,7 +42,7 @@ function Loginmodi() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // 주의: 백틱(`) 사용
           },
         }
       );
@@ -57,20 +60,20 @@ function Loginmodi() {
     }
   };
 
-  // 2) "이미지 업로드" 버튼 클릭 → 숨겨진 파일 입력 열기
+  // (2) "이미지 업로드" 버튼 클릭 → 숨겨진 파일 입력 열기
   const handleImageUploadClick = () => {
     hiddenFileInput.current.click();
   };
 
   /**
-   * 3) 파일 선택 → 2단계 업로드 방식 (POST로 presigned URL 받고, PUT으로 실제 업로드)
+   * (3) 파일 선택 → 2단계 업로드 방식 (POST로 presigned URL 받고, PUT으로 실제 업로드)
    */
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     try {
-      // 1단계) presigned URL 요청
+      // 1단계) presigned URL 요청 (POST)
       const presignRes = await axios.post(
         `http://15.164.219.98.nip.io/files/upload?fileType=IMAGE&fileName=${encodeURIComponent(file.name)}`,
         null,
@@ -131,7 +134,7 @@ function Loginmodi() {
         <FieldContainer>
           <Input1
             type="email"
-            value={user?.email || ""}
+            value={displayedEmail}
             readOnly
           />
         </FieldContainer>
@@ -189,10 +192,12 @@ function Loginmodi() {
 
 export default Loginmodi;
 
+/* ------------------- Styled Components ------------------- */
+
 const PageContainer = styled.div`
   width: 100%;
   background-color: #f9f9f9;
-    min-height: 84vh; /* 뷰포트 전체 높이 */
+  min-height: 84vh; /* 뷰포트 전체 높이 */
 
   display: flex;
   justify-content: center;
@@ -204,8 +209,7 @@ const PageContainer = styled.div`
 const FormCard = styled.form`
   background-color: #ffffff;
   width: 600px;
-      min-height: 76vh; /* 뷰포트 전체 높이 */
-
+  min-height: 76vh; /* 뷰포트 전체 높이 */
   margin: 0;
   padding: 40px 30px;
   display: flex;
@@ -287,6 +291,7 @@ const Input1 = styled.input`
   backdrop-filter: blur(3px);
   /* 텍스트는 선명하게, 약간 덮이는 느낌을 주려면 RGBA 색상 사용 */
   color: rgba(182, 175, 190, 1);
+
   &:focus {
     outline: none;
     border-color: #6c33e9;
