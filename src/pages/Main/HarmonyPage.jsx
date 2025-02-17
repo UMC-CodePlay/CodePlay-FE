@@ -1,11 +1,10 @@
 // src/pages/Main/HarmonyPage.jsx
 import React, { useState, useContext } from "react";
-// import Navbar from "../../components/Navbar";  // 삭제
-import ConditionalNavbar from "../../components/ConditionalNavbar";
-
+import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import PurpleButton from "../../components/Buttons/PurpleButton";
 import Othersystems from "../../components/Othersystems";
+import { Link } from "react-router-dom";
 import UploadHarmony from "../../components/UploadHarmony";
 import styled from "styled-components";
 import BackgroundSvg from "../../assets/HarmonyBg.svg";
@@ -44,7 +43,7 @@ const HarmonyPage = () => {
 
   return (
     <PageContainer>
-      <ConditionalNavbar /> {/* 변경됨 */}
+      <Navbar />
       <TitleNavbar title="화성 분석" subtitle="내용들" />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
@@ -77,6 +76,7 @@ const PageContainer = styled.div`
   min-height: 100vh;
   overflow: hidden;
 `;
+
 const BackgroundImage = styled.img`
   width: 100vw;
   min-height: 747px;

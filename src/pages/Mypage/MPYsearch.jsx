@@ -1,4 +1,4 @@
-// src/pages/Mypage/MPYsearch.jsx
+// MPYsearch.jsx
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -8,20 +8,22 @@ import Introduce from "../../components/Mypg/Introduce.jsx";
 import SearchBar from "../../components/Mypg/SearchBarentire.jsx";
 import Mypageser from "../../components/Mypg/MypageSERli.jsx";
 import Menu from "../../components/Mypg/Menu.jsx";
+import NavbarLog from "../../components/Mypg/NavbarLog.jsx";
 import Mypageletter from "../../components/Mypg/Mypageletter.jsx";
 
-// 기존: import NavbarLog from "../../components/Mypg/NavbarLog.jsx";
-import ConditionalNavbar from "../../components/ConditionalNavbar";
-
-function MPYsearch() {
+function Mypagehold() {
   const location = useLocation();
   const [harmonies, setHarmonies] = useState([]);
   const [tracks, setTracks] = useState([]);
   const { token } = useContext(AuthContext);
+  
 
   useEffect(() => {
+    // 1) 쿼리 파라미터에서 musicTitle 추출
     const searchParams = new URLSearchParams(location.search);
     const musicTitle = searchParams.get("musicTitle");
+
+    // 2) API 호출
     if (musicTitle) {
       axios
         .get(
@@ -30,12 +32,13 @@ function MPYsearch() {
           )}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // ← 토큰 추가
             },
           }
         )
         .then((res) => {
           if (res.data.isSuccess) {
+            // result.harmonies, result.tracks
             const result = res.data.result;
             setHarmonies(result.harmonies || []);
             setTracks(result.tracks || []);
@@ -47,13 +50,12 @@ function MPYsearch() {
           console.error("API 에러:", err);
         });
     }
-  }, [location.search, token]);
+  }, [location.search,token]);
 
   return (
     <div>
-      <ConditionalNavbar />
+      <NavbarLog />
       <Mypageletter />
-
       <div style={{ width: "100%", backgroundColor: "#FFFFFF" }}>
         <Introduce />
 
@@ -67,8 +69,9 @@ function MPYsearch() {
           <Menu />
         </div>
 
-        {/* 검색 결과 */}
+        {/* 검색 결과 표시 (harmonies, tracks) */}
         <div style={{ marginTop: "20px" }}>
+          {/* MypageSERli.jsx에 두 배열을 props로 넘김 */}
           <Mypageser harmonies={harmonies} tracks={tracks} />
         </div>
       </div>
@@ -76,4 +79,4 @@ function MPYsearch() {
   );
 }
 
-export default MPYsearch;
+export default Mypagehold;

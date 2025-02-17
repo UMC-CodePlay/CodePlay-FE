@@ -1,5 +1,4 @@
-// src/pages/Main/SessionPage.jsx
-import ConditionalNavbar from "../../components/ConditionalNavbar";
+import Navbar from "../../components/Navbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import SessionButton from "../../components/Buttons/BlueButton";
 import Othersystems from "../../components/Othersystems";
@@ -11,21 +10,29 @@ import styled from "styled-components";
 const SessionPage = () => {
   return (
     <PageContainer>
-      <ConditionalNavbar /> {/* 변경 */}
+      <Navbar />
       <TitleNavbar title="세션 분리" subtitle="세션 분리 내용" />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
-      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <UploadSession />
       </div>
 
-      <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
+      >
         <SessionButton>
           <Link to="/session/result_session">결과보기</Link>
         </SessionButton>
       </div>
-      <Othersystems />
-    </PageContainer>
+      <Othersystems></Othersystems>
+      </PageContainer>
   );
 };
 
@@ -37,9 +44,10 @@ const PageContainer = styled.div`
   min-height: 100vh;
   overflow: hidden;
 `;
+
 const BackgroundImage = styled.img`
-  width: 100vw;
-  min-height: 600px;
+  width: 100vw; 
+  min-height: 600px; 
   height: auto;
   object-fit: cover;
   position: absolute;
