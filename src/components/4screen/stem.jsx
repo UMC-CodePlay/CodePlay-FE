@@ -9,7 +9,7 @@ const Stem = () => {
     <section  className="stem-analysis">
       <h2 className="section-title">클릭 한 번으로 섞인 음악을 분리하기</h2>
       <p className="section-description">
-        예시 텍스트입니다. 세션분리에 대한 설명글이 들어갈 예정입니다.
+        코드플레이의 온라인 음악 분석기를 이용하면, 트랙을 빠르게 분리할 수 있습니다.
       </p>
 
       <StemIcons></StemIcons>

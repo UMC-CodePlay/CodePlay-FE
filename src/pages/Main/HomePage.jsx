@@ -4,11 +4,12 @@ import Navbar from "../../components/Navbar.jsx";
 import Header from "../../components/1screen/header.jsx";
 import Harmony from "../../components/2screen/harmony.jsx";
 import Stem from "../../components/4screen/stem.jsx";
-import a from "../../assets/a.svg";
+import bg2 from "../../assets/bg2.svg";
+import bg3 from "../../assets/bg3.svg";
 import Screen5 from "../../assets/Screen5.svg";
 import Navbarlog from "../../components/Mypg/NavbarLog.jsx";
 import { useNavbar } from "../../context/NavbarContext";
-import BackgroundHeader from "../../assets/Landing_img/1bg.svg";
+import BackgroundHeader from "../../assets/Landing_img/bg.png";
 import AdIcons from "../../components/6screen/AdIcons.jsx";
 
 const HomePageWrapper = styled.div`
@@ -72,7 +73,8 @@ const HomePage = () => {
       <HeaderContainer>
         <Header />
       </HeaderContainer>
-      <BackgroundImage src={a} alt="Background" />
+      <BackgroundImage src={bg2} alt="Background" />
+      <BackgroundImage src={bg3} alt="Background" />
       <HarmonyContainer>
         <Harmony />
       </HarmonyContainer>

@@ -2,14 +2,14 @@ import "./harmony.css";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HomePgButton from "../Buttons/HomePurpleButton";
-import HomehIcon from "../../assets/HomehIcon.svg";
+import HomehIcon from "../../assets/harmony_ex.svg";
 
 const Harmony = () => {
   return (
     <section className="harmony-analysis">
       <h2 className="section-title">좋아하는 노래의 화성을 분석하기</h2>
       <p className="section-description">
-        예시텍스트 입니다. 화성분석에 대한 설명글이 들어갈 예정입니다.
+        코드플레이의 온라인 음악분석기를 이용하면, 음악의 화성정보를 확인할 수 있습니다.
       </p>
       <GraphContainer>
         <GraphImage src={HomehIcon} alt="화성 분석 그래프" />
