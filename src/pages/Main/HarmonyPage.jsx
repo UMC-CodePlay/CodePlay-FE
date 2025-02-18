@@ -45,7 +45,7 @@ const HarmonyPage = () => {
   return (
     <PageContainer>
       <ConditionalNavbar /> {/* 변경됨 */}
-      <TitleNavbar title="화성 분석" subtitle="내용들" />
+      <TitleNavbar title="화성 분석" subtitle="비트 추적, 키 감지, 하모닉 분석으로 인사이트를 제공합니다." />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
       <div
@@ -64,7 +64,7 @@ const HarmonyPage = () => {
         <PurpleButton onClick={handleResult}>결과보기</PurpleButton>
       </div>
 
-      <Othersystems />
+      {/* <Othersystems /> */}
     </PageContainer>
   );
 };
@@ -86,4 +86,5 @@ const BackgroundImage = styled.img`
   top: 350px;
   left: 0;
   z-index: -1;
+  background-color: black;
 `;

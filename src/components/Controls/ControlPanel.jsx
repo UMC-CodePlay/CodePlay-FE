@@ -24,7 +24,7 @@ const ControlPanel = ({
             </ValueBox>
             <ArrowButton onClick={() => handleScaleChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton onClick={() => setScale(0)}>원래대로</ResetButton>
+          <ResetButton>적용하기</ResetButton>
         </ControlWrapper>
       )}
       {activeTab === '템포' && (
@@ -36,7 +36,7 @@ const ControlPanel = ({
             </ValueBox>
             <ArrowButton onClick={() => handleTempoChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton onClick={() => setTempo(1.0)}>원래대로</ResetButton>
+          <ResetButton>적용하기</ResetButton>
         </ControlWrapper>
       )}
       {activeTab === '리버브' && (

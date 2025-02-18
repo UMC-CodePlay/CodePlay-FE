@@ -58,7 +58,7 @@ const Result_HarmonyPage = () => {
         </StyledPurpleButton>
       </div>
 
-      <Othersystems />
+      {/* <Othersystems /> */}
     </>
   );
 };

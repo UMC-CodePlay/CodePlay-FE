@@ -1,3 +1,5 @@
+// src/components/Container/ResultContentContainer.jsx
+import React from "react";
 import styled from "styled-components";
 import Navbar from "../Navbar";
 import TitleNavbar from "../TitleNavbar";
@@ -6,6 +8,7 @@ import { Link } from "react-router-dom";
 import PurpleButton from "../Buttons/PurpleButton";
 import PrevPurpleButton from "../Buttons/PrevPurpleButton";
 import BackGroundResult from "../BackGroundResult";
+import OneAudioplay from "../oneAudioplay";  // oneAudioplay.jsx 임포트
 
 const ResultContentContainer = ({ 
   title, 
@@ -23,16 +26,21 @@ const ResultContentContainer = ({
         <ContentContainer>
           {children}
           <ButtonContainer>
-            <PrevPurpleButton>
+            {/* 필요 시 버튼 추가 */}
+            {/* <PrevPurpleButton>
               <Link to={prevLink}>이전으로</Link>
             </PrevPurpleButton>
             <StyledPurpleButton>
               <Link to="/audioloading">다운로드</Link>
-            </StyledPurpleButton>
+            </StyledPurpleButton> */}
           </ButtonContainer>
         </ContentContainer>
       </Wrapper>
-      <Othersystems To_other1={otherSystem1} To_other2={otherSystem2} />
+      {/* OneAudioplay 컴포넌트를 ContentContainer와 동일한 폭으로 추가 */}
+      <OneAudioplayWrapper>
+        <OneAudioplay />
+      </OneAudioplayWrapper>
+      {/* <Othersystems To_other1={otherSystem1} To_other2={otherSystem2} /> */}
     </>
   );
 };
@@ -51,6 +59,7 @@ const ContentContainer = styled.div`
   padding: 40px;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: #2D2D3F;
 `;
 
 const ButtonContainer = styled.div`
@@ -68,4 +77,11 @@ const StyledPurpleButton = styled(PurpleButton)`
   border-radius: 5px;
 `;
 
-export default ResultContentContainer; 
+// OneAudioplayWrapper를 ContentContainer와 동일한 폭으로 설정
+const OneAudioplayWrapper = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto 0;
+`;
+
+export default ResultContentContainer;

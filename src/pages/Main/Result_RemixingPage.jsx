@@ -36,10 +36,8 @@ const Result_RemixingPage = () => {
 
   return (
     <ResultContentContainer 
-      title="'파일 이름'의 리믹싱 결과"
+      title="리믹싱 결과"
       prevLink="/remixing"
-      otherSystem1="화성 분석"
-      otherSystem2="세션 분리"
     >
       <ControlSection>
         <TabContainer>

@@ -8,7 +8,7 @@ const GreenButton = styled.button`
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  background: linear-gradient(180deg, #377deb 0%, #037cd9 87.5%);
+  background: linear-gradient(180deg, #2CB4E8 0%, #007FC3 100%);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -22,7 +22,7 @@ const Header = () => {
           <Link to="/session">세션분리 하러가기 →</Link>
         </StyledSessionButton>
         <StyledGreenButton>
-          <Link to="/remix">리믹싱 하러가기 →</Link>
+          <Link to="/remixing">리믹싱 하러가기 →</Link>
         </StyledGreenButton>
       </ButtonContainer>
     </header>

@@ -14,10 +14,10 @@ const Result_SessionPage = () => {
   return (
     <>
       <ConditionalNavbar />
-      <TitleNavbar title="'파일 이름'의 세션 분리 결과" />
+      <TitleNavbar title=" 세션 분리 결과" />
       <Wrapper>
         <BackGroundResult />
-        <UploadBox />
+        {/* <UploadBox /> */}
         <Audioplay />
         <ButtonContainer>
           <PrevBlueButton>
@@ -28,7 +28,7 @@ const Result_SessionPage = () => {
           </BlueButton>
         </ButtonContainer>
       </Wrapper>
-      <Othersystems To_other1={"화성 분석"} />
+      {/* <Othersystems To_other1={"화성 분석"} /> */}
     </>
   );
 };

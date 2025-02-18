@@ -5,14 +5,14 @@ import SessionButton from "../../components/Buttons/BlueButton";
 import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import UploadSession from "../../components/UploadSession";
-import BackgroundSvg from "../../assets/SessionBg.svg";
+import BackgroundSvg from "../../assets/sessionBack.svg";
 import styled from "styled-components";
 
 const SessionPage = () => {
   return (
     <PageContainer>
       <ConditionalNavbar /> {/* 변경 */}
-      <TitleNavbar title="세션 분리" subtitle="세션 분리 내용" />
+      <TitleNavbar title="세션 분리" subtitle="딥러닝 모델이 원곡의 트랙을 분리합니다." />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
       <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
@@ -24,7 +24,7 @@ const SessionPage = () => {
           <Link to="/session/result_session">결과보기</Link>
         </SessionButton>
       </div>
-      <Othersystems />
+      {/* <Othersystems /> */}
     </PageContainer>
   );
 };
@@ -36,14 +36,17 @@ const PageContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
+  
 `;
+
 const BackgroundImage = styled.img`
   width: 100vw;
-  min-height: 600px;
+  min-height: 747px;
   height: auto;
   object-fit: cover;
   position: absolute;
-  top: 400px;
+  top: 350px;
   left: 0;
   z-index: -1;
+  background-color: black;
 `;
