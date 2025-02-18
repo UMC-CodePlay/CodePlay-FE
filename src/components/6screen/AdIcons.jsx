@@ -5,18 +5,18 @@ import LogoAd from "../../assets/Logo_img/logoAd.svg";
 const adIconsData = [
   {
     id: 1,
-    title: "코드플레이의 \n장점 첫번째",
-    subtext: "111111\n101101",
+    title: "좋아하는 노래를 \n깊이 탐구해요",
+    subtext: "어려운 화성학도 누구나\n이해하기 쉽게 전달합니다.",
   },
   {
     id: 2,
-    title: "코드플레이의\n장점 두번째",
-    subtext: "101010\n010101",
+    title: "반주부터 드럼까지,\n마음대로 골라 들어요",
+    subtext: "보컬과 악기를 원하는 대로\n분리해낼 수 있습니다.",
   },
   {
     id: 3,
-    title: "코드플레이의\n장점 세번째",
-    subtext: "000111\n111000",
+    title: "마이페이지에서\n한번에 모아봐요",
+    subtext: "모든 작업물은 마이페이지에\n자동으로 보관됩니다.",
   },
 ];
 

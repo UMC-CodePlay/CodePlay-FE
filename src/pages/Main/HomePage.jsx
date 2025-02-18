@@ -9,7 +9,8 @@ import Harmony from "../../components/2screen/harmony.jsx";
 import Stem from "../../components/4screen/stem.jsx";
 import bg2 from "../../assets/bg2.svg";
 import bg3 from "../../assets/bg3.svg";
-import Screen5 from "../../assets/Screen5.svg";
+import bg4 from "../../assets/bg4.svg";
+import bg5 from "../../assets/bg5.svg";
 import BackgroundHeader from "../../assets/Landing_img/bg.png";
 import AdIcons from "../../components/6screen/AdIcons.jsx";
 
@@ -82,7 +83,7 @@ const HomePage = () => {
       <StemContainer>
         <Stem />
       </StemContainer>
-      <SectionImage src={Screen5} alt="Screen5" />
+      <SectionImage src={bg5} alt="Screen5" />
       <AdIcons />
     </HomePageWrapper>
   );
