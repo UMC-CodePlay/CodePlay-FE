@@ -56,6 +56,7 @@ const formatTime = (seconds) => {
 // 플레이어 요소들을 한 줄로 배치하는 단일 컨테이너만 사용
 const PlayerWrapper = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   gap: 10px;
   /* 필요한 경우 여백이나 너비를 추가로 설정하세요 */
@@ -68,7 +69,7 @@ const PlayButton = styled.button`
 `;
 
 const StyledSlider = styled(Slider)`
-  width: 200px;
+  width: 70%;
   height: 6px;
   border-radius: 5px;
   cursor: pointer;
