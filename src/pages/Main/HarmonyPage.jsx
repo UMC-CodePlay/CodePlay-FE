@@ -10,34 +10,12 @@ import styled from "styled-components";
 import BackgroundSvg from "../../assets/HarmonyBg.svg";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const HarmonyPage = () => {
-  const [uploadedMusicId, setUploadedMusicId] = useState(null);
   const { token } = useContext(AuthContext);
 
-  const handleUploadSuccess = (musicId) => {
-    setUploadedMusicId(musicId);
-  };
-
-  const handleResult = async () => {
-    console.log(setUploadedMusicId);
-    
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}task/harmony`,
-        { musicId: setUploadedMusicId },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      console.log("화성분석 작업 결과:", response.data);
-    } catch (error) {
-      console.error("화성분석 작업 요청 실패:", error);
-    }
-  };
 
   return (
     <PageContainer>
@@ -52,13 +30,13 @@ const HarmonyPage = () => {
           justifyContent: "center",
         }}
       >
-        <UploadHarmony onUploadSuccess={handleUploadSuccess} />
+        <UploadHarmony/>
       </div>
 
       <div
         style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
       >
-        <PurpleButton onClick={handleResult}>결과보기</PurpleButton>
+        <PurpleButton><Link to='/harmony/result_harmony'>결과보기</Link></PurpleButton>
       </div>
 
       {/* <Othersystems /> */}

@@ -46,15 +46,13 @@ const UploadRemixing = () => {
 
       const s3Url = response.data.result.uploadS3Url;
       const musicId = response.data.result.musicId;
+      localStorage.setItem("musicId", response.data.result.musicId);
       console.log("🚀 S3 URL 응답:", response.data.result.uploadS3Url);
       console.log("musciId:", response.data.result.musicId);
 
       if (s3Url && musicId) {
         await uploadFileToS3(s3Url, file);
         console.log("📡 uploadFileToS3 호출됨");
-
-        await requestRemixing(musicId);
-        console.log("requestRemixing 호출됨");
       } else {
         console.warn("⚠️ S3 URL을 받지 못함");
       }
@@ -87,36 +85,6 @@ const UploadRemixing = () => {
     }
   };
 
-  const requestRemixing = async (musicId) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `${API_BASE_URL}/task/remix`,
-        {
-          musicId: musicId,
-          scaleModulation: 12,
-          tempoRatio: 4,
-          reverbAmount: 1,
-          isChorusOn: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (response.status === 200) {
-        console.log("🎶 Remixing 요청 성공:", response.data);
-        alert("Remixing 작업이 성공적으로 완료되었습니다!");
-      } else {
-        console.warn("⚠️ Remixing 요청 실패 - 상태 코드:", response.status);
-      }
-    } catch (error) {
-      console.error("❌ Remixing 요청 오류:", error.message);
-    }
-  };
 
   const handleDragOver = (e) => {
     e.preventDefault();

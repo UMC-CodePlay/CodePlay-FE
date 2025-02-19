@@ -98,7 +98,7 @@ const UploadHarmony = () => {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${API_BASE_URL}/task/harmony`,
-        { musicId }, // body에 musicId 전달
+        { musicId: musicId }, // body에 musicId 전달
         {
           headers: {
             Authorization: `Bearer ${token}`,
