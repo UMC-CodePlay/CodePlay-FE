@@ -27,7 +27,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // 기존 에러 메시지 초기화
+    setErrorMessage("");
 
     try {
       const response = await login(email, password);
@@ -36,7 +36,7 @@ const Login = () => {
       localStorage.setItem("token", response.data.result.token);
       localStorage.setItem("refreshToken", response.data.result.refreshToken);
       localStorage.setItem("email", email);
-      
+
       toggleNavbar();
       navigate("/");
     } catch (error) {
@@ -76,7 +76,7 @@ const Login = () => {
           <div style={styles.separatorLine}></div>
         </div>
 
-        {/* 소셜 로그인 */}
+        {/* ✅ 소셜 로그인 UI 유지 (클릭 시 아무 동작 X) */}
         <SocialLogin />
 
         <p style={styles.signupContainer}>

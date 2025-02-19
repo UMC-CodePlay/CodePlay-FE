@@ -65,7 +65,7 @@ const Result_HarmonyPage = () => {
         title="화성 분석 결과"
         // subtitle="음원 분석 결과를 확인하세요"
       />
-      <BackGroundResult />
+      <BackGroundResult style={{ height: "100%" }} />
       <div
         style={{
           marginTop: "100px",
@@ -86,20 +86,27 @@ const Result_HarmonyPage = () => {
       <div
         style={{
           marginTop: "60px",
-          display: "flex",
           justifyContent: "center",
           gap: "70px",
         }}
       >
-        <PrevPurpleButton>
-          <Link to="/harmony">이전으로</Link>
-        </PrevPurpleButton>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "70px",
+          }}
+        >
+          <PrevPurpleButton>
+            <Link to="/harmony">이전으로</Link>
+          </PrevPurpleButton>
 
         <StyledPurpleButton>
           <Link to="/audioloading">다운로드</Link>
         </StyledPurpleButton>
       </div>
-      {/* <Othersystems /> */}
+      <Othersystems />
     </>
   );
 };

@@ -2,9 +2,8 @@
 import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import SessionButton from "../../components/Buttons/GreenButton";
-import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
-import UploadSession from "../../components/UploadSession";
+import UploadRemixing from "../../components/UploadRemixing";
 import BackgroundSvg from "../../assets/SessionBg.svg";
 import styled from "styled-components";
 
@@ -16,7 +15,7 @@ const SessionPage = () => {
       <BackgroundImage src={BackgroundSvg} alt="Background" />
 
       <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
-        <UploadSession />
+        <UploadRemixing />
       </div>
 
       <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>

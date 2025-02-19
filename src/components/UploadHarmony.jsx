@@ -49,9 +49,11 @@ const UploadHarmony = () => {
           },
         },
       );
-
+      console.log(response);
       const s3Url = response.data.result.uploadS3Url;
       const musicId = response.data.result.musicId;
+      localStorage.setItem("musicId", response.data.result.musicId);
+      console.log(s3Url, musicId);
       console.log("🚀 S3 URL 응답:", response.data.result.uploadS3Url);
       console.log("musciId:", response.data.result.musicId);
 
@@ -98,7 +100,7 @@ const UploadHarmony = () => {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${API_BASE_URL}/task/harmony`,
-        { musicId }, // body에 musicId 전달
+        { musicId: musicId }, // body에 musicId 전달
         {
           headers: {
             Authorization: `Bearer ${token}`,

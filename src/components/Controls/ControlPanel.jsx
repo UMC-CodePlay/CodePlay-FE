@@ -4,17 +4,19 @@ import Switch from "./Switch";
 const ControlPanel = ({ 
   activeTab, 
   scale, 
-  tempo,
-  reverb,
+  tempo, 
+  reverb, 
   chorus, 
   handleScaleChange, 
-  handleTempoChange,
-  handleToggle,
+  handleTempoChange, 
+  handleToggle, 
   setScale, 
-  setTempo 
+  setTempo, 
+  requestRemixing // requestRemixing 함수 전달
 }) => {
   return (
     <Panel>
+      {/* 🔹 스케일 조절 */}
       {activeTab === '스케일' && (
         <ControlWrapper>
           <ValueControl>
@@ -24,9 +26,11 @@ const ControlPanel = ({
             </ValueBox>
             <ArrowButton onClick={() => handleScaleChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
         </ControlWrapper>
       )}
+
+      {/* 🔹 템포 조절 */}
       {activeTab === '템포' && (
         <ControlWrapper>
           <ValueControl>
@@ -36,19 +40,30 @@ const ControlPanel = ({
             </ValueBox>
             <ArrowButton onClick={() => handleTempoChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
         </ControlWrapper>
       )}
+
+      {/* 🔹 리버브 토글 */}
       {activeTab === '리버브' && (
-        <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} />
+        <ControlWrapper>
+          <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} />
+          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
+        </ControlWrapper>
       )}
+
+      {/* 🔹 코러스 토글 */}
       {activeTab === '코러스' && (
-        <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
+        <ControlWrapper>
+          <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
+          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
+        </ControlWrapper>
       )}
     </Panel>
   );
 };
 
+// 🎨 스타일
 const Panel = styled.div`
   height: 300px;
   display: flex;
@@ -102,7 +117,7 @@ const Value = styled.span`
   font-weight: bold;
 `;
 
-const ResetButton = styled.button`
+const ApplyButton = styled.button`
   padding: 12px 24px;
   border: 1px solid #24B2E7;
   border-radius: 8px;
@@ -117,4 +132,4 @@ const ResetButton = styled.button`
   }
 `;
 
-export default ControlPanel; 
+export default ControlPanel;

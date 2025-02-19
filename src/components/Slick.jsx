@@ -7,7 +7,7 @@ import ResultHarmonyButton from "./Buttons/ResultHarmonyButton";
 
 const Slick = ({ harmonyscale, harmonygenre, harmonybpm }) => {
   return (
-    <>
+    <Wrapper>
       <ButtonContainer>
         <ResultHarmonyButton
           title={"Scale"}
@@ -26,7 +26,7 @@ const Slick = ({ harmonyscale, harmonygenre, harmonybpm }) => {
           subtitle={harmonygenre}
         ></ResultHarmonyButton>
       </ButtonContainer>
-    </>
+    </Wrapper>
   );
 };
 
@@ -39,4 +39,8 @@ const ButtonContainer = styled.div`
   gap: 50px;
   margin-top: 100px;
   margin-bottom: 100px;
+`;
+
+const Wrapper = styled.div`
+  background: rgb(0, 0, 0, 0);
 `;
