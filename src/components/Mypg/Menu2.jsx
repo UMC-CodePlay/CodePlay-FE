@@ -1,33 +1,30 @@
-// Menu2.jsx
+// src/components/Mypg/Menu2.jsx
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Sessioncon from "./sessioncon.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
 
-
 const Menu2 = () => {
   // 1) API로 받아온 트랙 리스트
   const [tracks, setTracks] = useState([]);
   const { token } = useContext(AuthContext);
-  
 
   // 2) 컴포넌트가 처음 렌더링될 때 GET 요청
   useEffect(() => {
+    if (!token) return;
+
     axios
-      .get("http://15.164.219.98.nip.io/member/mypage/track",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // ← 토큰 추가
-          },
-        }
-      )
+      .get("http://15.164.219.98.nip.io/member/mypage/track", {
+        headers: {
+          Authorization: `Bearer ${token}`, // 토큰
+        },
+      })
       .then((res) => {
-        const data = res.data;
-        if (data.isSuccess) {
-          setTracks(data.result);
+        if (res.data.isSuccess) {
+          setTracks(res.data.result); // result: [{ trackId, musicId, musicTitle, createdAt, vocalUrl, instrumentalUrl, bassUrl, drumsUrl, ...}]
         } else {
-          console.error("API 요청 실패:", data.message);
+          console.error("API 요청 실패:", res.data.message);
         }
       })
       .catch((err) => {
@@ -51,7 +48,7 @@ const Menu2 = () => {
           </HeaderRight>
         </Header>
 
-        {/* 3) Sessioncon에 props로 tracks를 넘겨줌 */}
+        {/* 트랙 데이터를 Sessioncon에 전달 */}
         <Sessioncon tracks={tracks} />
       </Container>
     </div>
@@ -60,7 +57,7 @@ const Menu2 = () => {
 
 export default Menu2;
 
-// ───────────────────────── styled-components ─────────────────────────
+/* ------------------ styled-components ------------------ */
 const Small = styled.div`
   width: 100%;
   text-align: center;
@@ -69,7 +66,7 @@ const Small = styled.div`
   margin-top: -5px;
   margin-bottom: -10px;
   line-height: 1.5;
-  transform: translateX(160px);
+  transform: translateX(250px);
 `;
 
 const Container = styled.div`
@@ -94,14 +91,14 @@ const Header = styled.div`
 const HeaderLeft = styled.div`
   flex: 3;
   text-align: left;
-  transform: translateX(10px);
+  transform: translateX(1px);
 `;
 
 const HeaderRight = styled.div`
   flex: 5;
   display: flex;
   justify-content: space-between;
-  transform: translateX(200px);
+  transform: translateX(300px);
 `;
 
 const HeaderCell = styled.span`

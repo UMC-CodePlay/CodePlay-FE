@@ -40,7 +40,7 @@ const Small = styled.div`
   margin-top: -5px;
   margin-bottom: -10px;
   line-height: 1.5;
-  transform: translateX(160px);
+  transform: translateX(280px);
 `;
 
 // Styled-components
@@ -73,7 +73,7 @@ const HeaderRight = styled.div`
   flex: 5;
   display: flex;
   justify-content: space-between;
-  transform: translateX(200px);
+  transform: translateX(290px);
 `;
 
 const HeaderCell = styled.span`

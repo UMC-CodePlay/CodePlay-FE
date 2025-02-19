@@ -1,67 +1,98 @@
-// harmonycon.jsx
+// src/components/Mypg/harmonycon.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
 import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
+import { Link } from "react-router-dom";
 
-const Harmonybar = ({ track }) => {
-  // 1) 서버에서 넘어온 isLiked로 초기화
-  const [isLiked, setIsLiked] = useState(track.isLiked);
-  // 팝업 표시 상태
+
+/**
+ * track: {
+ *   harmonyId, musicId, musicTitle, createdAt, scale, genre,
+ *   bpm, voiceColor, isLiked, originalIndex
+ * }
+ * onToggleLike: (track) => void
+ * onDelete: (track) => void  // ← 추가
+ */
+const Harmonybar = ({ track, onToggleLike, onDelete }) => {
   const [showPopup, setShowPopup] = useState(false);
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
+  const {
+    harmonyId,
+    musicId,
+    musicTitle,
+    createdAt,
+    scale,
+    bpm,
+    genre,
+    isLiked,
+  } = track;
 
-  const handleLikeToggle = () => {
-    // 실제로는 좋아요 토글 API 호출 후, 성공 시 setIsLiked(!isLiked)
-    setIsLiked(!isLiked);
-    setShowPopup(false);
-  };
+  const dateString = createdAt?.split("T")[0] || "";
 
-  // 예: track = {
-  //   harmonyId, musicId, musicTitle, createdAt, scale, genre,
-  //   bpm, voiceColor, isLiked
-  // }
-  const { musicTitle, createdAt, bpm, scale, genre } = track;
-  const dateString = createdAt?.split("T")[0]; // "YYYY-MM-DD" 형태
+  const togglePopup = () => setShowPopup(!showPopup);
 
   return (
     <TrackRow>
-      {/* 메인 정보 */}
+      {/* 음원 기본 정보 */}
       <TrackInfo>
         <AlbumCover />
         <TrackDetails>
-          {/* 제목 & 등록일 */}
           <TrackTitle>{musicTitle}</TrackTitle>
           <TrackDate>{dateString}</TrackDate>
         </TrackDetails>
       </TrackInfo>
 
-      {/* 우측 영역: 키/ BPM/ 평균음압(여기서는 scale로 대체?), 좋아요 버튼 */}
+      {/* 키 / BPM / etc. */}
       <TrackContent>
         <TrackCell>{scale}</TrackCell>
         <TrackCell>{bpm}</TrackCell>
-        <TrackCell>{genre}</TrackCell> {/* 평균 음압 필드가 없으므로 임의로 표시 */}
 
-        {/* 좋아요(즐겨찾기) 버튼 */}
+        {/* 좋아요 버튼 팝업 */}
         <LikeButtonWrapper>
           <LikeButton onClick={togglePopup}>
-            <img src={isLiked ? likeButtonOn : likeButtonOff} alt="좋아요 버튼" />
+            <img src={isLiked ? likeButtonOn : likeButtonOff} alt="하트 버튼" />
           </LikeButton>
-
           {showPopup && (
             <Popup>
               <PopupArrow />
               <PopupContent>
-                <PopupItem>세션분리</PopupItem>
+                <PopupItem>
+                <Link to="/session">
+                  세션분리
+                </Link>
+                  </PopupItem>
                 {isLiked ? (
-                  <PopupItem onClick={handleLikeToggle}>즐겨찾기 취소</PopupItem>
+                  <PopupItem
+                    onClick={() => {
+                      // 즐겨찾기 취소
+                      onToggleLike(track);
+                      setShowPopup(false);
+                    }}
+                  >
+                    즐겨찾기 취소
+                  </PopupItem>
                 ) : (
-                  <PopupItem onClick={handleLikeToggle}>즐겨찾기</PopupItem>
+                  <PopupItem
+                    onClick={() => {
+                      // 즐겨찾기 추가
+                      onToggleLike(track);
+                      setShowPopup(false);
+                    }}
+                  >
+                    즐겨찾기
+                  </PopupItem>
                 )}
-                <PopupItem>삭제하기</PopupItem>
+
+                {/* ▼ 삭제하기 */}
+                <PopupItem
+                  onClick={() => {
+                    onDelete(track);  // ← 클릭 시 부모에 삭제 요청
+                    setShowPopup(false);
+                  }}
+                >
+                  삭제하기
+                </PopupItem>
               </PopupContent>
             </Popup>
           )}
@@ -73,7 +104,7 @@ const Harmonybar = ({ track }) => {
 
 export default Harmonybar;
 
-// ───────────────────────── styled-components ─────────────────────────
+/* ------------------ styled-components ------------------ */
 const TrackRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -81,7 +112,7 @@ const TrackRow = styled.div`
   height: 80px;
   padding: 15px 20px;
   margin-top: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
 `;
@@ -92,6 +123,25 @@ const TrackInfo = styled.div`
   align-items: center;
   gap: 15px;
 `;
+const AlbumCover = styled.div`
+  width: 60px;
+  height: 60px;
+  background-color: #d3d3d3;
+  border-radius: 4px;
+`;
+const TrackDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+const TrackTitle = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+`;
+const TrackDate = styled.div`
+  font-size: 12px;
+  color: #666;
+`;
 
 const TrackContent = styled.div`
   flex: 3;
@@ -99,30 +149,6 @@ const TrackContent = styled.div`
   justify-content: space-between;
   transform: translateX(-70px);
 `;
-
-const AlbumCover = styled.div`
-  width: 60px;
-  height: 60px;
-  background-color: #d3d3d3;
-  border-radius: 4px;
-`;
-
-const TrackDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
-
-const TrackTitle = styled.div`
-  font-weight: bold;
-  font-size: 14px;
-`;
-
-const TrackDate = styled.div`
-  font-size: 12px;
-  color: #666;
-`;
-
 const TrackCell = styled.span`
   flex: 1;
   text-align: center;
@@ -133,15 +159,11 @@ const TrackCell = styled.span`
 const LikeButtonWrapper = styled.div`
   position: relative;
 `;
-
 const LikeButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  flex: 1;
-  text-align: center;
-
   img {
     width: 40px;
     height: 40px;
@@ -152,7 +174,7 @@ const LikeButton = styled.button`
 const Popup = styled.div`
   position: absolute;
   top: 50%;
-  left: 90px; 
+  left: 90px;
   transform: translateY(-60%);
   width: 150px;
   background: #fff;
@@ -161,19 +183,15 @@ const Popup = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
 `;
-
 const PopupArrow = styled.div`
   position: absolute;
   top: 50%;
   left: -8px;
   transform: translateY(-50%);
-  width: 0;
-  height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 8px solid #fff;
 `;
-
 const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,7 +199,6 @@ const PopupContent = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-
 const PopupItem = styled.div`
   padding: 8px 10px;
   cursor: pointer;
