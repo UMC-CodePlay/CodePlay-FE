@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import PurpleButton from "../Buttons/PurpleButton";
 import PrevPurpleButton from "../Buttons/PrevPurpleButton";
 import BackGroundResult from "../BackGroundResult";
-import OneAudioplay from "../oneAudioplay"; // oneAudioplay.jsx 임포트
+import OneAudioplay from "../OneAudioPlay";  // oneAudioplay.jsx 임포트
 
 const ResultContentContainer = ({
   title,
@@ -42,14 +42,12 @@ const ResultContentContainer = ({
 
           {/* --- OneAudioplay를 바로 ContentContainer 하단에 추가 --- */}
           <PlayerContainer>
-            <OneAudioplay />
           </PlayerContainer>
         </ContentContainer>
       </Wrapper>
-      
-      {/* 필요하다면 아래도 주석 해제
-      <Othersystems To_other1={otherSystem1} To_other2={otherSystem2} />
-      */}
+      {/* OneAudioplay 컴포넌트를 ContentContainer와 동일한 폭으로 추가 */}
+
+      {/* <Othersystems To_other1={otherSystem1} To_other2={otherSystem2} /> */}
     </>
   );
 };

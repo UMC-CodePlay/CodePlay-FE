@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import Switch from "./Switch";
 
-const ControlPanel = ({
-  activeTab,
-  scale,
-  tempo,
-  reverb,
-  chorus,
-  handleScaleChange,
-  handleTempoChange,
-  handleReverbChange,
-  handleToggle,
-  setScale,
-  setTempo
+const ControlPanel = ({ 
+  activeTab, 
+  scale, 
+  tempo, 
+  reverb, 
+  chorus, 
+  handleScaleChange, 
+  handleTempoChange, 
+  handleToggle, 
+  requestRemixing 
 }) => {
   return (
     <Panel>
@@ -20,12 +18,10 @@ const ControlPanel = ({
         <ControlWrapper>
           <ValueControl>
             <ArrowButton onClick={() => handleScaleChange('down')}>◀</ArrowButton>
-            <ValueBox>
-              <Value>{scale > 0 ? `+${scale}` : scale}</Value>
-            </ValueBox>
+            <ValueBox><Value>{scale > 0 ? `+${scale}` : scale}</Value></ValueBox>
             <ArrowButton onClick={() => handleScaleChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <ResetButton onClick={() => requestRemixing({ scaleModulation: scale })}>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
@@ -33,31 +29,25 @@ const ControlPanel = ({
         <ControlWrapper>
           <ValueControl>
             <ArrowButton onClick={() => handleTempoChange('down')}>◀</ArrowButton>
-            <ValueBox>
-              <Value>x{tempo.toFixed(1)}</Value>
-            </ValueBox>
+            <ValueBox><Value>x{tempo.toFixed(1)}</Value></ValueBox>
             <ArrowButton onClick={() => handleTempoChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <ResetButton onClick={() => requestRemixing({ tempoRatio: tempo })}>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
       {activeTab === '리버브' && (
         <ControlWrapper>
-          {/* <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} /> */}
-          <ValueControl>
-            <ArrowButton onClick={() => handleReverbChange('down')}>◀</ArrowButton>
-            <ValueBox>
-              <Value>{reverb.toFixed(1)}</Value>
-            </ValueBox>
-            <ArrowButton onClick={() => handleReverbChange('up')}>▶</ArrowButton>
-          </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} />
+          <ResetButton onClick={() => requestRemixing({ reverbAmount: reverb ? 0.3 : 0 })}>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
       {activeTab === '코러스' && (
-        <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
+        <ControlWrapper>
+          <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
+          <ResetButton onClick={() => requestRemixing({ isChorusOn: chorus })}>적용하기</ResetButton>
+        </ControlWrapper>
       )}
     </Panel>
   );

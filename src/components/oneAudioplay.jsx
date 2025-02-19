@@ -1,65 +1,80 @@
-// src/components/CustomMusicPlayer.jsx
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Slider from "react-slider";
 import PlayBtn from "../assets/PlayBtn.svg";
 import PauseBtn from "../assets/PauseBtn.svg";
 
-export default function CustomMusicPlayer() {
+const OneAudioPlay = ({ audioUrl }) => {
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const duration = 204; // 예시: 음악 길이 (초)
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
   const intervalRef = useRef(null);
 
-  // 재생 상태 관리: play 상태에 따라 1초마다 progress 증가
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener("loadedmetadata", () => {
+        setDuration(audioRef.current.duration);
+      });
+    }
+  }, [audioUrl]);
+
   useEffect(() => {
     if (playing) {
       intervalRef.current = setInterval(() => {
-        setProgress((prev) => (prev < duration ? prev + 1 : duration));
+        setProgress(audioRef.current.currentTime);
       }, 1000);
     } else {
       clearInterval(intervalRef.current);
     }
     return () => clearInterval(intervalRef.current);
-  }, [playing, duration]);
+  }, [playing]);
+
+  const handleSeek = (value) => {
+    setProgress(value);
+    audioRef.current.currentTime = value;
+  };
 
   return (
     <PlayerWrapper>
-      <PlayButton onClick={() => setPlaying(!playing)}>
-        {playing ? (
-          <img src={PauseBtn} alt="Pause" />
-        ) : (
-          <img src={PlayBtn} alt="Play" />
-        )}
+      <audio ref={audioRef} src={audioUrl} />
+      <PlayButton onClick={() => {
+        if (playing) {
+          audioRef.current.pause();
+        } else {
+          audioRef.current.play();
+        }
+        setPlaying(!playing);
+      }}>
+        {playing ? <img src={PauseBtn} alt="Pause" /> : <img src={PlayBtn} alt="Play" />}
       </PlayButton>
       <StyledSlider
         value={progress}
-        onChange={setProgress}
+        onChange={handleSeek} // ✅ 마우스로 조작 가능
         max={duration}
         min={0}
       />
-      <TimeDisplay>
-        {formatTime(progress)} / {formatTime(duration)}
-      </TimeDisplay>
-      <DownloadButton>다운로드</DownloadButton>
+      <TimeDisplay>{formatTime(progress)} / {formatTime(duration)}</TimeDisplay>
+      <DownloadButton onClick={() => window.open(audioUrl)}>다운로드</DownloadButton>
     </PlayerWrapper>
   );
-}
+};
 
 // 시간을 mm:ss 형식으로 변환하는 함수
 const formatTime = (seconds) => {
   const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
+  const sec = Math.floor(seconds % 60);
   return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 };
 
-// 플레이어 요소들을 한 줄로 배치하는 단일 컨테이너만 사용
+// 스타일
 const PlayerWrapper = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  gap: 10px;
-  /* 필요한 경우 여백이나 너비를 추가로 설정하세요 */
+  justify-content: center;  /* ✅ 중앙 정렬 */
+  gap: 20px;
+  margin-top: 20px; /* 상단 여백 */
 `;
 
 const PlayButton = styled.button`
@@ -69,7 +84,7 @@ const PlayButton = styled.button`
 `;
 
 const StyledSlider = styled(Slider)`
-  width: 70%;
+  width: 400px;
   height: 6px;
   border-radius: 5px;
   cursor: pointer;
@@ -98,15 +113,19 @@ const StyledSlider = styled(Slider)`
 `;
 
 const TimeDisplay = styled.div`
-  font-size: 12px;
+  font-size: 17px;
   color: white;
 `;
 
 const DownloadButton = styled.button`
+width:100px;
+height:40px;
   background: none;
-  border: 1px solid white;
+  border: 2px solid white;
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
 `;
+
+export default OneAudioPlay;

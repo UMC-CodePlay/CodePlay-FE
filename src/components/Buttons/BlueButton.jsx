@@ -12,15 +12,18 @@ const BlueButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size:24px;
+  font-weight:600;
+  color:white;
   
-  /* 버튼 텍스트 스타일 */
+a{
   font-family: "Pretendard", sans-serif;
   font-size: 24px;
   font-weight: 600;
   color: white;
-  line-height: 1;
+  line-height: normal;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none;}
 
   &:hover {
     background: linear-gradient(180deg, #3d6ce6 0%, #153bbf 100%);
