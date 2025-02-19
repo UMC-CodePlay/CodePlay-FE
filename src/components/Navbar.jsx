@@ -16,6 +16,7 @@ function Navbar() {
         <ArrayButtons>
           <ButtonStyle to="/harmony">화성 분석</ButtonStyle>
           <ButtonStyle to="/session">세션 분리</ButtonStyle>
+          <ButtonStyle to="/remixing">리믹싱</ButtonStyle>
           <Link to="/signup">
             <button className="TBBSU button">회원가입</button>
           </Link>

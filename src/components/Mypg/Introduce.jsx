@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import PersonIcon  from "../../assets/Mypg_img/person.svg";
-import MPYinfo from '../../pages/Mypage/MPYinfo.jsx'
-import { Link } from "react-router-dom"; // React Router의 Link import
-
-
-
+import PersonIcon from "../../assets/Mypg_img/person.svg";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +46,7 @@ const ProfileName = styled.h2`
   align-items: center;
 `;
 
-const EditProfile = styled(Link)` // Link로 변경
+const EditProfile = styled(Link)`
   margin-left: 10px;
   margin-top: 10px;
   font-size: 14px;
@@ -58,27 +56,29 @@ const EditProfile = styled(Link)` // Link로 변경
   cursor: pointer;
 
   &:hover {
-    color: #555; // 호버 시 색상 변경
+    color: #555;
   }
 `;
 
-const ProfileEmail = styled.p`
-  margin: 5px 0 0;
-  font-size: 14px;
-  color: #888;
-`;
-
 function MyPageBar() {
+  // AuthContext에서 user를 가져옴
+  const { user } = useContext(AuthContext);
+  
+  // AuthContext의 user가 null일 경우를 대비해 localStorage에서 email을 가져옴
+  const storedEmail = localStorage.getItem("email");
+
+  // user.email이 있다면 그걸 쓰고, 없으면 storedEmail을 쓰고, 둘 다 없으면 "로그인 필요" 표시
+  const displayedEmail = user?.email || storedEmail || "로그인 필요";
+
   return (
     <Container>
       <ProfileHeader>
         <ProfileImage src={PersonIcon} alt="프로필 아이콘" />
         <ProfileInfo>
           <ProfileName>
-            12345677.naver.com
+            {displayedEmail}
           </ProfileName>
-          <EditProfile to="/mypage/mypageinfo">회원정보 수정
-          </EditProfile>
+          <EditProfile to="/mypage/mypageinfo">회원정보 수정</EditProfile>
         </ProfileInfo>
       </ProfileHeader>
     </Container>

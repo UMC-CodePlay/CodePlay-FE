@@ -10,8 +10,9 @@ const styles = {
     marginTop: "15px",
   },
   button: {
-    width: "40px",
-    height: "40px",
+    width: "50px",
+    height: "50px",
+    margin: "0px 15px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -22,8 +23,8 @@ const styles = {
 const SocialLogin = () => {
   return (
     <div style={styles.container}>
-      <img src={googleIcon} alt="Google 로그인" style={styles.button} />
-      <img src={kakaoIcon} alt="Kakao 로그인" style={styles.button} />
+      <img src={googleIcon} alt="Google 로그인" style={styles.button} onClick={() => console.log("Google 로그인 버튼 클릭됨")} />
+      <img src={kakaoIcon} alt="Kakao 로그인" style={styles.button} onClick={() => console.log("Kakao 로그인 버튼 클릭됨")} />
     </div>
   );
 };

@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { changePassword } from "../../services/authService";
 import AuthWrapper from "../../components/Login/AuthWrapper";
 import InputField from "../../components/Login/InputField";
 import Button from "../../components/Login/Button";
 
 const FindPwd_2_Set = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email || "";
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChangePassword = () => {
+  const handleChangePassword = async () => {
     if (password.trim() === "" || confirmPassword.trim() === "") {
       setErrorMessage("비밀번호를 입력해주세요.");
       return;
@@ -21,20 +24,23 @@ const FindPwd_2_Set = () => {
       return;
     }
 
-    setErrorMessage("");
-    navigate("/login/findpwd/done"); // ✅ 비밀번호 변경 완료 페이지로 이동
+    try {
+      await changePassword(email, password);
+      navigate("/login/findpwd/done");
+    } catch (error) {
+      setErrorMessage("비밀번호 변경에 실패했습니다.");
+    }
   };
 
   return (
     <AuthWrapper>
       <div>
         <h2>비밀번호 재설정</h2>
-        <InputField type="password" placeholder="비밀번호를 입력해주세요." value={password} onChange={(e) => setPassword(e.target.value)} />
-        <InputField type="password" placeholder="비밀번호를 한 번 더 입력해주세요." value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-        {errorMessage && <p style={{ color: "#E53E3E", fontSize: "14px", textAlign: "right" }}>{errorMessage}</p>}
+        <InputField type="password" placeholder="새 비밀번호 입력" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <InputField type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         
-        <Button text="비밀번호 변경하기" onClick={handleChangePassword} variant="primary" />
-        <Button text="이전으로" onClick={() => navigate("/login/findpwd/auth")} variant="secondary" /> {/* ✅ 이전 버튼 추가 */}
+        <Button text="비밀번호 변경하기" onClick={handleChangePassword} />
       </div>
     </AuthWrapper>
   );

@@ -12,6 +12,7 @@ const HomeBlueButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 100px;
 
   a {
     color: white;

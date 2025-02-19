@@ -27,7 +27,7 @@ export default TitleNavbar;
 const StyledTitle = styled.div`
   background: var(--badkground, #000000);
   width: 100%;
-  height: 250px;
+  height: 300px;
   color: #ffffff;
   position: flex;
   display: gird;
