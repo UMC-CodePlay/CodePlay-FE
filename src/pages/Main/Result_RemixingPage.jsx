@@ -8,9 +8,14 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const Result_RemixingPage = () => {
   const [activeTab, setActiveTab] = useState("스케일");
+
+  // 스케일: -12 ~ +12
   const [scale, setScale] = useState(0);
+  // 템포: 0.1 ~ (이상)
   const [tempo, setTempo] = useState(1.0);
-  const [reverb, setReverb] = useState(false);
+  // 리버브: 0.0 ~ 0.3 (기존 boolean -> number 형태로 변경)
+  const [reverb, setReverb] = useState(0.0);
+  // 코러스: boolean
   const [chorus, setChorus] = useState(false);
 
   const handleScaleChange = (direction) => {
@@ -29,10 +34,21 @@ const Result_RemixingPage = () => {
     }
   };
 
+  // 리버브도 스케일과 유사하게 0 ~ 0.3 범위 내에서 0.1씩 증감
+  const handleReverbChange = (direction) => {
+    if (direction === "up" && reverb < 0.3) {
+      setReverb((prev) => Number((prev + 0.1).toFixed(1)));
+    } else if (direction === "down" && reverb > 0.0) {
+      setReverb((prev) => Number((prev - 0.1).toFixed(1)));
+    }
+  };
+
+  // 토글 함수에서 리버브 관련 부분은 주석 처리
   const handleToggle = (feature) => {
-    if (feature === "reverb") {
-      setReverb(!reverb);
-    } else if (feature === "chorus") {
+    // if (feature === "reverb") {
+    //   setReverb(!reverb);
+    // } else
+    if (feature === "chorus") {
       setChorus(!chorus);
     }
   };
@@ -46,11 +62,12 @@ const Result_RemixingPage = () => {
         parentRemixId: 0,
         scaleModulation: scale,
         tempoRatio: tempo,
-        reverbAmount: reverb ? 0.3 : 0,
+        // 변경된 reverbAmount: boolean이 아닌 숫자를 그대로 전송
+        reverbAmount: reverb,
         isChorusOn: chorus,
       };
 
-      console.log("🎶 Remixing 요청 데이터:", requestData); // ✅ 요청 데이터 확인
+      console.log("🎶 Remixing 요청 데이터:", requestData);
 
       const response = await axios.post(
         `${API_BASE_URL}/task/remix`,
@@ -58,7 +75,7 @@ const Result_RemixingPage = () => {
           musicId: musicId,
           scaleModulation: scale,
           tempoRatio: tempo,
-          reverbAmount: reverb ? 0.3 : 0,
+          reverbAmount: reverb, // 숫자 그대로
           isChorusOn: chorus,
         },
         {
@@ -105,10 +122,11 @@ const Result_RemixingPage = () => {
           chorus={chorus}
           handleScaleChange={handleScaleChange}
           handleTempoChange={handleTempoChange}
+          handleReverbChange={handleReverbChange} // 새로 만든 함수
           handleToggle={handleToggle}
           setScale={setScale}
           setTempo={setTempo}
-          requestRemixing={requestRemixing} // 적용하기 버튼에서 요청
+          requestRemixing={requestRemixing}
         />
       </ControlSection>
     </ResultContentContainer>

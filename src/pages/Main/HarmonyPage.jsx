@@ -1,8 +1,6 @@
 // src/pages/Main/HarmonyPage.jsx
 import React, { useState, useContext, useEffect } from "react";
-// import Navbar from "../../components/Navbar";  // 삭제
 import ConditionalNavbar from "../../components/ConditionalNavbar";
-
 import TitleNavbar from "../../components/TitleNavbar";
 import PurpleButton from "../../components/Buttons/PurpleButton";
 import UploadHarmony from "../../components/UploadHarmony";
@@ -11,15 +9,16 @@ import BackgroundSvg from "../../assets/HarmonyBg.svg";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const HarmonyPage = () => {
   const { token } = useContext(AuthContext);
-  const [timestamp, setTimestamp] = useState(Date.now());
   const [harmonyStatus, setHarmonyStatus] = useState(null);
-  const [count, setCount] = useState(0);
-  const taskId = localStorage.getItem("taskId");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const taskId = localStorage.getItem("taskId");
+
+  // harmonyStatus가 "COMPLETE"이면 버튼 활성화
   useEffect(() => {
     if (harmonyStatus === "COMPLETE") {
       setIsButtonEnabled(true);
@@ -27,42 +26,39 @@ const HarmonyPage = () => {
       setIsButtonEnabled(false);
     }
   }, [harmonyStatus]);
-  useEffect(() => {
-    if (!taskId) return; // taskId가 없으면 실행하지 않음
 
+  // taskId가 있으면 1초마다 harmony 상태를 업데이트
+  useEffect(() => {
+    if (!taskId) return;
     const interval = setInterval(() => {
       getHarmonyStatus(taskId);
-      setCount((prev) => prev + 1);
     }, 1000);
-
     return () => clearInterval(interval);
-  }, [taskId]); // ✅ taskId가 변경될 때마다 useEffect 실행
+  }, [taskId]);
 
   const getHarmonyStatus = async (taskId) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/task/get-task`,
-        { taskId }, // ✅ taskId를 디에 포함
+        { taskId },
         {
           headers: {
-            "Content-Type": "application/json", // ✅ 올바른 Content-Type 사용
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
-
       const status = response.data.result.processStatus;
-      setHarmonyStatus(status); // ✅ 상태 업데이트
-
-      console.log("🔄 Harmony Status:", status);
+      setHarmonyStatus(status);
+      console.log("Harmony Status:", status);
     } catch (error) {
-      console.error("❌ API 요청 오류:", error.response?.data || error.message);
+      console.error("API 요청 오류:", error.response?.data || error.message);
     }
   };
 
   return (
     <PageContainer>
-      <ConditionalNavbar /> {/* 변경됨 */}
+      <ConditionalNavbar />
       <TitleNavbar
         title="화성 분석"
         subtitle="비트 추적, 키 감지, 하모닉 분석으로 인사이트를 제공합니다."
@@ -78,13 +74,25 @@ const HarmonyPage = () => {
         <UploadHarmony />
       </div>
       <div
-        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
+        style={{
+          marginTop: "10px",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         <PurpleButton disabled={!isButtonEnabled}>
-          <Link to="/harmony/result_harmony">결과보기</Link>
+          {isButtonEnabled ? (
+            <Link
+              to="/harmony/result_harmony"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              결과보기
+            </Link>
+          ) : (
+            <span>결과보기</span>
+          )}
         </PurpleButton>
       </div>
-      {/* <Othersystems /> */}
     </PageContainer>
   );
 };

@@ -1,64 +1,66 @@
 // src/pages/Main/SessionPage.jsx
+import React, { useState, useContext, useEffect } from "react";
 import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
-import SessionButton from "../../components/Buttons/BlueButton";
-import Othersystems from "../../components/Othersystems";
-import { Link } from "react-router-dom";
+import SessionButton from "../../components/Buttons/BlueButton"; // BlueButton 사용
 import UploadSession from "../../components/UploadSession";
 import BackgroundSvg from "../../assets/sessionBack.svg";
 import styled from "styled-components";
 import axios from "axios";
-import { useContext, useState, useEffect } from "react";
-const API_BASE_URL = import.meta.env.VITE_API_URL;
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const SessionPage = () => {
   const { token } = useContext(AuthContext);
-  const [timestamp, setTimestamp] = useState(Date.now());
   const [sessionStatus, setSessionStatus] = useState(null);
-  const [count, setCount] = useState(0);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  useEffect(() => {
-    if (sessionStatus === "COMPLETE") {
-      setIsButtonEnabled(true);
-    } else {
-      setIsButtonEnabled(false);
-    }
-  }, [sessionStatus]);
   const taskId = localStorage.getItem("taskId");
+  const navigate = useNavigate();
+
   useEffect(() => {
+    // sessionStatus가 "COMPLETE"이면 버튼 활성화
+    setIsButtonEnabled(sessionStatus === "COMPLETE");
+  }, [sessionStatus]);
+
+  useEffect(() => {
+    if (!taskId) return; // taskId가 없으면 실행하지 않음
     const interval = setInterval(() => {
       getSessionStatus(taskId);
-      setCount((prev) => prev + 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, [taskId]); // ✅ taskId가 변경될 때마다 useEffect 실행
+  }, [taskId]);
 
   const getSessionStatus = async (taskId) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/task/get-task`,
-        { taskId }, // ✅ taskId를 바디에 포함
+        { taskId },
         {
           headers: {
-            "Content-Type": "application/json", // ✅ 올바른 Content-Type 사용
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
-
       const status = response.data.result.processStatus;
-      setSessionStatus(status); // ✅ 상태 업데이트
-
+      setSessionStatus(status);
       console.log("🔄 Session Status:", status);
     } catch (error) {
       console.error("❌ API 요청 오류:", error.response?.data || error.message);
     }
   };
 
+  const handleResultClick = () => {
+    if (isButtonEnabled) {
+      navigate("/session/result_session");
+    }
+  };
+
   return (
     <PageContainer>
-      <ConditionalNavbar /> {/* 변경 */}
+      <ConditionalNavbar />
       <TitleNavbar
         title="세션 분리"
         subtitle="딥러닝 모델이 원곡의 트랙을 분리합니다."
@@ -74,13 +76,16 @@ const SessionPage = () => {
         <UploadSession sessionStatus={sessionStatus} />
       </div>
       <div
-        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
+        style={{
+          marginTop: "10px",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <SessionButton disabled={sessionStatus !== "COMPLETE"}>
-          <Link to="/session/result_session">결과보기</Link>
+        <SessionButton disabled={!isButtonEnabled} onClick={handleResultClick}>
+          결과보기
         </SessionButton>
       </div>
-      {/* <Othersystems /> */}
     </PageContainer>
   );
 };

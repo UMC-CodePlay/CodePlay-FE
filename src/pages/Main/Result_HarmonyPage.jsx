@@ -24,6 +24,7 @@ const Result_HarmonyPage = () => {
     harmonygenre: "",
     harmonybpm: "",
   });
+
   useEffect(() => {
     const storedFile = localStorage.getItem("uploadedFile");
     if (storedFile) {
@@ -31,8 +32,8 @@ const Result_HarmonyPage = () => {
     }
     getRequestHarmony();
   }, []);
-  // 🔹 페이지 로드 시 localStorage 데이터 가져오기
 
+  // 🔹 페이지 로드 시 localStorage 데이터 가져오기
   const getRequestHarmony = async () => {
     const token = localStorage.getItem("token");
     const taskId = localStorage.getItem("taskId");
@@ -102,11 +103,12 @@ const Result_HarmonyPage = () => {
             <Link to="/harmony">이전으로</Link>
           </PrevPurpleButton>
 
-        <StyledPurpleButton>
-          <Link to="/audioloading">다운로드</Link>
-        </StyledPurpleButton>
+          {/* <StyledPurpleButton>
+            <Link to="/audioloading">다운로드</Link>
+          </StyledPurpleButton> */}
+        </div>
+        {/* <Othersystems /> */}
       </div>
-      <Othersystems />
     </>
   );
 };

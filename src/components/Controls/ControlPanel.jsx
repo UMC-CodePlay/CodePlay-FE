@@ -1,22 +1,25 @@
 import styled from "styled-components";
 import Switch from "./Switch";
 
-const ControlPanel = ({ 
-  activeTab, 
-  scale, 
-  tempo, 
-  reverb, 
-  chorus, 
-  handleScaleChange, 
-  handleTempoChange, 
-  handleToggle, 
-  setScale, 
-  setTempo, 
-  requestRemixing // requestRemixing 함수 전달
+const ControlPanel = ({
+  activeTab,
+  scale,
+  tempo,
+  // reverb를 boolean => number로 사용한다고 가정합니다.
+  reverb,
+  chorus,
+  handleScaleChange,
+  handleTempoChange,
+  // 새로 추가할 handleReverbChange 함수
+  handleReverbChange,
+  // 토글 함수 - 리버브는 주석 처리
+  handleToggle,
+  setScale,
+  setTempo
 }) => {
   return (
     <Panel>
-      {/* 🔹 스케일 조절 */}
+      {/* ----------------- 스케일 ----------------- */}
       {activeTab === '스케일' && (
         <ControlWrapper>
           <ValueControl>
@@ -26,11 +29,11 @@ const ControlPanel = ({
             </ValueBox>
             <ArrowButton onClick={() => handleScaleChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
+          <ResetButton>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
-      {/* 🔹 템포 조절 */}
+      {/* ----------------- 템포 ----------------- */}
       {activeTab === '템포' && (
         <ControlWrapper>
           <ValueControl>
@@ -40,30 +43,39 @@ const ControlPanel = ({
             </ValueBox>
             <ArrowButton onClick={() => handleTempoChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
+          <ResetButton>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
-      {/* 🔹 리버브 토글 */}
+      {/* ----------------- 리버브 -----------------
+          기존 토글(Switch) 코드 => 주석 처리 
+          아래는 숫자 증감 패널로 대체
+       */}
       {activeTab === '리버브' && (
         <ControlWrapper>
-          <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} />
-          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
+          {/* <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} /> */}
+          <ValueControl>
+            <ArrowButton onClick={() => handleReverbChange('down')}>◀</ArrowButton>
+            <ValueBox>
+              <Value>{reverb.toFixed(1)}</Value>
+            </ValueBox>
+            <ArrowButton onClick={() => handleReverbChange('up')}>▶</ArrowButton>
+          </ValueControl>
+          <ResetButton>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
-      {/* 🔹 코러스 토글 */}
+      {/* ----------------- 코러스 ----------------- */}
       {activeTab === '코러스' && (
-        <ControlWrapper>
-          <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
-          <ApplyButton onClick={requestRemixing}>적용하기</ApplyButton> 
-        </ControlWrapper>
+        <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
       )}
     </Panel>
   );
 };
 
-// 🎨 스타일
+export default ControlPanel;
+
+/* 스타일 정의 */
 const Panel = styled.div`
   height: 300px;
   display: flex;
@@ -82,7 +94,6 @@ const ValueControl = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-  color: #24B2E7;
 `;
 
 const ArrowButton = styled.button`
@@ -117,7 +128,7 @@ const Value = styled.span`
   font-weight: bold;
 `;
 
-const ApplyButton = styled.button`
+const ResetButton = styled.button`
   padding: 12px 24px;
   border: 1px solid #24B2E7;
   border-radius: 8px;
@@ -131,5 +142,3 @@ const ApplyButton = styled.button`
     background: rgba(36, 178, 231, 0.1);
   }
 `;
-
-export default ControlPanel;
