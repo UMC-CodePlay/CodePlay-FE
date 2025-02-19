@@ -5,7 +5,6 @@ import ConditionalNavbar from "../../components/ConditionalNavbar";
 
 import TitleNavbar from "../../components/TitleNavbar";
 import PurpleButton from "../../components/Buttons/PurpleButton";
-import Othersystems from "../../components/Othersystems";
 import UploadHarmony from "../../components/UploadHarmony";
 import styled from "styled-components";
 import BackgroundSvg from "../../assets/HarmonyBg.svg";
@@ -22,14 +21,12 @@ const HarmonyPage = () => {
   };
 
   const handleResult = async () => {
-    if (!uploadedMusicId) {
-      console.error("업로드된 음악 ID가 없습니다.");
-      return;
-    }
+    console.log(setUploadedMusicId);
+    
     try {
       const response = await axios.post(
         `${API_BASE_URL}task/harmony`,
-        { musicId: uploadedMusicId },
+        { musicId: setUploadedMusicId },
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import axios from "axios";
 import FileHarmony from "../assets/FileHarmony.svg";
 import FileSelectButton from "../components/Buttons/FileSelectButton";
-
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const UploadRemixing = () => {
@@ -16,8 +15,6 @@ const UploadRemixing = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    const renamedFile = renameFile(file);
     if (file.type !== "audio/mpeg") {
       alert("mp3 파일만 업로드할 수 있습니다.");
       return;
@@ -28,7 +25,7 @@ const UploadRemixing = () => {
       return;
     }
 
-    fetchUpload(renamedFile);
+    fetchUpload(file);
   };
 
   const fetchUpload = async (file) => {
@@ -121,21 +118,6 @@ const UploadRemixing = () => {
     }
   };
 
-  const renameFile = (file) => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const timePrefix = `${hours}${minutes}`;
-    const newFileName = `${timePrefix}-${file.name}`;
-
-    // 🔹 Blob을 사용하여 새 File 생성
-    const blob = new Blob([file], { type: file.type });
-    const renamedFile = new File([blob], newFileName, { type: file.type });
-
-    console.log(`🕒 변경된 파일명: ${renamedFile.name}`);
-    return renamedFile;
-  };
-
   const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -150,8 +132,7 @@ const UploadRemixing = () => {
     setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (!file) return;
-    const renamedFile = renameFile(file);
-    fetchUpload(renamedFile);
+    fetchUpload(file);
   };
 
   return (

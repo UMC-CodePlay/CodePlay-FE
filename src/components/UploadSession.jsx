@@ -17,7 +17,6 @@ const UploadSession = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const renamedFile = renameFile(file);
     if (file.type !== "audio/mpeg") {
       alert("mp3 파일만 업로드할 수 있습니다.");
       return;
@@ -28,7 +27,7 @@ const UploadSession = () => {
       return;
     }
 
-    fetchUpload(renamedFile);
+    fetchUpload(file);
   };
 
   const fetchUpload = async (file) => {
@@ -95,7 +94,7 @@ const UploadSession = () => {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${API_BASE_URL}/task/stem`,
-        { musicId, twoStemConfig:"none" }, // body에 musicId 전달
+        { musicId, twoStemConfig: "none" }, // body에 musicId 전달
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -103,6 +102,7 @@ const UploadSession = () => {
           },
         },
       );
+      localStorage.setItem("taskId", response.data.result.taskId);
 
       if (response.status === 200) {
         console.log("🎶 Session 요청 성공:", response.data);
@@ -113,21 +113,6 @@ const UploadSession = () => {
     } catch (error) {
       console.error("❌ Session 요청 오류:", error.message);
     }
-  };
-
-  const renameFile = (file) => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const timePrefix = `${hours}${minutes}`;
-    const newFileName = `${timePrefix}-${file.name}`;
-
-    // 🔹 Blob을 사용하여 새 File 생성
-    const blob = new Blob([file], { type: file.type });
-    const renamedFile = new File([blob], newFileName, { type: file.type });
-
-    console.log(`🕒 변경된 파일명: ${renamedFile.name}`);
-    return renamedFile;
   };
 
   const handleDragOver = (e) => {
@@ -144,17 +129,17 @@ const UploadSession = () => {
     setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) {
-      const renamedFile = renameFile(file);
-      fetchUpload(renamedFile);
+      fetchUpload(file);
     }
   };
 
-
   return (
-    <UploadContainer $isDragOver={isDragOver}
-    onDragOver={handleDragOver}
-    onDragLeave={handleDragLeave}
-    onDrop={handleDrop}>
+    <UploadContainer
+      $isDragOver={isDragOver}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       {uploading ? (
         <UploadingBox>
           <UploadingText>파일 업로드 중...</UploadingText>
@@ -171,12 +156,20 @@ const UploadSession = () => {
           </IconContainer>
 
           <TextButtonContainer>
-            <UploadText>이곳에 분석하고 싶은 음원 파일을 업로드하세요</UploadText>
+            <UploadText>
+              이곳에 분석하고 싶은 음원 파일을 업로드하세요
+            </UploadText>
             <SubText>최대 10MB, WAV 파일 지원</SubText>
-            <FileSelectButton onClick={() => document.getElementById("file-upload").click()} />
+            <FileSelectButton
+              onClick={() => document.getElementById("file-upload").click()}
+            />
           </TextButtonContainer>
 
-          <HiddenFileInput type="file" id="file-upload" onChange={handleFileChange} />
+          <HiddenFileInput
+            type="file"
+            id="file-upload"
+            onChange={handleFileChange}
+          />
         </>
       )}
     </UploadContainer>
@@ -185,8 +178,6 @@ const UploadSession = () => {
 
 export default UploadSession;
 
-
-
 const UploadContainer = styled.div`
   width: 805px;
   height: 217px;
@@ -194,7 +185,8 @@ const UploadContainer = styled.div`
   background: rgba(28, 28, 38, 0.4);
   backdrop-filter: blur(137.73px);
   border-radius: 12px;
-  border: 3px dashed ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
+  border: 3px dashed
+    ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,7 +194,6 @@ const UploadContainer = styled.div`
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 `;
-
 
 const IconContainer = styled.div`
   width: 200px;

@@ -17,7 +17,6 @@ const UploadHarmony = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const renamedFile = renameFile(file);
     if (file.type !== "audio/mpeg") {
       alert("mp3 파일만 업로드할 수 있습니다.");
       return;
@@ -27,8 +26,12 @@ const UploadHarmony = () => {
       alert("파일 크기는 10MB 이하로 업로드해 주세요.");
       return;
     }
-
-    fetchUpload(renamedFile);
+    const fileData = {
+      fileName: file.name,
+      fileSize: file.size,
+    };
+    localStorage.setItem("uploadedFile", JSON.stringify(fileData));
+    fetchUpload(file);
   };
 
   const fetchUpload = async (file) => {
@@ -103,6 +106,7 @@ const UploadHarmony = () => {
           },
         },
       );
+      localStorage.setItem("taskId", response.data.result.taskId);
 
       if (response.status === 200) {
         console.log("🎶 Harmony 요청 성공:", response.data);
@@ -113,21 +117,6 @@ const UploadHarmony = () => {
     } catch (error) {
       console.error("❌ Harmony 요청 오류:", error.message);
     }
-  };
-
-  const renameFile = (file) => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const timePrefix = `${hours}${minutes}`;
-    const newFileName = `${timePrefix}-${file.name}`;
-
-    // 🔹 Blob을 사용하여 새 File 생성
-    const blob = new Blob([file], { type: file.type });
-    const renamedFile = new File([blob], newFileName, { type: file.type });
-
-    console.log(`🕒 변경된 파일명: ${renamedFile.name}`);
-    return renamedFile;
   };
 
   const handleDragOver = (e) => {
@@ -143,9 +132,9 @@ const UploadHarmony = () => {
     e.preventDefault();
     setIsDragOver(false);
     const file = e.dataTransfer.files[0];
-    if (!file) return;
-    const renamedFile = renameFile(file);
-    fetchUpload(renamedFile);
+    if (file) {
+      fetchUpload(file);
+    }
   };
 
   return (

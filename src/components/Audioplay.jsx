@@ -8,78 +8,83 @@ import Vocalmark from "../assets/Vocalmark.svg";
 import Bassmark from "../assets/Bassmark.svg";
 import Drummark from "../assets/Drummark.svg";
 
-export default function CustomMusicPlayer() {
+const Audioplay = ({ vocalUrl, instrumentalUrl, bassUrl, drumsUrl }) => {
+  const [duration, setDuration] = useState(0);
+
   const [progressMR, setProgressMR] = useState(0);
   const [playingMR, setPlayingMR] = useState(false);
-  const duration = 204; // API받아와서 해당 음악에 해당하는 길이 만큼 설정하도록 하면 됨.
-  const intervalRef = useRef(null);
-  const [playingVocal, setPlayingVocal] = useState(false);
   const [progressVocal, setProgressVocal] = useState(0);
-  const [playingBass, setPlayingBass] = useState(false);
+  const [playingVocal, setPlayingVocal] = useState(false);
   const [progressBass, setProgressBass] = useState(0);
-  const [playingDrum, setPlayingDrum] = useState(false);
+  const [playingBass, setPlayingBass] = useState(false);
   const [progressDrum, setProgressDrum] = useState(0);
+  const [playingDrum, setPlayingDrum] = useState(false);
 
-  // MR 상태관리
-  useEffect(() => {
-    if (playingMR) {
-      intervalRef.current = setInterval(() => {
-        setProgressMR((prev) => (prev < duration ? prev + 1 : duration));
-      }, 1000);
-    } else {
-      clearInterval(intervalRef.current);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [playingMR, duration]);
+  const audioMRRef = useRef(new Audio(instrumentalUrl));
+  const audioVocalRef = useRef(new Audio(vocalUrl));
+  const audioBassRef = useRef(new Audio(bassUrl));
+  const audioDrumRef = useRef(new Audio(drumsUrl));
 
-  //보컬 상태관리
   useEffect(() => {
-    if (playingVocal) {
-      intervalRef.current = setInterval(() => {
-        setProgressVocal((prev) => (prev < duration ? prev + 1 : duration));
-      }, 1000);
-    } else {
-      clearInterval(intervalRef.current);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [playingVocal, duration]);
+    const setAudioDuration = (audioRef) => {
+      audioRef.current.onloadedmetadata = () => {
+        setDuration(audioRef.current.duration);
+      };
+    };
 
-  //베이스 상태관리
-  useEffect(() => {
-    if (playingBass) {
-      intervalRef.current = setInterval(() => {
-        setProgressBass((prev) => (prev < duration ? prev + 1 : duration));
-      }, 1000);
-    } else {
-      clearInterval(intervalRef.current);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [playingBass, duration]);
+    setAudioDuration(audioMRRef);
+    setAudioDuration(audioVocalRef);
+    setAudioDuration(audioBassRef);
+    setAudioDuration(audioDrumRef);
+  }, []);
 
-  //드럼 상태관리
-  useEffect(() => {
-    if (playingDrum) {
-      intervalRef.current = setInterval(() => {
-        setProgressDrum((prev) => (prev < duration ? prev + 1 : duration));
-      }, 1000);
+  const togglePlay = (audioRef, setPlaying, playing) => {
+    if (!audioRef.current) return;
+    if (playing) {
+      audioRef.current.pause();
     } else {
-      clearInterval(intervalRef.current);
+      audioRef.current.play();
     }
-    return () => clearInterval(intervalRef.current);
-  }, [playingDrum, duration]);
+    setPlaying(!playing);
+  };
+
+  const updateProgress = (audioRef, setProgress) => {
+    if (!audioRef.current) return;
+    audioRef.current.ontimeupdate = () => {
+      setProgress(audioRef.current.currentTime);
+    };
+  };
+
+  const setAudioTime = (audioRef, time, setProgress) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = time;
+    setProgress(time);
+  };
+
+  useEffect(() => {
+    updateProgress(audioMRRef, setProgressMR);
+    updateProgress(audioVocalRef, setProgressVocal);
+    updateProgress(audioBassRef, setProgressBass);
+    updateProgress(audioDrumRef, setProgressDrum);
+  }, []);
+
   return (
     <Wrapper>
-      {/** MR 상태관리 */}
+      {/* 🎵 MR 트랙 */}
       <TContainer>
-        <img src={MRmark} style={{ borderRadius: "7px 0px 0px 7px" }}></img>
+        <img src={MRmark} style={{ borderRadius: "7px 0px 0px 7px" }} />
         <Container>
           <Player>
-            <PlayButton onClick={() => setPlayingMR(!playingMR)}>
+            <PlayButton
+              onClick={() => togglePlay(audioMRRef, setPlayingMR, playingMR)}
+            >
               {playingMR ? <img src={PauseBtn} /> : <img src={PlayBtn} />}
             </PlayButton>
             <StyledSlider
               value={progressMR}
-              onChange={setProgressMR}
+              onChange={(value) =>
+                setAudioTime(audioMRRef, value, setProgressMR)
+              }
               max={duration}
               min={0}
             />
@@ -87,22 +92,27 @@ export default function CustomMusicPlayer() {
               {formatTime(progressMR)} / {formatTime(duration)}
             </TimeDisplay>
           </Player>
-
           <DownloadButton>다운로드</DownloadButton>
         </Container>
       </TContainer>
 
-      {/** 보컬 상태관리 */}
+      {/* 🎵 보컬 트랙 */}
       <TContainer>
-        <img src={Vocalmark} style={{ borderRadius: "7px 0px 0px 7px" }}></img>
+        <img src={Vocalmark} style={{ borderRadius: "7px 0px 0px 7px" }} />
         <Container>
           <Player>
-            <PlayButton onClick={() => setPlayingVocal(!playingVocal)}>
+            <PlayButton
+              onClick={() =>
+                togglePlay(audioVocalRef, setPlayingVocal, playingVocal)
+              }
+            >
               {playingVocal ? <img src={PauseBtn} /> : <img src={PlayBtn} />}
             </PlayButton>
             <StyledSlider
               value={progressVocal}
-              onChange={setProgressVocal}
+              onChange={(value) =>
+                setAudioTime(audioVocalRef, value, setProgressVocal)
+              }
               max={duration}
               min={0}
             />
@@ -114,17 +124,23 @@ export default function CustomMusicPlayer() {
         </Container>
       </TContainer>
 
-      {/** 보컬 상태관리 */}
+      {/* 🎵 베이스 트랙 */}
       <TContainer>
-        <img src={Bassmark} style={{ borderRadius: "7px 0px 0px 7px" }}></img>
+        <img src={Bassmark} style={{ borderRadius: "7px 0px 0px 7px" }} />
         <Container>
           <Player>
-            <PlayButton onClick={() => setPlayingBass(!playingBass)}>
+            <PlayButton
+              onClick={() =>
+                togglePlay(audioBassRef, setPlayingBass, playingBass)
+              }
+            >
               {playingBass ? <img src={PauseBtn} /> : <img src={PlayBtn} />}
             </PlayButton>
             <StyledSlider
               value={progressBass}
-              onChange={setProgressBass}
+              onChange={(value) =>
+                setAudioTime(audioBassRef, value, setProgressBass)
+              }
               max={duration}
               min={0}
             />
@@ -136,16 +152,23 @@ export default function CustomMusicPlayer() {
         </Container>
       </TContainer>
 
+      {/* 🎵 드럼 트랙 */}
       <TContainer>
-        <img src={Drummark} style={{ borderRadius: "7px 0px 0px 7px" }}></img>
+        <img src={Drummark} style={{ borderRadius: "7px 0px 0px 7px" }} />
         <Container>
           <Player>
-            <PlayButton onClick={() => setPlayingDrum(!playingDrum)}>
+            <PlayButton
+              onClick={() =>
+                togglePlay(audioDrumRef, setPlayingDrum, playingDrum)
+              }
+            >
               {playingDrum ? <img src={PauseBtn} /> : <img src={PlayBtn} />}
             </PlayButton>
             <StyledSlider
               value={progressDrum}
-              onChange={setProgressDrum}
+              onChange={(value) =>
+                setAudioTime(audioDrumRef, value, setProgressDrum)
+              }
               max={duration}
               min={0}
             />
@@ -158,12 +181,12 @@ export default function CustomMusicPlayer() {
       </TContainer>
     </Wrapper>
   );
-}
+};
+export default Audioplay;
 
-// 시간을 mm:ss 포맷으로 변환
 const formatTime = (seconds) => {
   const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
+  const sec = Math.floor(seconds % 60);
   return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 };
 
