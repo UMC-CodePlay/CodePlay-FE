@@ -20,11 +20,11 @@ export default BackGroundResult;
 
 const BackGround = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: absolute;
   left: 0;
   z-index: -1;
-  posigion: absolute;
+  position: absolute;
   margin-top: 0;
 `;
 

@@ -49,9 +49,11 @@ const UploadHarmony = () => {
           },
         },
       );
-
+      console.log(response);
       const s3Url = response.data.result.uploadS3Url;
       const musicId = response.data.result.musicId;
+      localStorage.setItem("musicId", response.data.result.musicId);
+      console.log(s3Url, musicId);
       console.log("🚀 S3 URL 응답:", response.data.result.uploadS3Url);
       console.log("musciId:", response.data.result.musicId);
 
