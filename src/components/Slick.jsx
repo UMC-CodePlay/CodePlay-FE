@@ -18,7 +18,11 @@ const Slick = ({ harmonyscale, harmonygenre, harmonybpm }) => {
           subtitle={harmonybpm}
         ></ResultHarmonyButton>
         <ResultHarmonyButton
-          title={"genre"}
+          title={"장르"}
+          subtitle={harmonygenre}
+        ></ResultHarmonyButton>
+        <ResultHarmonyButton
+          title={"음색"}
           subtitle={harmonygenre}
         ></ResultHarmonyButton>
       </ButtonContainer>

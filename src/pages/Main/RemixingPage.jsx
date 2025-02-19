@@ -21,7 +21,7 @@ const SessionPage = () => {
 
       <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
         <SessionButton>
-          <Link to="/remixing/result_remixing">결과보기</Link>
+          <Link to="/remixing/result_remixing">진행하기</Link>
         </SessionButton>
       </div>
       {/* <Othersystems /> */}

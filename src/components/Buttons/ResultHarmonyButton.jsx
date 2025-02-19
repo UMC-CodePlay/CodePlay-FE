@@ -1,4 +1,6 @@
+// src/components/Buttons/ResultHarmonyButton.jsx
 import styled from "styled-components";
+
 const ResultHarmonyButton = ({ title, subtitle }) => {
   return (
     <ButtonWrapper>
@@ -36,13 +38,13 @@ const ButtonWrapper = styled.button`
 const TitleWrapper = styled.div`
   color: var(--White, #fff);
   text-align: center;
-
   /* Body L */
   font-family: Pretendard;
   font-size: 24px;
   font-style: normal;
   font-weight: 60;
   line-height: normal;
+  white-space: nowrap; /* 타이틀을 한 줄로 유지 */
 `;
 
 const SubtitleWrapper = styled.div`

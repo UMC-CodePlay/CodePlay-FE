@@ -63,7 +63,7 @@ const Result_HarmonyPage = () => {
       <ConditionalNavbar /> {/* 변경 */}
       <TitleNavbar
         title="화성 분석 결과"
-        subtitle="음원 분석 결과를 확인하세요"
+        // subtitle="음원 분석 결과를 확인하세요"
       />
       <BackGroundResult />
       <div
@@ -99,7 +99,7 @@ const Result_HarmonyPage = () => {
           <Link to="/audioloading">다운로드</Link>
         </StyledPurpleButton>
       </div>
-      <Othersystems />
+      {/* <Othersystems /> */}
     </>
   );
 };

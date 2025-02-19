@@ -67,6 +67,7 @@ const ValueControl = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
+  color: #24B2E7;
 `;
 
 const ArrowButton = styled.button`
