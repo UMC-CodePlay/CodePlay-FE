@@ -3,14 +3,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ConditionalNavbar from "../../components/ConditionalNavbar"; // 추가
 import TitleNavbar from "../../components/TitleNavbar";
-import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
 import PurpleButton from "../../components/Buttons/PurpleButton";
-import PrevPurpleButton from "../../components/Buttons/PrevPurpleButton";
 import BackGroundResult from "../../components/BackGroundResult";
 import axios from "axios";
-
+import PrevPurpleButton from "../../components/Buttons/PrevPurpleButton";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const Result_HarmonyPage = () => {
@@ -105,11 +103,3 @@ const Result_HarmonyPage = () => {
 };
 
 export default Result_HarmonyPage;
-
-const StyledPurpleButton = styled(PurpleButton)`
-  width: 160px;
-  height: 59px;
-  padding: 15px 30px;
-  gap: 10px;
-  border-radius: 5px;
-`;

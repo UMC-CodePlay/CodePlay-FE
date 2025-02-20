@@ -1,7 +1,9 @@
 // src/pages/Main/SessionPage.jsx
 import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
-import SessionButton from "../../components/Buttons/GreenButton";
+///import SessionButton from "../../components/Buttons/GreenButton";
+import SessionButton from "../../COMPONENTS/Buttons/GreenButton";
+
 import { Link } from "react-router-dom";
 import UploadRemixing from "../../components/UploadRemixing";
 import BackgroundSvg from "../../assets/SessionBg.svg";
@@ -11,14 +13,27 @@ const SessionPage = () => {
   return (
     <PageContainer>
       <ConditionalNavbar /> {/* 변경 */}
-      <TitleNavbar title="리믹싱" subtitle="피치, 템포, 리버브 조정이 가능하며 코러스도 추가할 수 있습니다. "/>
+      <TitleNavbar
+        title="리믹싱"
+        subtitle="피치, 템포, 리버브 조정이 가능하며 코러스도 추가할 수 있습니다. "
+      />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
-
-      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <UploadRemixing />
       </div>
-
-      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <SessionButton>
           <Link to="/remixing/result_remixing">진행하기</Link>
         </SessionButton>
@@ -46,8 +61,11 @@ const BackgroundImage = styled.img`
   top: 350px;
   left: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #17171E 0%, rgba(43, 181, 232, 0.5) 151.51%);
+  background: linear-gradient(
+    180deg,
+    #17171e 0%,
+    rgba(43, 181, 232, 0.5) 151.51%
+  );
   border-radius: 12px;
   overflow: hidden;
-
 `;

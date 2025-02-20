@@ -46,7 +46,7 @@ const Result_SessionPage = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       const session = response.data.result.tracks[0];
@@ -78,22 +78,30 @@ const Result_SessionPage = () => {
         <AudioContainer>
           <Track>
             <TrackIcon src={MRmark} alt="Instrumental" />
-            {sessionInfo.instrumentalUrl && <StyledOneAudioPlay audioUrl={sessionInfo.instrumentalUrl} />}
+            {sessionInfo.instrumentalUrl && (
+              <StyledOneAudioPlay audioUrl={sessionInfo.instrumentalUrl} />
+            )}
           </Track>
 
           <Track>
             <TrackIcon src={Vocalmark} alt="Vocal" />
-            {sessionInfo.vocalUrl && <StyledOneAudioPlay audioUrl={sessionInfo.vocalUrl} />}
+            {sessionInfo.vocalUrl && (
+              <StyledOneAudioPlay audioUrl={sessionInfo.vocalUrl} />
+            )}
           </Track>
 
           <Track>
             <TrackIcon src={Bassmark} alt="Bass" />
-            {sessionInfo.bassUrl && <StyledOneAudioPlay audioUrl={sessionInfo.bassUrl} />}
+            {sessionInfo.bassUrl && (
+              <StyledOneAudioPlay audioUrl={sessionInfo.bassUrl} />
+            )}
           </Track>
 
           <Track>
             <TrackIcon src={Drummark} alt="Drums" />
-            {sessionInfo.drumsUrl && <StyledOneAudioPlay audioUrl={sessionInfo.drumsUrl} />}
+            {sessionInfo.drumsUrl && (
+              <StyledOneAudioPlay audioUrl={sessionInfo.drumsUrl} />
+            )}
           </Track>
         </AudioContainer>
 
@@ -147,7 +155,7 @@ const Track = styled.div`
 const TrackIcon = styled.img`
   width: 160px;
   height: 120px;
-  margin-right:20px;
+  margin-right: 20px;
 `;
 
 // 🎵 재생바 크기 조정
