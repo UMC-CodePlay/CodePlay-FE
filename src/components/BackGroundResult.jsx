@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Background_Result1 from "../assets/Background_Result1.svg";
 import Background_Result2 from "../assets/Background_Result2.svg";
-import Background_Result3 from "../assets/Background_Result3.svg";
-import Background_Result4 from "../assets/Background_result4.svg";
+import Background_Result3 from "../assets/Background_result3.svg";
+import Background_Result4 from "../assets/Background_Result4.svg";
 const BackGroundResult = () => {
   return (
     <>
