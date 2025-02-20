@@ -88,10 +88,13 @@ const ArrayButtons = styled.div`
 const ButtonStyle = styled.button`
   width: 100px;
   background-color: #ffffff;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 20px;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0%;
   padding: 10px;
-  height: 40px !important;
+  height: 40px;
   border: none;
   &:hover {
     background-color: #e0e0e0;
@@ -110,15 +113,17 @@ const ButtonSignup = styled.button`
   color: #ffffff;
   width: 100px;
   height: 50px;
-  border: none;
   border-radius: 10px;
   display: flex;
   padding: 10px 16px;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 20px;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0%;
   border: 1px solid #000;
   &:hover {
     background-color: #333333;
@@ -132,15 +137,17 @@ const ButtonLogin = styled.button`
   color: #000000;
   width: 100px;
   height: 50px;
-  border: none;
   border-radius: 10px;
   display: flex;
   padding: 10px 16px;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 20px;
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0%;
   border: 1px solid #000;
   &:hover {
     background-color: #d9d9d9;
