@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ConditionalNavbar from "../../components/ConditionalNavbar"; // 추가
 import TitleNavbar from "../../components/TitleNavbar";
-import UploadBox from "../../components/UploadBox";
 import Othersystems from "../../components/Othersystems";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
@@ -19,10 +18,12 @@ const Result_HarmonyPage = () => {
     fileName: "",
     fileSize: "",
   });
-  const [harmonyinfo, setHarmonyInfo] = useState({
+  const [harmonyInfo, setHarmonyInfo] = useState({
+    musicTitle: "",
     harmonyscale: "",
     harmonygenre: "",
     harmonybpm: "",
+    harmonyvoiceColor: "",
   });
 
   useEffect(() => {
@@ -39,18 +40,22 @@ const Result_HarmonyPage = () => {
     const taskId = localStorage.getItem("taskId");
 
     try {
-      const response = await axios.get(`${API_BASE_URL}/task/search`, {
-        params: { taskId: taskId },
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+      const response = await axios.get(
+        `${API_BASE_URL}/task/search?taskId=${taskId}`,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       const harmony = response.data.result.harmonies[0]; // 첫 번째 항목 사용
       setHarmonyInfo({
+        musicTitle: harmony.musicTitle,
         harmonyscale: harmony.scale,
         harmonygenre: harmony.genre,
         harmonybpm: harmony.bpm,
+        harmonyvoiceColor: harmony.voiceColor,
       });
 
       console.log("응답 데이터:", response.data);
@@ -62,27 +67,13 @@ const Result_HarmonyPage = () => {
   return (
     <>
       <ConditionalNavbar /> {/* 변경 */}
-      <TitleNavbar
-        title="화성 분석 결과"
-        // subtitle="음원 분석 결과를 확인하세요"
-      />
+      <TitleNavbar title={`${harmonyInfo.musicTitle}의 화성 분석 결과`} />
       <BackGroundResult style={{ height: "100%" }} />
-      <div
-        style={{
-          marginTop: "100px",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <UploadBox
-          fileName={fileInfo.fileName || "파일이 없습니다"}
-          fileDetails={`크기: ${fileInfo.fileSize} / musicId: ${fileInfo.musicId} / taskId: ${fileInfo.taskId}`}
-        />
-      </div>
       <Slick
-        harmonyscale={harmonyinfo.harmonyscale}
-        harmonygenre={harmonyinfo.harmonygenre}
-        harmonybpm={harmonyinfo.harmonybpm}
+        harmonyscale={harmonyInfo.harmonyscale}
+        harmonygenre={harmonyInfo.harmonygenre}
+        harmonybpm={harmonyInfo.harmonybpm}
+        harmonyvoiceColor={harmonyInfo.harmonyvoiceColor}
       />
       <div
         style={{

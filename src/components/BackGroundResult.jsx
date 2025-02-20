@@ -10,7 +10,7 @@ const BackGroundResult = () => {
         <SvgImage3 img src={Background_Result3}></SvgImage3>
         <SvgImage img src={Background_Result1}></SvgImage>
         <SvgImage1 img src={Background_Result2}></SvgImage1>
-        <SvgImage4 img src={Background_Result2}></SvgImage4>
+        <SvgImage4 img src={Background_Result4}></SvgImage4>
       </BackGround>
     </>
   );

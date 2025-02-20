@@ -5,18 +5,17 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Savebutton from "../../assets/Mypg_img/Savebutton.svg";
 import { AuthContext } from "../../context/AuthContext.jsx";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function Loginmodi() {
-  // --- 비밀번호 변경 상태 ---
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  // ★ 프로필 이미지 업로드 관련 상태
+  // 🔹 프로필 이미지 관리
   const [profileImgUrl, setProfileImgUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
   const hiddenFileInput = useRef(null);
-
-  // AuthContext에서 토큰과 user 정보를 가져옴
   const { token, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -35,27 +34,26 @@ function Loginmodi() {
 
     try {
       const response = await axios.put(
-        "http://15.164.219.98.nip.io/member/update",
+        `${API_BASE_URL}/member/update`,
         {
-          currentPassword: currentPassword,
-          newPassword: newPassword,
+          currentPassword,
+          newPassword,
         },
         {
           headers: {
             Authorization: `Bearer ${token}`, // 주의: 백틱(`) 사용
           },
-        }
+        },
       );
 
-      const data = response.data;
-      if (data.isSuccess) {
+      if (response.data.isSuccess) {
         alert("비밀번호가 성공적으로 변경되었습니다.");
         navigate("/mypage");
       } else {
-        alert(`비밀번호 변경 실패: ${data.message}`);
+        alert(`비밀번호 변경 실패: ${response.data.message}`);
       }
     } catch (err) {
-      console.error("PUT 요청 에러:", err);
+      console.error("❌ 비밀번호 변경 에러:", err);
       alert("서버 오류로 인해 비밀번호 변경에 실패했습니다.");
     }
   };
@@ -72,39 +70,68 @@ function Loginmodi() {
     const file = e.target.files[0];
     if (!file) return;
 
+    setLoading(true);
     try {
       // 1단계) presigned URL 요청 (POST)
       const presignRes = await axios.post(
-        `http://15.164.219.98.nip.io/files/upload?fileType=IMAGE&fileName=${encodeURIComponent(file.name)}`,
+        `${API_BASE_URL}/files/upload?fileType=IMAGE&fileName=${encodeURIComponent(file.name)}`,
         null,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
+          headers: { Authorization: `Bearer ${token}` },
+          params: {
+            fileType: "IMAGE",
           },
-        }
+        },
       );
 
       if (!presignRes.data.isSuccess) {
-        alert(`presigned URL 발급 실패: ${presignRes.data.message}`);
+        alert(`Presigned URL 발급 실패: ${presignRes.data.message}`);
         return;
       }
 
-      // 서버 응답에서 S3 presigned URL 획득
       const uploadS3Url = presignRes.data.result.uploadS3Url;
 
-      // 2단계) PUT presigned URL로 실제 파일 업로드
-      await axios.put(uploadS3Url, file, {
+      // 🛠️ 2단계: presigned URL로 파일 PUT 업로드
+      const putResponse = await axios.put(uploadS3Url, file, {
         headers: {
           "Content-Type": file.type,
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      // 업로드 성공 후, 해당 URL을 프로필 이미지 경로로 사용
-      setProfileImgUrl(uploadS3Url);
-      alert("이미지 업로드 성공");
+      if (putResponse.status === 200) {
+        console.log("✅ 이미지 업로드 성공!");
+
+        // 🛠️ 3단계: 이미지 GET 요청 (캐시 무력화)
+        const cacheBustedUrl = `${uploadS3Url}?timestamp=${Date.now()}`;
+        const getResponse = await axios.get(cacheBustedUrl, {
+          responseType: "blob",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        // 🛠️ 4단계: Blob → 이미지 URL 변환
+        const imageUrl = URL.createObjectURL(getResponse.data);
+        setProfileImgUrl(imageUrl);
+
+        alert("이미지 업로드 및 조회 성공!");
+      } else {
+        console.warn("⚠️ 이미지 업로드 실패:", putResponse.status);
+      }
     } catch (err) {
-      console.error("이미지 업로드 에러:", err);
+      console.error("❌ 이미지 업로드 에러:", err);
       alert("이미지 업로드 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔹 4) 이미지 URL 해제
+  const handleClearImage = () => {
+    if (profileImgUrl) {
+      URL.revokeObjectURL(profileImgUrl);
+      setProfileImgUrl(null);
     }
   };
 
@@ -132,11 +159,7 @@ function Loginmodi() {
         {/* 이메일 (읽기 전용) */}
         <Label>이메일</Label>
         <FieldContainer>
-          <Input1
-            type="email"
-            value={displayedEmail}
-            readOnly
-          />
+          <Input1 type="email" value={displayedEmail} readOnly />
         </FieldContainer>
 
         {/* 현재 비밀번호 */}

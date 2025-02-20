@@ -12,14 +12,18 @@ const PurpleButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size:24px;
+  color:white;
+  font-weight: 600;
   
-  /* 버튼 자체에 폰트 스타일 적용 */
+  
+  a{
   font-family: Pretendard, sans-serif;
   font-size: 24px;
   font-weight: 600;
   color: white;
   line-height: normal;
-  text-align: center;
+  text-align: center;}
 
   &:hover {
     background: linear-gradient(180deg, #613fa4 0%, #321a61 100%);

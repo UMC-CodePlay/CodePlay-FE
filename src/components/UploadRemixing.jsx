@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import FileHarmony from "../assets/FileHarmony.svg";
+import FileHarmony from "../assets/FileRemixing.svg";
 import FileSelectButton from "../components/Buttons/FileSelectButton";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -30,8 +30,8 @@ const UploadRemixing = () => {
 
   const fetchUpload = async (file) => {
     try {
-      console.log("📤 fetchUpload 함수 실행됨");
-      console.log("🎵 업로드 파일:", file.name, file.size);
+      console.log("fetchUpload 함수 실행됨");
+      console.log("업로드 파일:", file.name, file.size);
 
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -47,24 +47,24 @@ const UploadRemixing = () => {
       const s3Url = response.data.result.uploadS3Url;
       const musicId = response.data.result.musicId;
       localStorage.setItem("musicId", response.data.result.musicId);
-      console.log("🚀 S3 URL 응답:", response.data.result.uploadS3Url);
+      console.log("S3 URL 응답:", response.data.result.uploadS3Url);
       console.log("musciId:", response.data.result.musicId);
 
       if (s3Url && musicId) {
         await uploadFileToS3(s3Url, file);
-        console.log("📡 uploadFileToS3 호출됨");
+        console.log("uploadFileToS3 호출됨");
       } else {
-        console.warn("⚠️ S3 URL을 받지 못함");
+        console.warn("S3 URL을 받지 못함");
       }
     } catch (error) {
-      console.error("❌ API 호출 오류:", error.response?.data || error.message);
+      console.error("API 호출 오류:", error.response?.data || error.message);
       setError(error.message);
     }
   };
 
   const uploadFileToS3 = async (s3Url, file) => {
-    console.log("✅ 업로드 대상 S3 URL:", s3Url);
-    console.log("🎵 업로드 파일:", file.name, file.size);
+    console.log("업로드 대상 S3 URL:", s3Url);
+    console.log("업로드 파일:", file.name, file.size);
 
     try {
       const response = await axios.put(s3Url, file, {
@@ -73,12 +73,12 @@ const UploadRemixing = () => {
         },
       });
 
-      console.log("📡 S3 응답 상태 코드:", response.status);
+      console.log("S3 응답 코드:", response.status);
 
       if (response.status === 200) {
         alert("파일 업로드가 완료되었습니다!");
       } else {
-        console.warn("⚠️ S3 업로드 실패 - 상태 코드:", response.status);
+        console.warn("S3 업로드 실패 - 코드:", response.status);
       }
     } catch (error) {
       alert("S3 업로드 중 오류 발생!");
@@ -129,7 +129,7 @@ const UploadRemixing = () => {
             <UploadText>
               이곳에 분석하고 싶은 음원 파일을 업로드하세요
             </UploadText>
-            <SubText>최대 10MB, mp3 파일 지원</SubText>
+            <SubText>최대 10MB, MP3 파일 지원</SubText>
             <FileSelectButton
               onClick={() => document.getElementById("file-upload").click()}
             />
@@ -162,7 +162,6 @@ const UploadContainer = styled.div`
   justify-content: center;
   padding: 20px;
   transition: all 0.1s ease-in-out;
-  cursor: pointer;
 `;
 
 const IconContainer = styled.div`

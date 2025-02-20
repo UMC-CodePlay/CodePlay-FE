@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import ResultContentContainer from "../../components/Container/ResultContentContainer";
 import ControlPanel from "../../components/Controls/ControlPanel";
+import OneAudioPlay from "../../components/OneAudioPlay";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -17,67 +18,46 @@ const Result_RemixingPage = () => {
   const [reverb, setReverb] = useState(0.0);
   // 코러스: boolean
   const [chorus, setChorus] = useState(false);
+  const [resultMusicUrl, setResultMusicUrl] = useState(null);
 
   const handleScaleChange = (direction) => {
-    if (direction === "up" && scale < 12) {
-      setScale((prev) => prev + 1);
-    } else if (direction === "down" && scale > -12) {
-      setScale((prev) => prev - 1);
-    }
+    setScale((prev) => (direction === "up" && prev < 12 ? prev + 1 : direction === "down" && prev > -12 ? prev - 1 : prev));
   };
 
   const handleTempoChange = (direction) => {
-    if (direction === "up") {
-      setTempo((prev) => Number((prev + 0.1).toFixed(1)));
-    } else if (direction === "down" && tempo > 0.1) {
-      setTempo((prev) => Number((prev - 0.1).toFixed(1)));
-    }
+    setTempo((prev) => {
+      if (direction === "up" && prev < 4.0) {
+        return Number((prev + 0.1).toFixed(1)); // ✅ 최대 4.0 제한
+      } else if (direction === "down" && prev > 0.1) {
+        return Number((prev - 0.1).toFixed(1)); // ✅ 최소 0.1 제한
+      }
+      return prev;
+    });
   };
 
-  // 리버브도 스케일과 유사하게 0 ~ 0.3 범위 내에서 0.1씩 증감
-  const handleReverbChange = (direction) => {
-    if (direction === "up" && reverb < 0.3) {
-      setReverb((prev) => Number((prev + 0.1).toFixed(1)));
-    } else if (direction === "down" && reverb > 0.0) {
-      setReverb((prev) => Number((prev - 0.1).toFixed(1)));
-    }
-  };
-
-  // 토글 함수에서 리버브 관련 부분은 주석 처리
   const handleToggle = (feature) => {
-    // if (feature === "reverb") {
-    //   setReverb(!reverb);
-    // } else
-    if (feature === "chorus") {
-      setChorus(!chorus);
+    if (feature === "reverb") {
+      setReverb((prev) => !prev);
+    } else if (feature === "chorus") {
+      setChorus((prev) => !prev);
     }
   };
 
-  const requestRemixing = async () => {
+  const requestRemixing = async (updatedValues) => {
     try {
       const token = localStorage.getItem("token");
       const musicId = localStorage.getItem("musicId");
+
       const requestData = {
         musicId: musicId,
-        parentRemixId: 0,
-        scaleModulation: scale,
-        tempoRatio: tempo,
-        // 변경된 reverbAmount: boolean이 아닌 숫자를 그대로 전송
-        reverbAmount: reverb,
-        isChorusOn: chorus,
+        ...updatedValues, // ✅ 변경된 값만 업데이트
       };
 
-      console.log("🎶 Remixing 요청 데이터:", requestData);
+      console.log("Remixing 요청 데이터:", requestData);
 
       const response = await axios.post(
         `${API_BASE_URL}/task/remix`,
-        {
-          musicId: musicId,
-          scaleModulation: scale,
-          tempoRatio: tempo,
-          reverbAmount: reverb, // 숫자 그대로
-          isChorusOn: chorus,
-        },
+        requestData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,34 +65,90 @@ const Result_RemixingPage = () => {
           },
         }
       );
-
+      localStorage.setItem("taskId", response.data.result.taskId);
+      const taskId = localStorage.getItem("taskId");
       if (response.status === 200) {
-        console.log("🎶 Remixing 요청 성공:", response.data);
-        alert("Remixing 작업이 성공적으로 완료되었습니다!");
+        console.log(" Remixing 요청 성공:", response.data);
+        alert("리믹싱 작업 요청중입니다");
+        fetchTaskStatus(taskId);
       } else {
-        console.warn("⚠️ Remixing 요청 실패 - 상태 코드:", response.status);
+        console.warn("리믹싱 요청 실패 - 상태 코드:", response.status);
       }
     } catch (error) {
-      console.error("❌ Remixing 요청 오류:", error.message);
+      console.error("리믹싱 요청 오류:", error.message);
     }
   };
+  const fetchTaskStatus = async (taskId) => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      const pollTask = async () => {
+        const response = await axios.post(
+          `${API_BASE_URL}/task/get-task`,
+          { taskId: taskId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-  return (
+        console.log("작업 상태 조회:", response.data);
+
+        if (response.data.result.processStatus === "COMPLETED") {
+          console.log("작업 끝 음악 URL 조회 시작");
+          fetchResultMusicUrl(taskId); // ✅ 작업이 완료되면 음악 URL 가져오기
+        } else {
+          console.warn("작업 중, 3초 후 재시도...");
+          setTimeout(pollTask, 3000); // ✅ 3초 후 다시 조회
+        }
+      };
+      pollTask();
+    } 
+    catch (error) {
+      console.error("작업 상태 조회 오류:", error.message);
+    }
+  };
+  
+  const fetchResultMusicUrl = async (taskId) => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      // ✅ taskId를 쿼리 파라미터로 추가하여 GET 요청
+      const response = await axios.get(
+        `${API_BASE_URL}/task/search?taskId=${taskId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log("작업 결과:", response.data);
+  
+      const resultMusicUrl = response.data.result.remixes[0].resultMusicUrl;
+      
+  
+      if (resultMusicUrl) {
+        console.log("믹싱된 음악 URL:", resultMusicUrl); // ✅ 성공하면 resultMusicUrl 반환
+        localStorage.setItem("resultMusicUrl",resultMusicUrl);
+        setResultMusicUrl(resultMusicUrl);
+      } else {
+        console.warn("resultMusicUrl을 찾을 수 없음");
+      }
+    } catch (error) {
+      console.error("결과 오류:", error.message);
+    }
+  };
+    return (
     <ResultContentContainer title="리믹싱 결과" prevLink="/remixing">
       <ControlSection>
         <TabContainer>
-          <Tab active={activeTab === "스케일"} onClick={() => setActiveTab("스케일")}>
-            스케일
-          </Tab>
-          <Tab active={activeTab === "템포"} onClick={() => setActiveTab("템포")}>
-            템포
-          </Tab>
-          <Tab active={activeTab === "리버브"} onClick={() => setActiveTab("리버브")}>
-            리버브
-          </Tab>
-          <Tab active={activeTab === "코러스"} onClick={() => setActiveTab("코러스")}>
-            코러스
-          </Tab>
+          <Tab active={activeTab === "스케일"} onClick={() => setActiveTab("스케일")}>스케일</Tab>
+          <Tab active={activeTab === "템포"} onClick={() => setActiveTab("템포")}>템포</Tab>
+          <Tab active={activeTab === "리버브"} onClick={() => setActiveTab("리버브")}>리버브</Tab>
+          <Tab active={activeTab === "코러스"} onClick={() => setActiveTab("코러스")}>코러스</Tab>
         </TabContainer>
         <ControlPanel
           activeTab={activeTab}
@@ -122,12 +158,10 @@ const Result_RemixingPage = () => {
           chorus={chorus}
           handleScaleChange={handleScaleChange}
           handleTempoChange={handleTempoChange}
-          handleReverbChange={handleReverbChange} // 새로 만든 함수
           handleToggle={handleToggle}
-          setScale={setScale}
-          setTempo={setTempo}
-          requestRemixing={requestRemixing}
+          requestRemixing={requestRemixing} // ✅ 변경된 값만 요청
         />
+        {resultMusicUrl && <OneAudioPlay audioUrl={resultMusicUrl} />}
       </ControlSection>
     </ResultContentContainer>
   );

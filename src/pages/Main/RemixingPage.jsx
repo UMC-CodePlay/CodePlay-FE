@@ -18,7 +18,7 @@ const SessionPage = () => {
         <UploadRemixing />
       </div>
 
-      <div style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}>
+      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
         <SessionButton>
           <Link to="/remixing/result_remixing">진행하기</Link>
         </SessionButton>
@@ -46,5 +46,8 @@ const BackgroundImage = styled.img`
   top: 350px;
   left: 0;
   z-index: -1;
-  background-color: black;
+  background: linear-gradient(180deg, #17171E 0%, rgba(43, 181, 232, 0.5) 151.51%);
+  border-radius: 12px;
+  overflow: hidden;
+
 `;

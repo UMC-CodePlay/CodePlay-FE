@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import ResultHarmonyButton from "./Buttons/ResultHarmonyButton";
 
-const Slick = ({ harmonyscale, harmonygenre, harmonybpm }) => {
+const Slick = ({ harmonyscale, harmonygenre, harmonybpm, harmonyvoiceColor }) => {
   return (
     <Wrapper>
       <ButtonContainer>
@@ -23,7 +23,7 @@ const Slick = ({ harmonyscale, harmonygenre, harmonybpm }) => {
         ></ResultHarmonyButton>
         <ResultHarmonyButton
           title={"음색"}
-          subtitle={harmonygenre}
+          subtitle={harmonyvoiceColor}
         ></ResultHarmonyButton>
       </ButtonContainer>
     </Wrapper>

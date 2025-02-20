@@ -30,7 +30,6 @@ const ButtonWrapper = styled.button`
     border: 2px solid var(--gray-text1, #92879d);
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0px 0px 20px 0px #9747ff;
-    cursor: pointer;
   }
 `;
 

@@ -7,52 +7,60 @@ import UploadHarmony from "../../components/UploadHarmony";
 import styled from "styled-components";
 import BackgroundSvg from "../../assets/HarmonyBg.svg";
 import axios from "axios";
-import { AuthContext } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const HarmonyPage = () => {
-  const { token } = useContext(AuthContext);
-  const [harmonyStatus, setHarmonyStatus] = useState(null);
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const taskId = localStorage.getItem("taskId");
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
+  const [isUploading, setIsUploading] = useState(false); // 업로드 중인지 여부
+  const navigate = useNavigate();
 
-  // harmonyStatus가 "COMPLETE"이면 버튼 활성화
+  // ✅ 업로드 완료 후 taskId를 조회하여 상태 체크
   useEffect(() => {
-    if (harmonyStatus === "COMPLETE") {
-      setIsButtonEnabled(true);
-    } else {
-      setIsButtonEnabled(false);
-    }
-  }, [harmonyStatus]);
+    if (!isUploading) return; // 업로드 중이 아니면 실행 X
 
-  // taskId가 있으면 1초마다 harmony 상태를 업데이트
-  useEffect(() => {
-    if (!taskId) return;
-    const interval = setInterval(() => {
-      getHarmonyStatus(taskId);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [taskId]);
+    const token = localStorage.getItem("token");
+    const taskId = localStorage.getItem("taskId");
+    if (!taskId) return; // taskId가 없으면 실행 X
 
-  const getHarmonyStatus = async (taskId) => {
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/task/get-task`,
-        { taskId },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+    console.log("상태 조회 시작");
+
+    const pollTask = async () => {
+      try {
+        const response = await axios.post(
+          `${API_BASE_URL}/task/get-task`,
+          { taskId: taskId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           },
+        );
+
+        const status = response.data.result.processStatus;
+        console.log("화성 분석 작업 상태:", status);
+
+        if (status === "COMPLETED") {
+          console.log("작업 끝 결과보기 버튼 활성화");
+          setIsButtonEnabled(true);
+        } else {
+          console.warn("작업중, 3초 후 조회");
+          setTimeout(pollTask, 3000); // 3초 후 다시 조회
         }
-      );
-      const status = response.data.result.processStatus;
-      setHarmonyStatus(status);
-      console.log("Harmony Status:", status);
-    } catch (error) {
-      console.error("API 요청 오류:", error.response?.data || error.message);
+      } catch (error) {
+        console.error("작업상태오류:", error.response?.data || error.message);
+      }
+    };
+
+    pollTask();
+  }, [isUploading]); // ✅ 업로드 완료 후 상태 조회
+
+  // ✅ "결과보기" 버튼 클릭 시 결과 페이지로 이동
+  const handleResultClick = () => {
+    if (isButtonEnabled) {
+      navigate("/harmony/result_harmony");
     }
   };
 
@@ -64,35 +72,13 @@ const HarmonyPage = () => {
         subtitle="비트 추적, 키 감지, 하모닉 분석으로 인사이트를 제공합니다."
       />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
-      <div
-        style={{
-          marginTop: "100px",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <UploadHarmony />
-      </div>
-      <div
-        style={{
-          marginTop: "10px",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <PurpleButton disabled={!isButtonEnabled}>
-          {isButtonEnabled ? (
-            <Link
-              to="/harmony/result_harmony"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              결과보기
-            </Link>
-          ) : (
-            <span>결과보기</span>
-          )}
+      <UploadHarmony setIsUploading={setIsUploading} />{" "}
+      {/* ✅ 업로드 상태 전달 */}
+      <ButtonContainer>
+        <PurpleButton disabled={!isButtonEnabled} onClick={handleResultClick}>
+          결과보기
         </PurpleButton>
-      </div>
+      </ButtonContainer>
     </PageContainer>
   );
 };
@@ -105,6 +91,7 @@ const PageContainer = styled.div`
   min-height: 100vh;
   overflow: hidden;
 `;
+
 const BackgroundImage = styled.img`
   width: 100vw;
   min-height: 747px;
@@ -115,4 +102,10 @@ const BackgroundImage = styled.img`
   left: 0;
   z-index: -1;
   background-color: black;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
 `;

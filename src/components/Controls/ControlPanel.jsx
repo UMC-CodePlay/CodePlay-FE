@@ -1,73 +1,53 @@
 import styled from "styled-components";
 import Switch from "./Switch";
 
-const ControlPanel = ({
-  activeTab,
-  scale,
-  tempo,
-  // reverb를 boolean => number로 사용한다고 가정합니다.
-  reverb,
-  chorus,
-  handleScaleChange,
-  handleTempoChange,
-  // 새로 추가할 handleReverbChange 함수
-  handleReverbChange,
-  // 토글 함수 - 리버브는 주석 처리
-  handleToggle,
-  setScale,
-  setTempo
+const ControlPanel = ({ 
+  activeTab, 
+  scale, 
+  tempo, 
+  reverb, 
+  chorus, 
+  handleScaleChange, 
+  handleTempoChange, 
+  handleToggle, 
+  requestRemixing 
 }) => {
   return (
     <Panel>
-      {/* ----------------- 스케일 ----------------- */}
       {activeTab === '스케일' && (
         <ControlWrapper>
           <ValueControl>
             <ArrowButton onClick={() => handleScaleChange('down')}>◀</ArrowButton>
-            <ValueBox>
-              <Value>{scale > 0 ? `+${scale}` : scale}</Value>
-            </ValueBox>
+            <ValueBox><Value>{scale > 0 ? `+${scale}` : scale}</Value></ValueBox>
             <ArrowButton onClick={() => handleScaleChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <ResetButton onClick={() => requestRemixing({ scaleModulation: scale })}>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
-      {/* ----------------- 템포 ----------------- */}
       {activeTab === '템포' && (
         <ControlWrapper>
           <ValueControl>
             <ArrowButton onClick={() => handleTempoChange('down')}>◀</ArrowButton>
-            <ValueBox>
-              <Value>x{tempo.toFixed(1)}</Value>
-            </ValueBox>
+            <ValueBox><Value>x{tempo.toFixed(1)}</Value></ValueBox>
             <ArrowButton onClick={() => handleTempoChange('up')}>▶</ArrowButton>
           </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <ResetButton onClick={() => requestRemixing({ tempoRatio: tempo })}>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
-      {/* ----------------- 리버브 -----------------
-          기존 토글(Switch) 코드 => 주석 처리 
-          아래는 숫자 증감 패널로 대체
-       */}
       {activeTab === '리버브' && (
         <ControlWrapper>
-          {/* <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} /> */}
-          <ValueControl>
-            <ArrowButton onClick={() => handleReverbChange('down')}>◀</ArrowButton>
-            <ValueBox>
-              <Value>{reverb.toFixed(1)}</Value>
-            </ValueBox>
-            <ArrowButton onClick={() => handleReverbChange('up')}>▶</ArrowButton>
-          </ValueControl>
-          <ResetButton>적용하기</ResetButton>
+          <Switch isOn={reverb} onToggle={() => handleToggle('reverb')} />
+          <ResetButton onClick={() => requestRemixing({ reverbAmount: reverb ? 0.3 : 0 })}>적용하기</ResetButton>
         </ControlWrapper>
       )}
 
-      {/* ----------------- 코러스 ----------------- */}
       {activeTab === '코러스' && (
-        <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
+        <ControlWrapper>
+          <Switch isOn={chorus} onToggle={() => handleToggle('chorus')} />
+          <ResetButton onClick={() => requestRemixing({ isChorusOn: chorus })}>적용하기</ResetButton>
+        </ControlWrapper>
       )}
     </Panel>
   );
@@ -75,12 +55,20 @@ const ControlPanel = ({
 
 export default ControlPanel;
 
-/* 스타일 정의 */
+/* =====================
+   styled-components
+===================== */
+
+/**
+ * Panel: 높이를 300px로 고정,
+ * 내부 요소를 가로/세로 정 중앙에 배치
+ */
 const Panel = styled.div`
-  height: 300px;
+  width: 100%;
+  height: 300px;               /* ★ 고정 높이 ★ */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;     /* 수평 중앙 */
+  align-items: center;         /* 수직 중앙 */
 `;
 
 const ControlWrapper = styled.div`
@@ -108,7 +96,7 @@ const ArrowButton = styled.button`
   justify-content: center;
   width: 40px;
   height: 40px;
-
+  
   &:hover {
     color: #1a8bb8;
   }
