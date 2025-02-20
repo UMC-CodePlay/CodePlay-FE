@@ -1,8 +1,7 @@
 // src/pages/Main/SessionPage.jsx
 import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
-///import SessionButton from "../../components/Buttons/GreenButton";
-import SessionButton from "../../COMPONENTS/Buttons/GreenButton";
+import SessionButton from "../../components/Buttons/GreenButton";
 
 import { Link } from "react-router-dom";
 import UploadRemixing from "../../components/UploadRemixing";
