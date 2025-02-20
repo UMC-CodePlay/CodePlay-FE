@@ -27,32 +27,40 @@ const SocialLogin = () => {
   const navigate = useNavigate();
   const popupRef = useRef(null);
 
-  useEffect(() => {
-    const handleMessage = (event) => {
-      // 필요하다면 아래와 같이 출처(origin) 체크를 추가합니다.
-      // if (event.origin !== API_BASE_URL) return;
+  // SocialLogin.jsx (발췌)
+useEffect(() => {
+  const handleMessage = (event) => {
+    // 필요하다면 event.origin 체크
+    // if (event.origin !== "https://내서버도메인") return;
 
-      console.log("📥 메인 창이 받은 postMessage:", event.data);
-      const data = event.data;
-      if (data && data.isSuccess) {
-        localStorage.setItem("token", data.result.token);
-        localStorage.setItem("refreshToken", data.result.refreshToken);
-        localStorage.setItem("email", data.result.email);
-        console.log("✅ 토큰 저장 완료! 홈으로 이동합니다.");
-        navigate("/", { replace: true });
-      } else {
-        alert("로그인 실패: " + (data?.message || "알 수 없는 오류"));
-        navigate("/login", { replace: true });
-      }
-      // 팝업 창이 열려 있다면 닫습니다.
-      if (popupRef.current && !popupRef.current.closed) {
-        popupRef.current.close();
-      }
-    };
+    console.log("메인 창이 받은 postMessage:", event.data);
+    // 서버에서 전달한 data = { accessToken: "...", refreshToken: "...", email: "..." }
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [navigate]);
+    // accessToken이 존재하면 성공 처리
+    if (event.data && event.data.accessToken) {
+      localStorage.setItem("token", event.data.accessToken);
+      localStorage.setItem("refreshToken", event.data.refreshToken);
+      localStorage.setItem("email", event.data.email);
+
+      console.log("✅ 토큰 및 이메일 저장 완료! 홈으로 이동합니다.");
+      navigate("/", { replace: true });
+    } else {
+      alert("로그인 실패: " + (event.data?.message || "알 수 없는 오류"));
+      navigate("/login", { replace: true });
+    }
+
+    // 팝업 창이 열려 있다면 닫기
+    if (popupRef.current && !popupRef.current.closed) {
+      popupRef.current.close();
+    }
+  };
+
+  window.addEventListener("message", handleMessage);
+  return () => {
+    window.removeEventListener("message", handleMessage);
+  };
+}, [navigate]);
+
 
   const handleSocialLogin = (provider) => {
     console.log(`🔄 ${provider} 로그인 버튼 클릭됨`);
