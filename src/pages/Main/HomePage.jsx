@@ -19,7 +19,7 @@ import NowPlaying from "../../components/6screen/nowPlaying.jsx";
 const HomePageWrapper = styled.div`
   font-family: "Arial", sans-serif;
   box-sizing: border-box;
-  background-color:black;
+  background-color: black;
   overflow-y: auto;
   text-align: center;
 `;
