@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 // 기존: import Navbar from "../../components/Navbar.jsx";
-import ConditionalNavbar from "../../components/ConditionalNavbar";
+import ConditionalNavbar from "../../components/ConditionalNavbar.jsx";
 
 import Header from "../../components/1screen/header.jsx";
 import Harmony from "../../components/2screen/harmony.jsx";

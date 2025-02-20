@@ -38,15 +38,21 @@ const OneAudioPlay = ({ audioUrl }) => {
   return (
     <PlayerWrapper>
       <audio ref={audioRef} src={audioUrl} />
-      <PlayButton onClick={() => {
-        if (playing) {
-          audioRef.current.pause();
-        } else {
-          audioRef.current.play();
-        }
-        setPlaying(!playing);
-      }}>
-        {playing ? <img src={PauseBtn} alt="Pause" /> : <img src={PlayBtn} alt="Play" />}
+      <PlayButton
+        onClick={() => {
+          if (playing) {
+            audioRef.current.pause();
+          } else {
+            audioRef.current.play();
+          }
+          setPlaying(!playing);
+        }}
+      >
+        {playing ? (
+          <img src={PauseBtn} alt="Pause" />
+        ) : (
+          <img src={PlayBtn} alt="Play" />
+        )}
       </PlayButton>
       <StyledSlider
         value={progress}
@@ -54,8 +60,12 @@ const OneAudioPlay = ({ audioUrl }) => {
         max={duration}
         min={0}
       />
-      <TimeDisplay>{formatTime(progress)} / {formatTime(duration)}</TimeDisplay>
-      <DownloadButton onClick={() => window.open(audioUrl)}>다운로드</DownloadButton>
+      <TimeDisplay>
+        {formatTime(progress)} / {formatTime(duration)}
+      </TimeDisplay>
+      <DownloadButton onClick={() => window.open(audioUrl)}>
+        다운로드
+      </DownloadButton>
     </PlayerWrapper>
   );
 };
@@ -72,7 +82,7 @@ const PlayerWrapper = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;  /* ✅ 중앙 정렬 */
+  justify-content: center; /* ✅ 중앙 정렬 */
   gap: 20px;
   margin-top: 20px; /* 상단 여백 */
 `;
@@ -118,8 +128,8 @@ const TimeDisplay = styled.div`
 `;
 
 const DownloadButton = styled.button`
-width:100px;
-height:40px;
+  width: 100px;
+  height: 40px;
   background: none;
   border: 2px solid white;
   color: white;

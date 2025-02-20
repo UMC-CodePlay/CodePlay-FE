@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import FileHarmony from "../assets/FileHarmony.svg";
-import FileSelectButton from "../components/Buttons/FileSelectButton";
+import FileSelectButton from "./Buttons/FileSelectButton";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -42,7 +42,7 @@ const UploadHarmony = ({ setIsUploading }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       const s3Url = response.data.result.uploadS3Url;
@@ -89,7 +89,7 @@ const UploadHarmony = ({ setIsUploading }) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       if (response.status === 200) {
@@ -171,7 +171,8 @@ const UploadContainer = styled.div`
   background: rgba(28, 28, 38, 0.4);
   backdrop-filter: blur(137.73px);
   border-radius: 12px;
-  border: 3px dashed ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
+  border: 3px dashed
+    ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import FileHarmony from "../assets/FileRemixing.svg";
-import FileSelectButton from "../components/Buttons/FileSelectButton";
+import FileSelectButton from "./Buttons/FileSelectButton";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const UploadRemixing = () => {
@@ -84,7 +84,6 @@ const UploadRemixing = () => {
       alert("S3 업로드 중 오류 발생!");
     }
   };
-
 
   const handleDragOver = (e) => {
     e.preventDefault();

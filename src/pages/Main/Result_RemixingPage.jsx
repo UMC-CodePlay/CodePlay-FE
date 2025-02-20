@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
-import ResultContentContainer from "../../components/Container/ResultContentContainer";
-import ControlPanel from "../../components/Controls/ControlPanel";
-import OneAudioPlay from "../../components/OneAudioplay.jsx";
-
+import ResultContentContainer from "../../components/Container/ResultContentContainer.jsx";
+import ControlPanel from "../../components/Controls/ControlPanel.jsx";
+import OneAudioPlayer from "../../components/OneAudioplayer.jsx";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const Result_RemixingPage = () => {
@@ -185,7 +184,7 @@ const Result_RemixingPage = () => {
           handleToggle={handleToggle}
           requestRemixing={requestRemixing} // ✅ 변경된 값만 요청
         />
-        {resultMusicUrl && <OneAudioPlay audioUrl={resultMusicUrl} />}
+        {resultMusicUrl && <OneAudioPlayer audioUrl={resultMusicUrl} />}
       </ControlSection>
     </ResultContentContainer>
   );
