@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import ResultContentContainer from "../../components/Container/ResultContentContainer";
 import ControlPanel from "../../components/Controls/ControlPanel";
-import OneAudioPlay from "../../components/oneAudioplay.jsx";
+import OneAudioPlay from "../../components/OneAudioplay.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 

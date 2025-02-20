@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import PurpleButton from "../Buttons/PurpleButton";
 import PrevPurpleButton from "../Buttons/PrevPurpleButton";
 import BackGroundResult from "../BackGroundResult";
-import OneAudioplay from "../OneAudioPlay";  // oneAudioplay.jsx 임포트
+import OneAudioplay from "../OneAudioplay"; // oneAudioplay.jsx 임포트
 
 const ResultContentContainer = ({
   title,
@@ -23,7 +23,7 @@ const ResultContentContainer = ({
       <TitleNavbar title={title} />
       <Wrapper>
         <BackGroundResult />
-        
+
         {/* --- 메인 콘텐츠 컨테이너 --- */}
         <ContentContainer>
           {/* 상단에 표시할 내용(children) */}
@@ -41,8 +41,7 @@ const ResultContentContainer = ({
           */}
 
           {/* --- OneAudioplay를 바로 ContentContainer 하단에 추가 --- */}
-          <PlayerContainer>
-          </PlayerContainer>
+          <PlayerContainer></PlayerContainer>
         </ContentContainer>
       </Wrapper>
       {/* OneAudioplay 컴포넌트를 ContentContainer와 동일한 폭으로 추가 */}
@@ -91,9 +90,9 @@ const StyledPurpleButton = styled(PurpleButton)`
   border-radius: 5px;
 `;
 
-/** 
- * OneAudioplay가 들어갈 영역 
- * ContentContainer의 폭(최대 1200px) 내에서 가로 100%를 사용 
+/**
+ * OneAudioplay가 들어갈 영역
+ * ContentContainer의 폭(최대 1200px) 내에서 가로 100%를 사용
  */
 const PlayerContainer = styled.div`
   width: 100%;
