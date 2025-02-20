@@ -109,9 +109,9 @@ const ArrayButtons = styled.div`
 const ButtonStyle = styled.button`
   width: 100px;
   background-color: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: 0%;
   padding: 10px;
@@ -134,9 +134,9 @@ const ButtonStyle_su = styled.button`
   color: #00000;
   width: 100px;
   height: 50px;
-  font-size: 20px;
+  font-size: 16px;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: 0%;
   border-radius: 10px;

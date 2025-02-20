@@ -88,9 +88,9 @@ const ArrayButtons = styled.div`
 const ButtonStyle = styled.button`
   width: 100px;
   background-color: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: 0%;
   padding: 10px;
@@ -119,9 +119,9 @@ const ButtonSignup = styled.button`
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 16px;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: 0%;
   border: 1px solid #000;
@@ -143,9 +143,9 @@ const ButtonLogin = styled.button`
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 16px;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 30px;
   letter-spacing: 0%;
   border: 1px solid #000;
