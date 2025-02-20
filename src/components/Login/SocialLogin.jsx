@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import googleIcon from "../../assets/Login_img/login_google.svg";
 import kakaoIcon from "../../assets/Login_img/login_kakaotalk.svg";
@@ -13,7 +13,7 @@ const styles = {
   button: {
     width: "50px",
     height: "50px",
-    margin: "0px 15px",
+    margin: "0 15px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -25,12 +25,13 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const SocialLogin = () => {
   const navigate = useNavigate();
-  const [popup, setPopup] = useState(null);
+  const popupRef = useRef(null);
 
-  // 메인 창에서 팝업으로부터 postMessage를 통해 전달된 결과 처리
   useEffect(() => {
     const handleMessage = (event) => {
-      // (보안상 event.origin 체크 권장)
+      // 필요하다면 아래와 같이 출처(origin) 체크를 추가합니다.
+      // if (event.origin !== API_BASE_URL) return;
+
       console.log("📥 메인 창이 받은 postMessage:", event.data);
       const data = event.data;
       if (data && data.isSuccess) {
@@ -43,27 +44,26 @@ const SocialLogin = () => {
         alert("로그인 실패: " + (data?.message || "알 수 없는 오류"));
         navigate("/login", { replace: true });
       }
-      if (popup && !popup.closed) {
-        popup.close();
+      // 팝업 창이 열려 있다면 닫습니다.
+      if (popupRef.current && !popupRef.current.closed) {
+        popupRef.current.close();
       }
     };
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [navigate]); // 오직 navigate만 의존 (한 번만 등록)
+  }, [navigate]);
 
-  // OAuth 로그인 버튼 클릭 시 팝업을 열어 OAuth 인증 진행
   const handleSocialLogin = (provider) => {
     console.log(`🔄 ${provider} 로그인 버튼 클릭됨`);
     const w = 600, h = 700;
     const left = window.screenX + (window.outerWidth - w) / 2;
     const top = window.screenY + (window.outerHeight - h) / 2;
-    const popupWindow = window.open(
+    popupRef.current = window.open(
       `${API_BASE_URL}/oauth/authorize/${provider}`,
       "socialLoginPopup",
       `width=${w},height=${h},top=${top},left=${left}`
     );
-    setPopup(popupWindow);
   };
 
   return (
