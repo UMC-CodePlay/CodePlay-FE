@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import PurpleButton from "../Buttons/PurpleButton";
 import PrevPurpleButton from "../Buttons/PrevPurpleButton";
 import BackGroundResult from "../BackGroundResult";
-import OneAudioplay from "../OneAudioplay"; // oneAudioplay.jsx 임포트
+import OneAudioPlayer from "../OneAudioPlayer";
 
 const ResultContentContainer = ({
   title,
