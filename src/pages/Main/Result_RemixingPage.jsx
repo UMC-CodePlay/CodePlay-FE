@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import ResultContentContainer from "../../components/Container/ResultContentContainer";
 import ControlPanel from "../../components/Controls/ControlPanel";
-import OneAudioPlay from "../../components/OneAudioPlay";
+import OneAudioPlay from "../../components/oneAudioplay.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -21,7 +21,13 @@ const Result_RemixingPage = () => {
   const [resultMusicUrl, setResultMusicUrl] = useState(null);
 
   const handleScaleChange = (direction) => {
-    setScale((prev) => (direction === "up" && prev < 12 ? prev + 1 : direction === "down" && prev > -12 ? prev - 1 : prev));
+    setScale((prev) =>
+      direction === "up" && prev < 12
+        ? prev + 1
+        : direction === "down" && prev > -12
+          ? prev - 1
+          : prev,
+    );
   };
 
   const handleTempoChange = (direction) => {
@@ -63,7 +69,7 @@ const Result_RemixingPage = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       localStorage.setItem("taskId", response.data.result.taskId);
       const taskId = localStorage.getItem("taskId");
@@ -81,7 +87,7 @@ const Result_RemixingPage = () => {
   const fetchTaskStatus = async (taskId) => {
     try {
       const token = localStorage.getItem("token");
-  
+
       const pollTask = async () => {
         const response = await axios.post(
           `${API_BASE_URL}/task/get-task`,
@@ -91,7 +97,7 @@ const Result_RemixingPage = () => {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
         console.log("작업 상태 조회:", response.data);
@@ -105,16 +111,15 @@ const Result_RemixingPage = () => {
         }
       };
       pollTask();
-    } 
-    catch (error) {
+    } catch (error) {
       console.error("작업 상태 조회 오류:", error.message);
     }
   };
-  
+
   const fetchResultMusicUrl = async (taskId) => {
     try {
       const token = localStorage.getItem("token");
-  
+
       // ✅ taskId를 쿼리 파라미터로 추가하여 GET 요청
       const response = await axios.get(
         `${API_BASE_URL}/task/search?taskId=${taskId}`,
@@ -122,17 +127,16 @@ const Result_RemixingPage = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
-  
+
       console.log("작업 결과:", response.data);
-  
+
       const resultMusicUrl = response.data.result.remixes[0].resultMusicUrl;
-      
-  
+
       if (resultMusicUrl) {
         console.log("믹싱된 음악 URL:", resultMusicUrl); // ✅ 성공하면 resultMusicUrl 반환
-        localStorage.setItem("resultMusicUrl",resultMusicUrl);
+        localStorage.setItem("resultMusicUrl", resultMusicUrl);
         setResultMusicUrl(resultMusicUrl);
       } else {
         console.warn("resultMusicUrl을 찾을 수 없음");
@@ -141,14 +145,34 @@ const Result_RemixingPage = () => {
       console.error("결과 오류:", error.message);
     }
   };
-    return (
+  return (
     <ResultContentContainer title="리믹싱 결과" prevLink="/remixing">
       <ControlSection>
         <TabContainer>
-          <Tab active={activeTab === "스케일"} onClick={() => setActiveTab("스케일")}>스케일</Tab>
-          <Tab active={activeTab === "템포"} onClick={() => setActiveTab("템포")}>템포</Tab>
-          <Tab active={activeTab === "리버브"} onClick={() => setActiveTab("리버브")}>리버브</Tab>
-          <Tab active={activeTab === "코러스"} onClick={() => setActiveTab("코러스")}>코러스</Tab>
+          <Tab
+            active={activeTab === "스케일"}
+            onClick={() => setActiveTab("스케일")}
+          >
+            스케일
+          </Tab>
+          <Tab
+            active={activeTab === "템포"}
+            onClick={() => setActiveTab("템포")}
+          >
+            템포
+          </Tab>
+          <Tab
+            active={activeTab === "리버브"}
+            onClick={() => setActiveTab("리버브")}
+          >
+            리버브
+          </Tab>
+          <Tab
+            active={activeTab === "코러스"}
+            onClick={() => setActiveTab("코러스")}
+          >
+            코러스
+          </Tab>
         </TabContainer>
         <ControlPanel
           activeTab={activeTab}
