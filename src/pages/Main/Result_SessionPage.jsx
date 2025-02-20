@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
-import OneAudioPlay from "../../components/OneAudioPlay";
+import OneAudioPlayer from "../../components/OneAudioPlayer";
 import { Link } from "react-router-dom";
 import BlueButton from "../../components/Buttons/BlueButton";
 import PrevBlueButton from "../../components/Buttons/PrevBlueButton";
@@ -159,7 +159,7 @@ const TrackIcon = styled.img`
 `;
 
 // 🎵 재생바 크기 조정
-const StyledOneAudioPlay = styled(OneAudioPlay)`
+const StyledOneAudioPlay = styled(OneAudioPlayer)`
   flex: 1;
   max-width: 800px; /* ✅ 재생바 길이 증가 */
 `;
