@@ -8,14 +8,56 @@ import SocialLogin from "../../components/Login/SocialLogin";
 import { useNavbar } from "../../context/NavbarContext";
 
 const styles = {
-  title: { fontSize: "24px", fontWeight: "bold", marginBottom: "16px", textAlign: "left" },
-  forgotPassword: { textAlign: "right", cursor: "pointer", color: "#6B46C1", textDecoration: "underline", marginBottom: "10px" },
-  loginButton: { width: "100%", backgroundColor: "#6B46C1", color: "white", padding: "12px", borderRadius: "999px", fontSize: "16px", border: "none", cursor: "pointer", marginTop: "5px" },
-  separator: { display: "flex", alignItems: "center", justifyContent: "center", marginTop: "15px", marginBottom: "15px" },
+  title: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    marginBottom: "16px",
+    textAlign: "left",
+  },
+  forgotPassword: {
+    textAlign: "right",
+    cursor: "pointer",
+    color: "#6B46C1",
+    textDecoration: "underline",
+    marginBottom: "10px",
+  },
+  loginButton: {
+    width: "100%",
+    backgroundColor: "#6B46C1",
+    color: "white",
+    padding: "12px",
+    borderRadius: "999px",
+    fontSize: "16px",
+    border: "none",
+    cursor: "pointer",
+    marginTop: "5px",
+  },
+  separator: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "15px",
+    marginBottom: "15px",
+  },
   separatorLine: { flex: 1, height: "1px", backgroundColor: "#ccc" },
-  separatorText: { margin: "0 10px", fontSize: "14px", fontWeight: "bold", color: "#666" },
-  signupContainer: { textAlign: "center", marginTop: "20px", fontSize: "14px", color: "#666" },
-  signupLink: { color: "#6B46C1", fontWeight: "bold", cursor: "pointer", textDecoration: "underline" },
+  separatorText: {
+    margin: "0 10px",
+    fontSize: "14px",
+    fontWeight: "bold",
+    color: "#666",
+  },
+  signupContainer: {
+    textAlign: "center",
+    marginTop: "20px",
+    fontSize: "14px",
+    color: "#666",
+  },
+  signupLink: {
+    color: "#6B46C1",
+    fontWeight: "bold",
+    cursor: "pointer",
+    textDecoration: "underline",
+  },
 };
 
 const Login = () => {
@@ -62,8 +104,15 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {errorMessage && <p style={{ color: "red", fontSize: "14px", textAlign: "right" }}>{errorMessage}</p>}
-          <p style={styles.forgotPassword} onClick={() => navigate("/login/findpwd/auth")}>
+          {errorMessage && (
+            <p style={{ color: "red", fontSize: "14px", textAlign: "right" }}>
+              {errorMessage}
+            </p>
+          )}
+          <p
+            style={styles.forgotPassword}
+            onClick={() => navigate("/login/findpwd/auth")}
+          >
             비밀번호를 잊으셨나요?
           </p>
           <Button text="로그인" onClick={handleLogin} />
