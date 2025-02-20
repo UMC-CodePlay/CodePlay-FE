@@ -4,7 +4,7 @@ import Slider from "react-slider";
 import PlayBtn from "../assets/PlayBtn.svg";
 import PauseBtn from "../assets/PauseBtn.svg";
 
-const OneAudioPlay = ({ audioUrl }) => {
+const OneAudioPlayer = ({ audioUrl }) => {
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -138,4 +138,4 @@ const DownloadButton = styled.button`
   cursor: pointer;
 `;
 
-export default OneAudioPlay;
+export default OneAudioPlayer;

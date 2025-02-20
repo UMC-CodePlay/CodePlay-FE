@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import ResultContentContainer from "../../components/Container/ResultContentContainer.jsx";
 import ControlPanel from "../../components/Controls/ControlPanel.jsx";
-import OneAudioPlayer from "../../components/OneAudioplayer.jsx";
+import OneAudioPlayer from "../../components/OneAudioPlayer.jsx";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const Result_RemixingPage = () => {
