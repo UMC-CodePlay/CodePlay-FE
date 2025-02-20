@@ -35,3 +35,13 @@ export const changePassword = async (email, newPassword) => {
     newPassword,
   });
 };
+
+export const socialLogin = async (provider) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/oauth/authorize/${provider}`);
+    return response.data;
+  } catch (error) {
+    console.error(`${provider} 로그인 실패:`, error);
+    throw error;
+  }
+};

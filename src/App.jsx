@@ -23,6 +23,7 @@ import FindPwd_1_Auth from "./pages/Login/FindPwd_1_Auth.jsx";
 import FindPwd_2_Set from "./pages/Login/FindPwd_2_Set.jsx";
 import FindPwd_3_Done from "./pages/Login/FindPwd_3_Done.jsx";
 import AudioLoadingPage from "./pages/Main/AudioLoadingPage.jsx";
+import SocialLogin from "./components/Login/SocialLogin.jsx";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/oauth/callback/:provider" element={<SocialLogin />} />
 
             <Route path="/login/findpwd/auth" element={<FindPwd_1_Auth />} />
             <Route path="/login/findpwd/set" element={<FindPwd_2_Set />} />
