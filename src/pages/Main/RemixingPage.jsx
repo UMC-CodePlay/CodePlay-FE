@@ -27,7 +27,7 @@ const SessionPage = () => {
       </div>
       <div
         style={{
-          marginTop: "100px",
+          marginTop: "50px",
           display: "flex",
           justifyContent: "center",
         }}

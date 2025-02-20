@@ -21,12 +21,12 @@ function Navbar() {
           <ButtonStyle>
             <StyledLink to="/remixing">리믹싱</StyledLink>
           </ButtonStyle>
-          <ButtonStyle>
+          <ButtonSignup>
             <StyledLink to="/signup">회원가입</StyledLink>
-          </ButtonStyle>
-          <ButtonStyle>
+          </ButtonSignup>
+          <ButtonLogin>
             <StyledLink to="/login">로그인</StyledLink>
-          </ButtonStyle>
+          </ButtonLogin>
         </ArrayButtons>
       </StyledNavbar>
     </Container>
@@ -35,7 +35,6 @@ function Navbar() {
 
 export default Navbar;
 
-/* --------------- 스타일 --------------- */
 const Container = styled.div`
   width: calc(100%-20px);
   left: 0;
@@ -104,6 +103,50 @@ const ButtonStyle = styled.button`
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+`;
+
+const ButtonSignup = styled.button`
+  background-color: #000000;
+  color: #ffffff;
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #000;
+  &:hover {
+    background-color: #333333;
+    cursor: pointer;
+    color: #ffffff;
+  }
+`;
+
+const ButtonLogin = styled.button`
+  background-color: #ffffff;
+  color: #000000;
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #000;
+  &:hover {
+    background-color: #d9d9d9;
+    cursor: pointer;
+    color: #000000;
+  }
 `;
 
 const StyledLink = styled(Link)`

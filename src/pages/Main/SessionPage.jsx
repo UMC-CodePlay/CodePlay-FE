@@ -104,7 +104,7 @@ const BackgroundImage = styled.img`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
 `;
