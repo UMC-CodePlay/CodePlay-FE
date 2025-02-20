@@ -38,17 +38,27 @@ const Result_HarmonyPage = () => {
         subtitle="음원 분석 결과를 확인하세요"
       />
       <BackGroundResult />
-
-      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          marginTop: "100px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <UploadBox
           fileName={fileInfo.fileName || "파일이 없습니다"}
           fileDetails={`크기: ${fileInfo.fileSize} / musicId: ${fileInfo.musicId} / taskId: ${fileInfo.taskId}`}
         />
       </div>
-
       <Slick />
-
-      <div style={{ marginTop: "60px", display: "flex", justifyContent: "center", gap: "70px" }}>
+      <div
+        style={{
+          marginTop: "60px",
+          display: "flex",
+          justifyContent: "center",
+          gap: "70px",
+        }}
+      >
         <PrevPurpleButton>
           <Link to="/harmony">이전으로</Link>
         </PrevPurpleButton>
@@ -57,7 +67,6 @@ const Result_HarmonyPage = () => {
           <Link to="/audioloading">다운로드</Link>
         </StyledPurpleButton>
       </div>
-
       <Othersystems />
     </>
   );
