@@ -1,4 +1,3 @@
-// src/pages/Main/SessionPage.jsx
 import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import SessionButton from "../../components/Buttons/GreenButton";
@@ -11,7 +10,7 @@ import styled from "styled-components";
 const SessionPage = () => {
   return (
     <PageContainer>
-      <ConditionalNavbar /> {/* 변경 */}
+      <ConditionalNavbar />
       <TitleNavbar
         title="리믹싱"
         subtitle="피치, 템포, 리버브 조정이 가능하며 코러스도 추가할 수 있습니다. "

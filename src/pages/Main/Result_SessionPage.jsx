@@ -8,8 +8,6 @@ import PrevBlueButton from "../../components/Buttons/PrevBlueButton";
 import BackGroundResult from "../../components/BackGroundResult";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-// 🎵 트랙별 아이콘 추가
 import MRmark from "../../assets/MRmark.svg";
 import Vocalmark from "../../assets/Vocalmark.svg";
 import Bassmark from "../../assets/Bassmark.svg";
@@ -18,13 +16,9 @@ import Drummark from "../../assets/Drummark.svg";
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const Result_SessionPage = () => {
-  const [fileInfo, setFileInfo] = useState({
-    fileName: "",
-    fileSize: "",
-  });
 
   const [sessionInfo, setSessionInfo] = useState({
-    musicTitle: "세션 분리 결과", // 기본값 (데이터 로드 전)
+    musicTitle: "세션 분리 결과",
     vocalUrl: "",
     instrumentalUrl: "",
     bassUrl: "",
@@ -52,7 +46,7 @@ const Result_SessionPage = () => {
       const session = response.data.result.tracks[0];
 
       setSessionInfo({
-        musicTitle: session.musicTitle, // ✅ 음악 제목 추가
+        musicTitle: session.musicTitle,
         vocalUrl: session.vocalUrl,
         instrumentalUrl: session.instrumentalUrl,
         bassUrl: session.bassUrl,
@@ -69,12 +63,10 @@ const Result_SessionPage = () => {
   return (
     <>
       <ConditionalNavbar />
-      {/* ✅ TitleNavbar의 title을 session.musicTitle로 설정 */}
       <TitleNavbar title={`${sessionInfo.musicTitle}의 세션 분리 결과`} />
       <Wrapper>
         <BackGroundResult />
 
-        {/* 🎵 오디오 플레이어 (트랙별 아이콘 추가) */}
         <AudioContainer>
           <Track>
             <TrackIcon src={MRmark} alt="Instrumental" />
@@ -105,7 +97,6 @@ const Result_SessionPage = () => {
           </Track>
         </AudioContainer>
 
-        {/* 버튼 */}
         <ButtonContainer>
           <PrevBlueButton>
             <Link to="/session">이전으로</Link>
@@ -132,7 +123,7 @@ const AudioContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px; /* ✅ 트랙 간 간격 조정 */
+  gap: 24px;
   width: 100%;
   max-width: 900px;
   background: #222;
@@ -140,13 +131,12 @@ const AudioContainer = styled.div`
   border-radius: 12px;
 `;
 
-// 🎵 개별 트랙 스타일
 const Track = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
   width: 100%;
-  height: 120px; /* ✅ 높이 조정 */
+  height: 120px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
@@ -158,10 +148,9 @@ const TrackIcon = styled.img`
   margin-right: 20px;
 `;
 
-// 🎵 재생바 크기 조정
 const StyledOneAudioPlay = styled(OneAudioPlayer)`
   flex: 1;
-  max-width: 800px; /* ✅ 재생바 길이 증가 */
+  max-width: 800px;
 `;
 
 const ButtonContainer = styled.div`

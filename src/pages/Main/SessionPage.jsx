@@ -13,16 +13,16 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const SessionPage = () => {
   const { token } = useContext(AuthContext);
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isUploading) return; // ✅ 업로드 중이 아니면 실행 X
+    if (!isUploading) return; //업로드 중이 아니면 실행X
 
     const token = localStorage.getItem("token");
     const taskId = localStorage.getItem("taskId");
-    if (!taskId) return; // ✅ taskId가 없으면 실행 X
+    if (!taskId) return; //taskId가 없으면 실행X
 
     console.log("업로드 끝 상태 조회 시작");
 
@@ -47,7 +47,7 @@ const SessionPage = () => {
           setIsButtonEnabled(true);
         } else {
           console.warn("작업 중, 3초 후 재시도...");
-          setTimeout(pollTask, 3000); // ✅ 3초 후 다시 조회
+          setTimeout(pollTask, 3000); //3초 후 다시 조회
         }
       } catch (error) {
         console.error("작업 상태 조회 오류:", error.response?.data || error.message);
@@ -55,9 +55,9 @@ const SessionPage = () => {
     };
 
     pollTask();
-  }, [isUploading]); // ✅ 업로드 완료 후 상태 조회
+  }, [isUploading]); //업로드 완료 후 상태 조회
 
-  // ✅ "결과보기" 버튼 클릭 시 결과 페이지로 이동
+  //결과 페이지 이동
   const handleResultClick = () => {
     if (isButtonEnabled) {
       navigate("/session/result_session");
@@ -72,7 +72,7 @@ const SessionPage = () => {
         subtitle="딥러닝 모델이 원곡의 트랙을 분리합니다."
       />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
-      <UploadSession setIsUploading={setIsUploading} /> {/* ✅ 업로드 상태 전달 */}
+      <UploadSession setIsUploading={setIsUploading} />
       <ButtonContainer>
         <SessionButton disabled={!isButtonEnabled} onClick={handleResultClick}>
           결과보기
@@ -84,7 +84,6 @@ const SessionPage = () => {
 
 export default SessionPage;
 
-// ✅ 스타일
 const PageContainer = styled.div`
   position: relative;
   width: 100%;

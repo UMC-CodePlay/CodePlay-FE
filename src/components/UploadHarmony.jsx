@@ -94,9 +94,10 @@ const UploadHarmony = ({ setIsUploading }) => {
 
       if (response.status === 200) {
         const taskId = response.data.result.taskId;
-        console.log("🎶 Harmony 요청 성공, Task ID:", taskId);
-        localStorage.setItem("taskId", taskId); // ✅ taskId 저장
-        setIsUploading(true); // ✅ 업로드 완료 후 상태 업데이트
+        console.log("Harmony 요청 성공, Task ID:", taskId);
+        alert("잠시만 기다려 주세요.");
+        localStorage.setItem("taskId", taskId); // taskId 저장
+        setIsUploading(true); // 업로드 완료 후 상태 업데이트
       } else {
         console.warn("Harmony 요청 실패:", response.status);
       }
@@ -155,7 +156,6 @@ const UploadHarmony = ({ setIsUploading }) => {
 
 export default UploadHarmony;
 
-// ✅ 스타일 적용
 const UploadWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -171,8 +171,7 @@ const UploadContainer = styled.div`
   background: rgba(28, 28, 38, 0.4);
   backdrop-filter: blur(137.73px);
   border-radius: 12px;
-  border: 3px dashed
-    ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
+  border: 3px dashed ${({ $isDragOver }) => ($isDragOver ? "white" : "rgb(129, 128, 130)")};
   display: flex;
   align-items: center;
   justify-content: center;

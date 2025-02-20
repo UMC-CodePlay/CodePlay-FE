@@ -32,9 +32,9 @@ const Result_RemixingPage = () => {
   const handleTempoChange = (direction) => {
     setTempo((prev) => {
       if (direction === "up" && prev < 4.0) {
-        return Number((prev + 0.1).toFixed(1)); // ✅ 최대 4.0 제한
+        return Number((prev + 0.1).toFixed(1)); //최대 4.0
       } else if (direction === "down" && prev > 0.1) {
-        return Number((prev - 0.1).toFixed(1)); // ✅ 최소 0.1 제한
+        return Number((prev - 0.1).toFixed(1)); //최소 0.1
       }
       return prev;
     });
@@ -55,7 +55,7 @@ const Result_RemixingPage = () => {
 
       const requestData = {
         musicId: musicId,
-        ...updatedValues, // ✅ 변경된 값만 업데이트
+        ...updatedValues, // 변경값만 업데이트
       };
 
       console.log("Remixing 요청 데이터:", requestData);
@@ -103,10 +103,10 @@ const Result_RemixingPage = () => {
 
         if (response.data.result.processStatus === "COMPLETED") {
           console.log("작업 끝 음악 URL 조회 시작");
-          fetchResultMusicUrl(taskId); // ✅ 작업이 완료되면 음악 URL 가져오기
+          fetchResultMusicUrl(taskId); // 작업 완료되면 url 가져오기
         } else {
           console.warn("작업 중, 3초 후 재시도...");
-          setTimeout(pollTask, 3000); // ✅ 3초 후 다시 조회
+          setTimeout(pollTask, 3000); // 3초 후 다시 조회
         }
       };
       pollTask();
@@ -119,7 +119,6 @@ const Result_RemixingPage = () => {
     try {
       const token = localStorage.getItem("token");
 
-      // ✅ taskId를 쿼리 파라미터로 추가하여 GET 요청
       const response = await axios.get(
         `${API_BASE_URL}/task/search?taskId=${taskId}`,
         {
@@ -134,7 +133,7 @@ const Result_RemixingPage = () => {
       const resultMusicUrl = response.data.result.remixes[0].resultMusicUrl;
 
       if (resultMusicUrl) {
-        console.log("믹싱된 음악 URL:", resultMusicUrl); // ✅ 성공하면 resultMusicUrl 반환
+        console.log("믹싱된 음악 URL:", resultMusicUrl); 
         localStorage.setItem("resultMusicUrl", resultMusicUrl);
         setResultMusicUrl(resultMusicUrl);
       } else {
@@ -182,13 +181,13 @@ const Result_RemixingPage = () => {
           handleScaleChange={handleScaleChange}
           handleTempoChange={handleTempoChange}
           handleToggle={handleToggle}
-          requestRemixing={requestRemixing} // ✅ 변경된 값만 요청
+          requestRemixing={requestRemixing}
         />
         {resultMusicUrl && <OneAudioPlayer audioUrl={resultMusicUrl} />}
       </ControlSection>
     </ResultContentContainer>
   );
-};
+}
 
 const ControlSection = styled.div`
   width: 1090px;
@@ -210,5 +209,4 @@ const Tab = styled.button`
   color: white;
   cursor: pointer;
 `;
-
 export default Result_RemixingPage;

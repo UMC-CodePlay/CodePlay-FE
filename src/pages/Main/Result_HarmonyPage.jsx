@@ -1,7 +1,6 @@
-// src/pages/Main/Result_HarmonyPage.jsx
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import ConditionalNavbar from "../../components/ConditionalNavbar"; // 추가
+import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
 import { Link } from "react-router-dom";
 import Slick from "../../components/Slick";
@@ -25,14 +24,9 @@ const Result_HarmonyPage = () => {
   });
 
   useEffect(() => {
-    const storedFile = localStorage.getItem("uploadedFile");
-    if (storedFile) {
-      setFileInfo(JSON.parse(storedFile));
-    }
     getRequestHarmony();
   }, []);
 
-  // 🔹 페이지 로드 시 localStorage 데이터 가져오기
   const getRequestHarmony = async () => {
     const token = localStorage.getItem("token");
     const taskId = localStorage.getItem("taskId");
@@ -47,7 +41,7 @@ const Result_HarmonyPage = () => {
           },
         },
       );
-      const harmony = response.data.result.harmonies[0]; // 첫 번째 항목 사용
+      const harmony = response.data.result.harmonies[0];
       setHarmonyInfo({
         musicTitle: harmony.musicTitle,
         harmonyscale: harmony.scale,
@@ -64,7 +58,7 @@ const Result_HarmonyPage = () => {
 
   return (
     <>
-      <ConditionalNavbar /> {/* 변경 */}
+      <ConditionalNavbar />
       <TitleNavbar title={`${harmonyInfo.musicTitle}의 화성 분석 결과`} />
       <BackGroundResult style={{ height: "100%" }} />
       <Slick

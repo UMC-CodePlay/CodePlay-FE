@@ -93,9 +93,10 @@ const UploadSession = ({ setIsUploading }) => {
 
       if (response.status === 200) {
         const taskId = response.data.result.taskId;
+        alert("잠시만 기다려 주세요.");
         console.log("세션 처리 요청 성공, Task ID:", taskId);
-        localStorage.setItem("taskId", taskId); // ✅ taskId 저장
-        setIsUploading(true); // ✅ 업로드 완료 후 상태 업데이트
+        localStorage.setItem("taskId", taskId); // taskId 저장
+        setIsUploading(true); // 업로드 완료 후 상태 업데이트
       } else {
         console.warn("세션 처리 요청 실패:", response.status);
       }
@@ -155,8 +156,8 @@ const UploadWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; /* 부모 컨테이너 전체 너비 */
-  margin-top: 100px; /* 위쪽 여백 조정 */
+  width: 100%;
+  margin-top: 100px;
 `;
 
 const UploadContainer = styled.div`

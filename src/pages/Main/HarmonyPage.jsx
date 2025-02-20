@@ -16,7 +16,7 @@ const HarmonyPage = () => {
   const [isUploading, setIsUploading] = useState(false); // 업로드 중인지 여부
   const navigate = useNavigate();
 
-  // ✅ 업로드 완료 후 taskId를 조회하여 상태 체크
+  // 업로드 완료 후 taskId를 조회하여 상태 체크
   useEffect(() => {
     if (!isUploading) return; // 업로드 중이 아니면 실행 X
 
@@ -55,9 +55,9 @@ const HarmonyPage = () => {
     };
 
     pollTask();
-  }, [isUploading]); // ✅ 업로드 완료 후 상태 조회
+  }, [isUploading]); // 업로드 완료 후 상태 조회
 
-  // ✅ "결과보기" 버튼 클릭 시 결과 페이지로 이동
+  // 버튼 클릭 시 결과 페이지로 이동
   const handleResultClick = () => {
     if (isButtonEnabled) {
       navigate("/harmony/result_harmony");
@@ -73,7 +73,6 @@ const HarmonyPage = () => {
       />
       <BackgroundImage src={BackgroundSvg} alt="Background" />
       <UploadHarmony setIsUploading={setIsUploading} />{" "}
-      {/* ✅ 업로드 상태 전달 */}
       <ButtonContainer>
         <PurpleButton disabled={!isButtonEnabled} onClick={handleResultClick}>
           결과보기
