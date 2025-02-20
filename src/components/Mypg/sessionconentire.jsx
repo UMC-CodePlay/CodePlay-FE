@@ -1,6 +1,9 @@
-// sessionconentire.jsx
+// src/components/Mypg/sessionconentire.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+
 import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
 import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
 import Playbutton from "../../assets/Mypg_img/Playbutton.svg";
@@ -19,43 +22,50 @@ import Downloadbut from "../../assets/Mypg_img/Downloadbut.svg";
  *   "drumsUrl": "string",
  *   "isLiked": true
  * }
+ *
+ * onAddFavorite(musicId, false)
+ * onRemoveFavorite(musicId, false)
  */
-const Sessioncon = ({ data }) => {
+const Sessioncon = ({ data, onAddFavorite, onRemoveFavorite }) => {
   const [expanded, setExpanded] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [isLiked, setIsLiked] = useState(data.isLiked || false);
 
+  const isLiked = data.isLiked || false;
   const dateString = data.createdAt?.split("T")[0] || "";
 
+  // 클릭 시 확장/축소
   const toggleExpansion = () => {
     setExpanded(!expanded);
   };
 
+  // 팝업
   const togglePopup = (e) => {
     e.stopPropagation();
     setShowPopup(!showPopup);
   };
 
+  // 즐겨찾기 버튼
   const handleLikeToggle = () => {
-    setIsLiked(!isLiked);
+    if (isLiked) {
+      onRemoveFavorite(data.musicId, false);
+    } else {
+      onAddFavorite(data.musicId, false);
+    }
     setShowPopup(false);
   };
 
-  // 세션 목록: { 이름, url } 형태로 구성
+  // 세션 목록(보컬, MR, 베이스, 드럼)
   const sessions = [
     { label: "보컬", url: data.vocalUrl },
     { label: "MR", url: data.instrumentalUrl },
     { label: "베이스", url: data.bassUrl },
     { label: "드럼", url: data.drumsUrl },
-  ];
-
-  // 실제로 url이 있을 때만 표시
-  const validSessions = sessions.filter((s) => s.url && s.url !== "string");
+  ].filter((s) => s.url && s.url !== "string"); // url이 "string"이거나 없으면 제외
 
   return (
     <div>
+      {/* 메인 트랙 영역 */}
       <TrackRow onClick={toggleExpansion}>
-        {/* 왼쪽 파란 배지 */}
         <BlueBadge>세션분리</BlueBadge>
 
         <TrackInfo>
@@ -63,7 +73,6 @@ const Sessioncon = ({ data }) => {
           <TrackDetails>
             <TrackTitle>{data.musicTitle}</TrackTitle>
             <TrackDate>{dateString}</TrackDate>
-            <ExtraInfo>musicId: {data.musicId}</ExtraInfo>
           </TrackDetails>
         </TrackInfo>
 
@@ -75,13 +84,18 @@ const Sessioncon = ({ data }) => {
                 alt="좋아요 버튼"
               />
             </LikeButton>
+
             {/* 팝업 메뉴 */}
             {showPopup && (
               <Popup>
                 <PopupArrow />
                 <PopupContent>
-                  <PopupItem>세션 전체 다운로드</PopupItem>
-                  <PopupItem>화성 분석</PopupItem>
+                  <PopupItem>
+                  <Link to="/harmony">
+                    화성 분석
+                  </Link>
+
+                    </PopupItem>
                   {isLiked ? (
                     <PopupItem onClick={handleLikeToggle}>
                       즐겨찾기 취소
@@ -97,35 +111,19 @@ const Sessioncon = ({ data }) => {
         </TrackContent>
       </TrackRow>
 
-      {/* 확장된 세션 (토글) */}
+      {/* 확장된 세션 영역 */}
       {expanded && (
         <ExpandedSession>
-          {validSessions.length === 0 ? (
+          {sessions.length === 0 ? (
             <NoSessions>세션 URL이 없습니다.</NoSessions>
           ) : (
-            validSessions.map((sessionItem, idx) => (
-              <SessionRow key={idx}>
-                <SessionLeft>
-                  <CategorySquare>
-                    <CategoryText>{sessionItem.label}</CategoryText>
-                  </CategorySquare>
-                  <PlayBtn>
-                    {/* 재생 로직 or audio 태그 */}
-                    <PlayBtnImg src={Playbutton} alt="재생 버튼" />
-                  </PlayBtn>
-                </SessionLeft>
-
-                {/* 슬라이더와 재생 시간 예시 */}
-                <SliderContainer>
-                  <SessionSlider min="0" max="100" defaultValue="0" />
-                  <SessionTime>00:00</SessionTime>
-                </SliderContainer>
-
-                {/* 다운로드 버튼 */}
-                <DownloadBtn>
-                  <DownloadBtnImg src={Downloadbut} alt="다운로드 버튼" />
-                </DownloadBtn>
-              </SessionRow>
+            sessions.map((sessionItem, idx) => (
+              // 세션별 오디오 재생/다운로드를 처리하는 컴포넌트
+              <SessionAudioRow
+                key={idx}
+                label={sessionItem.label}
+                url={sessionItem.url}
+              />
             ))
           )}
         </ExpandedSession>
@@ -136,9 +134,121 @@ const Sessioncon = ({ data }) => {
 
 export default Sessioncon;
 
+/* 
+  -----------------------------
+  하단: 각 세션(보컬/MR/베이스/드럼)을
+  재생/슬라이더/다운로드로 다루는 컴포넌트
+  -----------------------------
+*/
+function SessionAudioRow({ label, url }) {
+  // 재생 상태
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audio, setAudio] = useState(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  // 첫 렌더 시 오디오 생성 + 이벤트 등록
+  React.useEffect(() => {
+    if (!url) return;
+    const audioObj = new Audio(url);
+
+    const onLoadedMetadata = () => {
+      setDuration(audioObj.duration);
+    };
+    const onTimeUpdate = () => {
+      setCurrentTime(audioObj.currentTime);
+    };
+
+    audioObj.addEventListener("loadedmetadata", onLoadedMetadata);
+    audioObj.addEventListener("timeupdate", onTimeUpdate);
+
+    setAudio(audioObj);
+
+    // cleanup
+    return () => {
+      audioObj.pause();
+      audioObj.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audioObj.removeEventListener("timeupdate", onTimeUpdate);
+    };
+  }, [url]);
+
+  // Play/Pause 토글
+  const handlePlayPause = (e) => {
+    e.stopPropagation();
+    if (!audio) return;
+
+    if (!isPlaying) {
+      audio.play();
+      setIsPlaying(true);
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  // 슬라이더 변경
+  const handleSliderChange = (e) => {
+    if (!audio) return;
+    const newTime = parseFloat(e.target.value);
+    audio.currentTime = newTime;
+    setCurrentTime(newTime);
+  };
+
+  // 다운로드
+  const handleDownload = (e) => {
+    e.stopPropagation();
+    if (!url) {
+      alert("다운로드 URL이 없습니다.");
+      return;
+    }
+    window.open(url, "_blank");
+  };
+
+  // (초 단위 → mm:ss) 변환
+  const formatTime = (time) => {
+    if (isNaN(time)) return "00:00";
+    const m = Math.floor(time / 60);
+    const s = Math.floor(time % 60);
+    return `${m}:${s < 10 ? `0${s}` : s}`;
+  };
+
+  if (!url) {
+    return null;
+  }
+
+  return (
+    <SessionRow onClick={(e) => e.stopPropagation()}>
+      <SessionLeft>
+        <CategorySquare>
+          <CategoryText>{label}</CategoryText>
+        </CategorySquare>
+        <PlayBtn onClick={handlePlayPause}>
+          <PlayBtnImg src={Playbutton} alt="재생 버튼" />
+        </PlayBtn>
+      </SessionLeft>
+
+      <SliderContainer>
+        <SessionSlider
+          type="range"
+          min={0}
+          max={duration}
+          step="0.01"
+          value={currentTime}
+          onChange={handleSliderChange}
+        />
+        <SessionTime>{formatTime(currentTime)}</SessionTime>
+      </SliderContainer>
+
+      <DownloadBtn onClick={handleDownload}>
+        <DownloadBtnImg src={Downloadbut} alt="다운로드 버튼" />
+      </DownloadBtn>
+    </SessionRow>
+  );
+}
+
 /* ------------------ styled-components ------------------ */
 
-// 왼쪽 파란 배지
+// 트랙 영역
 const BlueBadge = styled.div`
   background-color: rgba(132, 152, 241, 1);
   color: #fff;
@@ -166,6 +276,7 @@ const TrackRow = styled.div`
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   overflow: visible;
+
 `;
 
 const TrackInfo = styled.div`
@@ -209,7 +320,6 @@ const ExtraInfo = styled.div`
   color: #999;
 `;
 
-// 좋아요 버튼 & 팝업
 const LikeButtonWrapper = styled.div`
   position: relative;
 `;
@@ -235,6 +345,7 @@ const Popup = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  
 `;
 
 const PopupArrow = styled.div`
@@ -242,8 +353,6 @@ const PopupArrow = styled.div`
   top: 50%;
   left: -8px;
   transform: translateY(-50%);
-  width: 0;
-  height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-right: 8px solid #fff;
@@ -277,11 +386,22 @@ const ExpandedSession = styled.div`
   border: 1px solid #ddd;
 `;
 
+const NoSessions = styled.div`
+  padding: 20px;
+  color: #999;
+  text-align: center;
+`;
+
+/* -----------------------------
+   개별 세션(보컬/MR/베이스/드럼) 재생/다운로드
+----------------------------- */
 const SessionRow = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   margin-top: 20px;
+      transform: translateX(40px);
+
 `;
 
 const SessionLeft = styled.div`
@@ -291,7 +411,6 @@ const SessionLeft = styled.div`
   min-width: 120px;
 `;
 
-/* 회색 박스 */
 const CategorySquare = styled.div`
   width: 40px;
   height: 40px;
@@ -309,7 +428,6 @@ const CategoryText = styled.div`
   transform: translateY(30px);
 `;
 
-/* 재생 버튼 */
 const PlayBtn = styled.button`
   width: 24px;
   height: 24px;
@@ -324,7 +442,6 @@ const PlayBtnImg = styled.img`
   height: 24px;
 `;
 
-/* 슬라이더와 시간 컨테이너 */
 const SliderContainer = styled.div`
   display: flex;
   align-items: center;
@@ -362,7 +479,6 @@ const SessionTime = styled.div`
   color: #666;
 `;
 
-/* 다운로드 버튼 */
 const DownloadBtn = styled.button`
   width: 30px;
   height: 30px;
@@ -376,10 +492,3 @@ const DownloadBtnImg = styled.img`
   height: 90px;
   transform: translate(20px, -30px);
 `;
-
-const NoSessions = styled.div`
-  padding: 20px;
-  color: #999;
-  text-align: center;
-`;
-

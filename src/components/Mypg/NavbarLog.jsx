@@ -30,6 +30,9 @@ function NavbarLog({ logout }) {
             <StyledLink to="/session">세션 분리</StyledLink>
           </ButtonStyle>  
           <ButtonStyle>
+            <StyledLink to="/remixing">리믹싱</StyledLink>
+          </ButtonStyle>
+          <ButtonStyle>
             <StyledLink to="/mypage">마이페이지</StyledLink>
           </ButtonStyle>
           

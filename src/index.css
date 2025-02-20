@@ -4,6 +4,7 @@
   font-weight: inherit; /* 글자 두께 상속 */
   font-size: inherit;
   margin: 0;
+  background-color: black;
 }
 
 p {

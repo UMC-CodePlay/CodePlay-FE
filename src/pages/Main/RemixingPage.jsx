@@ -1,37 +1,34 @@
-// src/pages/Main/RemixingPage.jsx
-import ConditionalNavbar from "../../components/ConditionalNavbar"; // 추가
+// src/pages/Main/SessionPage.jsx
+import ConditionalNavbar from "../../components/ConditionalNavbar";
 import TitleNavbar from "../../components/TitleNavbar";
-import PurpleButton from "../../components/Buttons/PurpleButton";
-import Othersystems from "../../components/Othersystems";
+import SessionButton from "../../components/Buttons/GreenButton";
 import { Link } from "react-router-dom";
 import UploadRemixing from "../../components/UploadRemixing";
+import BackgroundSvg from "../../assets/SessionBg.svg";
 import styled from "styled-components";
 
-const RemixingPage = () => {
+const SessionPage = () => {
   return (
     <PageContainer>
       <ConditionalNavbar /> {/* 변경 */}
-      <TitleNavbar
-        title="리믹싱"
-        subtitle="음원의 볼륨, 음색, 이펙터를 조절하여 나만의 음악을 만들어보세요!"
-      />
+      <TitleNavbar title="리믹싱" subtitle="피치, 템포, 리버브 조정이 가능하며 코러스도 추가할 수 있습니다. "/>
+      <BackgroundImage src={BackgroundSvg} alt="Background" />
 
-      <ContentContainer>
+      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
         <UploadRemixing />
+      </div>
 
-        <ButtonContainer>
-          <StyledPurpleButton>
-            <Link to="/remixing/result_remixing">결과보기</Link>
-          </StyledPurpleButton>
-        </ButtonContainer>
-      </ContentContainer>
-
-      <Othersystems To_other1={"화성 분석"} To_other2={"세션 분리"} />
+      <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+        <SessionButton>
+          <Link to="/remixing/result_remixing">진행하기</Link>
+        </SessionButton>
+      </div>
+      {/* <Othersystems /> */}
     </PageContainer>
   );
 };
 
-export default RemixingPage;
+export default SessionPage;
 
 const PageContainer = styled.div`
   position: relative;
@@ -39,22 +36,18 @@ const PageContainer = styled.div`
   min-height: 100vh;
   overflow: hidden;
 `;
-const ContentContainer = styled.div`
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-`;
-const ButtonContainer = styled.div`
-  margin-top: 60px;
-  display: flex;
-  justify-content: center;
-`;
-const StyledPurpleButton = styled(PurpleButton)`
-  width: 160px;
-  height: 59px;
-  padding: 15px 30px;
-  gap: 10px;
-  border-radius: 5px;
+
+const BackgroundImage = styled.img`
+  width: 100vw;
+  min-height: 747px;
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  top: 350px;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #17171E 0%, rgba(43, 181, 232, 0.5) 151.51%);
+  border-radius: 12px;
+  overflow: hidden;
+
 `;

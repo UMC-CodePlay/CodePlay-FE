@@ -1,7 +1,6 @@
 import React from "react";
 import googleIcon from "../../assets/Login_img/login_google.svg";
 import kakaoIcon from "../../assets/Login_img/login_kakaotalk.svg";
-import { googleLogin, kakaoLogin } from "../../services/authService"; // ✅ 수정된 API 호출 방식 사용
 
 const styles = {
   container: {
@@ -24,8 +23,8 @@ const styles = {
 const SocialLogin = () => {
   return (
     <div style={styles.container}>
-      <img src={googleIcon} alt="Google 로그인" style={styles.button} onClick={googleLogin} />
-      <img src={kakaoIcon} alt="Kakao 로그인" style={styles.button} onClick={kakaoLogin} />
+      <img src={googleIcon} alt="Google 로그인" style={styles.button} onClick={() => console.log("Google 로그인 버튼 클릭됨")} />
+      <img src={kakaoIcon} alt="Kakao 로그인" style={styles.button} onClick={() => console.log("Kakao 로그인 버튼 클릭됨")} />
     </div>
   );
 };

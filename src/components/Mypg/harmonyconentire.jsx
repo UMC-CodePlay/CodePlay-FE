@@ -1,58 +1,61 @@
-// harmonyconentire.jsx
+// src/components/Mypg/harmonyconentire.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
 import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
+import { Link } from "react-router-dom";
 
-const Harmonybar = ({ data }) => {
-  /**
-   * data 예시:
-   * {
-   *   harmonyId: 0,
-   *   musicId: 0,
-   *   musicTitle: "string",
-   *   createdAt: "2025-02-15T10:17:45.519Z",
-   *   scale: "string",
-   *   genre: "string",
-   *   bpm: 0,
-   *   voiceColor: "string",
-   *   isLiked: true
-   * }
-   */
-  const [isLiked, setIsLiked] = useState(data.isLiked || false);
+
+/**
+ * data: {
+ *   harmonyId, musicId, musicTitle, createdAt, scale, genre, bpm, voiceColor, isLiked
+ * }
+ * onAddFavorite(musicId, true)
+ * onRemoveFavorite(musicId, true)
+ * onDelete(musicId, true)
+ */
+const Harmonybar = ({ data, onAddFavorite, onRemoveFavorite, onDelete }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const dateString = data.createdAt?.split("T")[0] || "";
+  const isLiked = data.isLiked || false;
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
 
+  // 즐겨찾기 토글
   const handleLikeToggle = () => {
-    setIsLiked(!isLiked);
+    if (isLiked) {
+      onRemoveFavorite(data.musicId, true);
+    } else {
+      onAddFavorite(data.musicId, true);
+    }
+    setShowPopup(false);
+  };
+
+  // 삭제하기
+  const handleDelete = () => {
+    onDelete(data.musicId, true);
     setShowPopup(false);
   };
 
   return (
     <TrackRow>
-      {/* 왼쪽 보라색 배지 */}
       <PurpleBadge>화성분석</PurpleBadge>
 
-      {/* 메인 컨텐츠 */}
       <MainContent>
         <TrackInfo>
           <AlbumCover />
           <TrackDetails>
             <TrackTitle>{data.musicTitle}</TrackTitle>
             <TrackDate>{dateString}</TrackDate>
-            <ExtraInfo>musicId: {data.musicId}</ExtraInfo>
           </TrackDetails>
         </TrackInfo>
 
-        {/* 필드 표시: scale, genre, bpm, voiceColor */}
         <TrackContent>
           <TrackCell>
-            <Label>스케일</Label>
+            <Label>키</Label>
             {data.scale || "Major"}
           </TrackCell>
           <TrackCell>
@@ -62,10 +65,6 @@ const Harmonybar = ({ data }) => {
           <TrackCell>
             <Label>BPM</Label>
             {data.bpm ?? "??"}
-          </TrackCell>
-          <TrackCell>
-            <Label>음색</Label>
-            {data.voiceColor || "미지정"}
           </TrackCell>
 
           {/* 좋아요(하트) 버튼 */}
@@ -80,8 +79,6 @@ const Harmonybar = ({ data }) => {
               <Popup>
                 <PopupArrow />
                 <PopupContent>
-                  <PopupItem>음향 합성</PopupItem>
-                  <PopupItem>전체 다운로드</PopupItem>
                   {isLiked ? (
                     <PopupItem onClick={handleLikeToggle}>
                       즐겨찾기 취소
@@ -89,7 +86,10 @@ const Harmonybar = ({ data }) => {
                   ) : (
                     <PopupItem onClick={handleLikeToggle}>즐겨찾기</PopupItem>
                   )}
-                  <PopupItem style={{ color: "red", fontWeight: "bold" }}>
+                  <PopupItem
+                    style={{ color: "red", fontWeight: "bold" }}
+                    onClick={handleDelete}
+                  >
                     삭제하기
                   </PopupItem>
                 </PopupContent>
@@ -105,7 +105,6 @@ const Harmonybar = ({ data }) => {
 export default Harmonybar;
 
 /* ───────────────────────── styled-components ───────────────────────── */
-
 const TrackRow = styled.div`
   display: flex;
   align-items: stretch;
@@ -113,7 +112,7 @@ const TrackRow = styled.div`
   background-color: rgba(249, 248, 250, 1);
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
-  overflow: visible; 
+  overflow: visible;
 `;
 
 const PurpleBadge = styled.div`
@@ -169,17 +168,12 @@ const TrackDate = styled.div`
   color: #666;
 `;
 
-const ExtraInfo = styled.div`
-  font-size: 11px;
-  color: #999;
-`;
-
 const TrackContent = styled.div`
   flex: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 50px; 
+  gap: 50px;
 `;
 
 const TrackCell = styled.div`
@@ -213,7 +207,6 @@ const LikeButton = styled.button`
   }
 `;
 
-/* 팝업 */
 const Popup = styled.div`
   position: absolute;
   top: 50%;
@@ -252,4 +245,3 @@ const PopupItem = styled.div`
     background-color: #f5f5f5;
   }
 `;
-

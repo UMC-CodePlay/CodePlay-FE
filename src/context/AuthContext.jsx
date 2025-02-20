@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
-import { login, refreshToken, handleOAuthCallback } from "../services/authService";
+import { login, refreshToken } from "../services/authService";
 
 const AuthContext = createContext(null);
 
@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [refreshTokenValue, setRefreshTokenValue] = useState(localStorage.getItem("refreshToken") || null);
 
+  // ✅ 로그아웃 함수 (OAuth 관련 코드 삭제)
   const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
@@ -17,26 +18,7 @@ const AuthProvider = ({ children }) => {
     setRefreshTokenValue(null);
   }, []);
 
-  // ✅ OAuth 로그인 후 URL에서 토큰을 가져와 저장하는 로직 추가
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await handleOAuthCallback();
-        if (data) {
-          setUser({ email: data.email });
-          setToken(data.token);
-          setRefreshTokenValue(data.refreshToken);
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("refreshToken", data.refreshToken);
-          localStorage.setItem("email", data.email);
-        }
-      } catch (error) {
-        console.error("OAuth 로그인 처리 실패:", error);
-      }
-    })();
-  }, []);
-
-  // ✅ 기존 토큰 갱신 로직 유지
+  // ✅ 10분마다 토큰 갱신 (OAuth 관련 부분 제거)
   useEffect(() => {
     const interval = setInterval(async () => {
       const storedEmail = localStorage.getItem("email");
@@ -56,6 +38,7 @@ const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [refreshTokenValue, logout]);
 
+  // ✅ 이메일 + 비밀번호 로그인 유지
   const loginUser = async (email, password) => {
     try {
       const data = await login(email, password);

@@ -1,3 +1,4 @@
+// src/components/Buttons/PurpleButton.jsx
 import styled from "styled-components";
 
 const PurpleButton = styled.button`
@@ -11,16 +12,18 @@ const PurpleButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  a {
-    color: white;
-    font-family: Pretendard, sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: normal;
-    text-align: center;
-    text-decoration: none;
-  }
+  font-size:24px;
+  color:white;
+  font-weight: 600;
+  
+  
+  a{
+  font-family: Pretendard, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  line-height: normal;
+  text-align: center;}
 
   &:hover {
     background: linear-gradient(180deg, #613fa4 0%, #321a61 100%);

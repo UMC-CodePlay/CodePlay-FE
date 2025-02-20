@@ -1,24 +1,32 @@
-// harmonyconSE.jsx
+// src/components/Mypg/harmonyconSE.jsx
 import React, { useState } from "react";
 import styled from "styled-components";
 import likeButtonOff from "../../assets/Mypg_img/like_button_off.svg";
 import likeButtonOn from "../../assets/Mypg_img/like_button_on.svg";
+import { Link } from "react-router-dom";
 
-const Harmonybar = ({ track }) => {
-  const [isLiked, setIsLiked] = useState(track.isLiked); // 서버에서 받은 isLiked로 초기화
+
+const HarmonyconSE = ({ track, onAddFavorite, onRemoveFavorite }) => {
   const [showPopup, setShowPopup] = useState(false);
 
+  const dateString = track.createdAt?.split("T")[0] || "";
+
+  // 팝업 열기/닫기
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
 
+  // 즐겨찾기 토글
   const handleLikeToggle = () => {
-    setIsLiked(!isLiked);
+    if (track.isLiked) {
+      // 이미 좋아요 상태 -> 즐겨찾기 취소 요청
+      onRemoveFavorite(track);
+    } else {
+      // 좋아요 요청
+      onAddFavorite(track);
+    }
     setShowPopup(false);
   };
-
-  // 예: track = { harmonyId, musicId, musicTitle, createdAt, scale, genre, bpm, voiceColor, isLiked }
-  const dateString = track.createdAt?.split("T")[0] || "";
 
   return (
     <TrackRow>
@@ -32,25 +40,37 @@ const Harmonybar = ({ track }) => {
       </TrackInfo>
 
       <TrackContent>
-        {/* 키/스케일/장르/등 원하는 필드 표기 (임의로 3개만) */}
+        {/* 예: 키/스케일 */}
         <TrackCell>{track.scale || "Scale?"}</TrackCell>
+        {/* BPM */}
         <TrackCell>{track.bpm || "BPM?"}</TrackCell>
-        <TrackCell>{track.voiceColor || "음압?"}</TrackCell>
 
         {/* 좋아요 버튼 */}
         <LikeButtonWrapper>
           <LikeButton onClick={togglePopup}>
-            <img src={isLiked ? likeButtonOn : likeButtonOff} alt="하트 버튼" />
+            <img
+              src={track.isLiked ? likeButtonOn : likeButtonOff}
+              alt="하트 버튼"
+            />
           </LikeButton>
           {showPopup && (
             <Popup>
               <PopupArrow />
               <PopupContent>
-                <PopupItem>세션분리</PopupItem>
-                {isLiked ? (
-                  <PopupItem onClick={handleLikeToggle}>즐겨찾기 취소</PopupItem>
+                <PopupItem>
+                  <Link to="/session">
+                    세션분리
+                  </Link>
+                  </PopupItem>
+                  
+                {track.isLiked ? (
+                  <PopupItem onClick={handleLikeToggle}>
+                    즐겨찾기 취소
+                  </PopupItem>
                 ) : (
-                  <PopupItem onClick={handleLikeToggle}>즐겨찾기</PopupItem>
+                  <PopupItem onClick={handleLikeToggle}>
+                    즐겨찾기
+                  </PopupItem>
                 )}
                 <PopupItem>삭제하기</PopupItem>
               </PopupContent>
@@ -62,7 +82,7 @@ const Harmonybar = ({ track }) => {
   );
 };
 
-export default Harmonybar;
+export default HarmonyconSE;
 
 /* ------------------ styled-components ------------------ */
 

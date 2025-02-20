@@ -120,9 +120,9 @@ const ButtonStyle = styled(Link)`
   width: 100px;
   text-decoration: none;
   background-color: #ffffff;
-  font-size: 15px;
+  a{font-size: 15px;}
   padding: 10px;
-  height: 60px !important;
+  height: 60px;
   border: none;
   &:hover {
     background-color: #e0e0e0;

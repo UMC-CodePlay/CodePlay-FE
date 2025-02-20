@@ -10,7 +10,7 @@ const BackGroundResult = () => {
         <SvgImage3 img src={Background_Result3}></SvgImage3>
         <SvgImage img src={Background_Result1}></SvgImage>
         <SvgImage1 img src={Background_Result2}></SvgImage1>
-        <SvgImage4 img src={Background_Result2}></SvgImage4>
+        <SvgImage4 img src={Background_Result4}></SvgImage4>
       </BackGround>
     </>
   );
@@ -20,11 +20,11 @@ export default BackGroundResult;
 
 const BackGround = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: absolute;
   left: 0;
   z-index: -1;
-  posigion: absolute;
+  position: absolute;
   margin-top: 0;
 `;
 

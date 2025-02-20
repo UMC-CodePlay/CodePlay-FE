@@ -1,7 +1,7 @@
 // src/pages/Mypage/MPYsession.jsx
 import React from "react";
 import Introduce from "../../components/Mypg/Introduce.jsx";
-import SearchBar from "../../components/Mypg/SearchBarentire.jsx";
+import SearchBar from "../../components/Mypg/SearchBarses.jsx";
 import Menu from "../../components/Mypg/Menu.jsx";
 import Menu2 from '../../components/Mypg/Menu2.jsx'
 
