@@ -27,10 +27,10 @@ const SocialLogin = () => {
   const navigate = useNavigate();
   const [popup, setPopup] = useState(null);
 
-  // 메인 창에서 팝업으로부터 postMessage로 전달된 결과 처리
+  // 메인 창에서 팝업으로부터 postMessage를 통해 전달된 결과 처리
   useEffect(() => {
     const handleMessage = (event) => {
-      // 보안상 event.origin을 확인하는 게 좋습니다.
+      // (보안상 event.origin 체크 권장)
       console.log("📥 메인 창이 받은 postMessage:", event.data);
       const data = event.data;
       if (data && data.isSuccess) {
@@ -47,11 +47,10 @@ const SocialLogin = () => {
         popup.close();
       }
     };
-  
+
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [navigate]); // 필요한 의존성만 남김
-  
+  }, [navigate]); // 오직 navigate만 의존 (한 번만 등록)
 
   // OAuth 로그인 버튼 클릭 시 팝업을 열어 OAuth 인증 진행
   const handleSocialLogin = (provider) => {
