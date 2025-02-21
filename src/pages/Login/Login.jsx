@@ -101,6 +101,7 @@ const Login = () => {
           />
           <InputField
             type="password"
+            allign='center'
             placeholder="비밀번호를 입력하세요."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
