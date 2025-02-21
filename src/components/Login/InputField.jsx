@@ -4,6 +4,7 @@ const styles = {
   input: {
     width: "100%",
     justifyContent: "center",
+    alignItems: "center",
     padding: "12px",
     border: "1px solid #D1D5DB",
     borderRadius: "6px",
