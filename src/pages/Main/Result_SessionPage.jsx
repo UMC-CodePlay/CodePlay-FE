@@ -101,9 +101,9 @@ const Result_SessionPage = () => {
           <PrevBlueButton>
             <Link to="/session">이전으로</Link>
           </PrevBlueButton>
-          <BlueButton>
+          {/* <BlueButton>
             <Link to="/">전체 다운로드</Link>
-          </BlueButton>
+          </BlueButton> */}
         </ButtonContainer>
       </Wrapper>
     </>
