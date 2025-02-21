@@ -91,7 +91,7 @@ const Login = () => {
     <AuthWrapper>
       <div>
         <h2 style={styles.title}>로그인</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} style={{ textAlign: "center" }}>
           <InputField
             type="email"
             allign="center"
