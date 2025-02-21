@@ -119,14 +119,12 @@ const Login = () => {
           <Button text="로그인" onClick={handleLogin} />
         </form>
 
-        {/* 구분선 */}
         <div style={styles.separator}>
           <div style={styles.separatorLine}></div>
           <div style={styles.separatorText}>또는</div>
           <div style={styles.separatorLine}></div>
         </div>
 
-        {/* ✅ 소셜 로그인 UI 유지 (클릭 시 아무 동작 X) */}
         <SocialLogin />
 
         <p style={styles.signupContainer}>

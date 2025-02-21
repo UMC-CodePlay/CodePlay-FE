@@ -81,28 +81,8 @@ const Signup = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   style={styles.input}
                 />
-                <button type="button" style={styles.outlinedButton}>
-                  인증번호 받기
-                </button>
               </div>
               {emailError && <div style={styles.errorText}>{emailError}</div>}
-            </div>
-
-            {/* 인증번호 입력 */}
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>인증번호</label>
-              <div style={styles.inputContainer}>
-                <input
-                  type="text"
-                  placeholder="인증번호 입력"
-                  value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value)}
-                  style={styles.input}
-                />
-                <button type="button" style={styles.outlinedButton}>
-                  인증하기
-                </button>
-              </div>
             </div>
 
             {/* 비밀번호 입력 */}
